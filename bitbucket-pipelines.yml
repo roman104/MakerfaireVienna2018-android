@@ -43,7 +43,7 @@ pipelines:
   branches:
     '*develop*':
       - step:
-          deployment: quality-assurance
+          deployment: test
           caches:
             - maven
             - gradle
