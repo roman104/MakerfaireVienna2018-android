@@ -1,0 +1,184 @@
+// Defines dependencies used across the project.
+def versions = [
+        kotlin               : '1.2.31',
+        android              : [
+                architecture       : [
+                        lifecycle: '1.1.0',
+                        room     : '1.0.0',
+                ],
+                support            : '27.1.0',
+                supportMultiDex    : '1.0.1',
+                supportTest        : '1.0.2-alpha1',
+                supportTestEspresso: '3.0.2-alpha1',
+        ],
+        google               : [
+                dagger      : '2.15',
+                playServices: '12.0.0',
+                firebase    : '12.0.0',
+        ],
+        test                 : [
+                junit          : '4.12',
+                mockito        : '2.16.0',
+                robolectric    : '3.8',
+                cucumberCore   : '1.2.5',
+                cucumberJunit  : '1.1.4',
+                cucumberJvmDeps: '1.0.3'
+        ],
+        permissionsDispatcher: '3.1.0',
+        squareupOkHttp       : '3.9.1',
+        squareupRetrofit     : '2.3.0',
+        butterknife          : '8.8.1'
+]
+
+def kotlin = [
+        stdlib    : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}",
+        stdlibJre7: "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}",
+        stdlibJre8: "org.jetbrains.kotlin:kotlin-stdlib-jre8:${versions.kotlin}"
+]
+
+def android = [
+        architecture: [
+                lifecycle               : "android.arch.lifecycle:runtime:${versions.android.architecture.lifecycle}",
+                lifecycleExtensions     : "android.arch.lifecycle:extensions:${versions.android.architecture.lifecycle}",
+                lifecycleProcessor      : "android.arch.lifecycle:compiler:${versions.android.architecture.lifecycle}",
+                persistanceRoom         : "android.arch.persistence.room:runtime:${versions.android.architecture.room}",
+                persistanceRoomRxJava   : "android.arch.persistence.room:rxjava2:${versions.android.architecture.room}",
+                persistanceRoomProcessor: "android.arch.persistence.room:compiler:${versions.android.architecture.room}",
+                persistanceRoomTesting  : "android.arch.persistence.room:testing:${versions.android.architecture.room}"
+        ],
+        dataBinding : [
+                processor: "com.android.databinding:compiler:3.1.0"
+        ],
+        support     : [
+                multiDex               : "com.android.support:multidex:${versions.android.supportMultiDex}",
+                multiDexInstrumentation: "com.android.support:multidex-instrumentation:${versions.android.supportMultiDex}",
+                annotations            : "com.android.support:support-annotations:${versions.android.support}",
+                v4                     : "com.android.support:support-v4:${versions.android.support}",
+                v13                    : "com.android.support:support-v13:${versions.android.support}",
+                appCompatV7            : "com.android.support:appcompat-v7:${versions.android.support}",
+                preferenceV14          : "com.android.support:preference-v14:${versions.android.support}",
+                vectorDrawable         : "com.android.support:support-vector-drawable:${versions.android.support}",
+                design                 : "com.android.support:design:${versions.android.support}",
+                recyclerView           : "com.android.support:recyclerview-v7:${versions.android.support}",
+                cardView               : "com.android.support:cardview-v7:${versions.android.support}",
+                customTabs             : "com.android.support:customtabs:${versions.android.support}",
+                constraintLayout       : "com.android.support.constraint:constraint-layout:1.0.2"
+        ],
+        test        : [
+                runner         : "com.android.support.test:runner:${versions.android.supportTest}",
+                rules          : "com.android.support.test:rules:${versions.android.supportTest}",
+                espressoCore   : "com.android.support.test.espresso:espresso-core:${versions.android.supportTestEspresso}",
+                espressoIntents: "com.android.support.test.espresso:espresso-intents:${versions.android.supportTestEspresso}",
+                espressoContrib: "com.android.support.test.espresso:espresso-contrib:${versions.android.supportTestEspresso}",
+        ]
+]
+
+def google = [
+        injection   : [
+                dagger                : "com.google.dagger:dagger:${versions.google.dagger}",
+                daggerProcessor       : "com.google.dagger:dagger-compiler:${versions.google.dagger}",
+                daggerAndroid         : "com.google.dagger:dagger-android:${versions.google.dagger}",
+                daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${versions.google.dagger}",
+                daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${versions.google.dagger}",
+        ],
+        playServices: [
+                gcm      : "com.google.android.gms:play-services-gcm:${versions.google.playServices}",
+                analytics: "com.google.android.gms:play-services-analytics:${versions.google.playServices}",
+                location : "com.google.android.gms:play-services-location:${versions.google.playServices}",
+                maps     : "com.google.android.gms:play-services-maps:${versions.google.playServices}"
+        ],
+        firebase    : [
+                core: "com.google.firebase:firebase-core:${versions.google.firebase}"
+        ],
+        other       : [
+                gson: 'com.google.code.gson:gson:2.8.2'
+        ]
+]
+
+def test = [
+        junit                      : "junit:junit:${versions.test.junit}",
+        robolectric                : "org.robolectric:robolectric:${versions.test.robolectric}",
+        robolectricMultiDex        : "org.robolectric:shadows-multidex:${versions.test.robolectric}",
+        robolectricShadowsSupportV4: "org.robolectric:shadows-supportv4:${versions.test.robolectric}",
+        mockitoCore                : "org.mockito:mockito-core:${versions.test.mockito}",
+        mockitoAndroid             : "org.mockito:mockito-android:${versions.test.mockito}",
+        cucumberCore               : "info.cukes:cucumber-core:${versions.test.cucumberCore}",
+        cucumberJvm                : "info.cukes:cucumber-jvm:${versions.test.cucumberCore}",
+        cucumberJvmDeps            : "info.cukes:cucumber-jvm-deps:${versions.test.cucumberJvmDeps}",
+        cucumberJunit              : "info.cukes:cucumber-junit:${versions.test.cucumberJunit}",
+        cucumberAndroid            : "info.cukes:cucumber-android:${versions.test.cucumberCore}",
+        cucumberPicoContainer      : "info.cukes:cucumber-picocontainer:${versions.test.cucumberCore}"
+]
+
+def analytics = [
+        crashlytics          : 'com.crashlytics.sdk.android:crashlytics:2.8.0@aar',
+        answers              : 'com.crashlytics.sdk.android:answers:1.4.1@aar',
+        leakcanaryAndroid    : 'com.squareup.leakcanary:leakcanary-android:1.5.4',
+        leakcanaryAndroidNoOp: 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+]
+
+def rx = [
+        java   : 'io.reactivex.rxjava2:rxjava:2.1.9',
+        android: 'io.reactivex.rxjava2:rxandroid:2.0.2'
+]
+
+def universum = [studios: [
+        arkhitekton      : 'universum.studios.android:arkhitekton:0.3.0@aar',
+        logger           : 'universum.studios.android:logger:1.0.1@aar',
+        utils            : 'universum.studios.android:utils:2.0.5@aar',
+        preferencesCore  : 'universum.studios.android:preferences-core:2.1.2@aar',
+        recycler         : 'universum.studios.android:recycler:1.0.2@aar',
+        widgetAdapters   : 'universum.studios.android:widget-adapters:2.0.1@aar',
+        transitions      : 'universum.studios.android:transitions:1.1.4@aar',
+        ui               : 'universum.studios.android:ui:0.9.6@aar',
+        fontCore         : 'universum.studios.android:font-core:1.1.3@aar',
+        graphicsColorUtil: 'universum.studios.android:graphics-color-util:1.0.1@aar',
+        crypto           : 'universum.studios.android:crypto:0.2.1@aar',
+        officium         : 'universum.studios.android:officium:1.2.0@aar',
+        intents          : 'universum.studios.android:intents:1.0.4@aar',
+        support          : [
+                fragments: 'universum.studios.android.support:support-fragments:1.3.2@aar',
+                dialogs  : 'universum.studios.android.support:support-dialogs:0.9.5@aar',
+                settings : 'universum.studios.android.support:support-settings:0.9.7@aar',
+                universi : 'universum.studios.android.support:support-universi:1.0.4@aar',
+        ]
+]]
+
+def other = [
+        jetbrainsAnnotations              : 'org.jetbrains:annotations:13.0',
+        permissionsDispatcher             : "com.github.hotchemi:permissionsdispatcher:${versions.permissionsDispatcher}",
+        permissionsDispatcherProcessor    : "com.github.hotchemi:permissionsdispatcher-processor:${versions.permissionsDispatcher}",
+        squareupOtto                      : 'com.squareup:otto:1.3.8',
+        squareupOkio                      : 'com.squareup.okio:okio:1.13.0',
+        squareupOkHttp                    : "com.squareup.okhttp3:okhttp:${versions.squareupOkHttp}",
+        squareupOkHttpUrlConnection       : "com.squareup.okhttp3:okhttp-urlconnection:${versions.squareupOkHttp}",
+        squareupOkHttpLoggingInterceptor  : "com.squareup.okhttp3:logging-interceptor:${versions.squareupOkHttp}",
+        squareupRetrofit                  : "com.squareup.retrofit2:retrofit:${versions.squareupRetrofit}",
+        squareupRetrofitAdapterRxJava     : "com.squareup.retrofit2:adapter-rxjava2:${versions.squareupRetrofit}",
+        squareupRetrofitConverterGson     : "com.squareup.retrofit2:converter-gson:${versions.squareupRetrofit}",
+        squareupRetrofitConverterSimpleXml: "com.squareup.retrofit2:converter-simplexml:${versions.squareupRetrofit}",
+        butterknife                       : "com.jakewharton:butterknife:${versions.butterknife}",
+        butterknifeProcessor              : "com.jakewharton:butterknife-compiler:${versions.butterknife}",
+        jodaTime                          : 'joda-time:joda-time:2.9.2',
+        commonsIo                         : 'commons-io:commons-io:2.5'
+]
+
+def debug = [
+        sqlscoutServer      : 'com.idescout.sql:sqlscout-server:4.0',
+        database            : 'com.amitshekhar.android:debug-db:1.0.1',
+        facebookStetho      : 'com.facebook.stetho:stetho:1.5.0',
+        facebookStethoOkHttp: 'com.facebook.stetho:stetho-okhttp:1.5.0'
+]
+
+ext.versions = versions
+ext.deps = [
+        "kotlin"   : kotlin,
+        "android"  : android,
+        "google"   : google,
+        "test"     : test,
+        "analytics": analytics,
+        "rx"       : rx,
+        "universum": universum,
+        "other"    : other,
+        "debug"    : debug
+]

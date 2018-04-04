@@ -1,0 +1,37 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+/**
+ * Library options =================================================================================
+ */
+android {
+    compileSdkVersion config.build.compileSdkVersion
+    buildToolsVersion config.build.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion config.build.minSdkVersion
+        targetSdkVersion config.build.targetSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+/**
+ * Library dependencies ============================================================================
+ */
+dependencies {
+    api deps.test.junit
+    api deps.test.robolectric
+    api deps.test.robolectricMultiDex
+    api deps.test.mockitoCore
+    implementation deps.kotlin.stdlibJre8
+    implementation deps.android.support.annotations
+}

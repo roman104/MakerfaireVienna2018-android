@@ -1,0 +1,230 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.triplet.play'
+apply plugin: 'io.fabric'
+
+/**
+ * Application options =============================================================================
+ */
+android {
+    compileSdkVersion config.build.compileSdkVersion
+    buildToolsVersion config.build.buildToolsVersion
+
+    final String productionVersionName = "${config.mobile.version.major}.${config.mobile.version.minor}.${config.mobile.version.patch}"
+    final int productionVersionCode = loadVersionCode()
+
+    defaultConfig {
+        applicationId config.mobile.product.id
+        versionName productionVersionName
+        versionCode productionVersionCode
+        minSdkVersion config.build.minSdkVersion
+        targetSdkVersion config.build.targetSdkVersion
+        buildConfigField ConfigFieldType.STRING, ConfigField.PRODUCTION_APPLICATION_ID, "\"${config.mobile.product.id}\""
+        buildConfigField ConfigFieldType.STRING, ConfigField.PRODUCTION_VERSION_NAME, "\"${productionVersionName}\""
+        resConfigs config.resources.configs
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner config.test.instrumentationRunner.androidJUnit
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "${projectDir}/schemas/data".toString()]
+            }
+        }
+    }
+
+    configurations {
+        all {
+            resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.1'
+        }
+    }
+
+    flavorDimensions 'environment'
+    productFlavors {
+        production {
+            dimension 'environment'
+        }
+        staging {
+            dimension 'environment'
+        }
+        qa {
+            dimension 'environment'
+            applicationIdSuffix '.qa'
+            versionNameSuffix ".${productionVersionCode}-qa"
+        }
+        development {
+            dimension 'environment'
+            applicationIdSuffix '.devel'
+            versionNameSuffix ".${productionVersionCode}-devel"
+            project.setProperty("project.build.development", true)
+        }
+    }
+
+    final String keystoreDirPath = "${System.getenv('ANDROID_UNIVERSUM_KEYSTORE')}/product/${config.mobile.product.key}"
+    final File keystoreFile = new File("${keystoreDirPath}/keystore.jks")
+    final File keyPropertiesFile = new File("${keystoreDirPath}/key.properties")
+    if (keystoreFile.exists() && keyPropertiesFile.exists()) {
+        final Properties keyProperties = new Properties()
+        keyProperties.load(new FileInputStream(keyPropertiesFile))
+        //
+        // The key.properties file should contain following data (each property at a single line):
+        // <pre>
+        // store.password=STORE_PASSWORD
+        // key.alias=ALIAS_OF_THE_KEY
+        // key.password=KEY_PASSWORD
+        // </pre>
+        //
+        signingConfigs {
+            production {
+                storeFile keystoreFile
+                storePassword keyProperties['store.password']
+                keyAlias keyProperties['key.alias']
+                keyPassword keyProperties['key.password']
+            }
+        }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.production
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "${projectDir}/proguard/rules-main.pro", "${projectDir}/proguard/rules-production.pro"
+                ext.betaDistributionReleaseNotesFilePath = "${projectDir}/deployment/qa/distribution/release_notes.txt"
+                ext.betaDistributionGroupAliasesFilePath = "${projectDir}/deployment/qa/distribution/groups.txt"
+            }
+            debug {
+                signingConfig signingConfigs.production
+                ext.alwaysUpdateBuildId = false
+                ext.enableCrashlytics = false
+            }
+        }
+    } else {
+        buildTypes {
+            release {
+                minifyEnabled true
+                shrinkResources true
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "${projectDir}/proguard/rules-main.pro", "${projectDir}/proguard/rules-production.pro"
+                ext.alwaysUpdateBuildId = false
+                ext.enableCrashlytics = false
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = [
+                    'src/main/java',
+                    'src/base/java'
+            ]
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/base/res'
+            ]
+            androidTest.java.srcDirs = [
+                    'src/androidTest/java',
+                    "${rootProject.projectDir}/mobile-acceptance-tests/src/main/java"
+            ]
+            androidTest.assets.srcDirs = [
+                    'src/androidTest/assets',
+                    "${rootProject.projectDir}/mobile-acceptance-tests/src/main/assets"
+            ]
+        }
+        qa {
+            java.srcDirs = [
+                    'src/qa/java',
+                    'src/development-core/java'
+            ]
+            res.srcDirs = [
+                    'src/qa/res',
+                    'src/development-core/res'
+            ]
+            androidTest.java.srcDirs = [
+                    'src/androidTest/java',
+                    "${rootProject.projectDir}/mobile-acceptance-tests/src/main/java",
+                    "${rootProject.projectDir}/mobile-acceptance-tests/src/qa/java"
+            ]
+        }
+        development {
+            java.srcDirs = [
+                    'src/development/java',
+                    'src/development-core/java'
+            ]
+            res.srcDirs = [
+                    'src/development/res',
+                    'src/development-core/res'
+            ]
+            androidTest.java.srcDirs = [
+                    'src/androidTest/java',
+                    "${rootProject.projectDir}/mobile-acceptance-tests/src/main/java",
+                    "${rootProject.projectDir}/mobile-acceptance-tests/src/qa/java"
+            ]
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    aaptOptions {
+        // Disable PNG cruncher for 'development' builds in order to speed them up.
+        cruncherEnabled = !Boolean.class.cast(project.property("project.build.development"))
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+}
+
+/**
+ * Additional Gradle files =========================================================================
+ */
+apply from: 'dependencies.gradle'
+apply from: 'extensions.gradle'
+
+/**
+ * Additional functions ============================================================================
+ */
+def loadVersionCode() {
+    final boolean isCIBuild = config.ci.EXECUTING
+    final boolean isLocalBuild = file("version/version.properties").exists()
+    // Resolve which version properties file to use.
+    File versionPropertiesFile = new File("unspecified")
+    if (isCIBuild) {
+        logger.info("Using 'version.properties' file for CI build.")
+        versionPropertiesFile = new File("/build_codes/android/${config.ci.PRODUCT_KEY}/version.properties")
+    } else if (isLocalBuild) {
+        logger.info("Using 'version.properties' file for LOCAL build.")
+        versionPropertiesFile = file("version/version.properties")
+    } else {
+        logger.info("No 'version.properties' file specified.")
+    }
+    // Extract build code value from the version properties file if it exists. Use '1' by default..
+    int buildCode = 1
+    if (versionPropertiesFile.exists()) {
+        final Properties versionProperties = new Properties()
+        versionProperties.load(new FileInputStream(versionPropertiesFile))
+        if (!versionProperties.containsKey("build.code")) {
+            throw new GradleException("Version properties file '${versionPropertiesFile.getPath()}' does not contain 'build.code' property!")
+        }
+        buildCode = Integer.valueOf(versionProperties.getProperty("build.code"))
+    }
+    logger.quiet("Using build code '${buildCode}' for the current build configuration.")
+    return buildCode
+}

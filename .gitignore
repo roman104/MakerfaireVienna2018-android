@@ -1,0 +1,19 @@
+### INTELLIJ
+*.iml
+/.idea/caches
+/.idea/libraries
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/workspace.xml
+
+### GRADLE
+.gradle
+/build
+.externalNativeBuild
+/local.properties
+/captures
+session_*
+
+### OTHER
+*.DS_Store

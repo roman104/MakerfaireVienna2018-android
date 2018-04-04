@@ -1,0 +1,50 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+/**
+ * Library options =================================================================================
+ */
+android {
+    compileSdkVersion config.build.compileSdkVersion
+    buildToolsVersion config.build.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion config.build.minSdkVersion
+        targetSdkVersion config.build.targetSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+/**
+ * Library dependencies ============================================================================
+ */
+dependencies {
+    api(deps.test.cucumberCore) {
+        exclude module: 'cucumber-jvm-deps'
+    }
+    api(deps.test.cucumberJvm) {}
+    api(deps.test.cucumberJvmDeps) {}
+    api(deps.test.cucumberJunit) {
+        exclude module: 'cucumber-jvm-deps'
+        exclude module: 'cucumber-core'
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+    api(deps.test.cucumberAndroid) {
+        exclude module: 'cucumber-jvm-deps'
+    }
+    api(deps.test.cucumberPicoContainer) {
+        exclude module: 'cucumber-core'
+        exclude module: 'cucumber-jvm-deps'
+    }
+    implementation deps.kotlin.stdlibJre8
+    implementation deps.android.support.annotations
+}

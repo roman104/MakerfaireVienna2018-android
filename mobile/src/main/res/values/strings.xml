@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Resource file containing all application strings that are used in the application's main UI,
+	that is within Fragments and Activities. Strings that are used in application dialogs are contained
+	in <strings_dialog.xml> resource file. Equally, strings that are used to describe content of a
+	specific UI element via 'android:contentDescription' attribute are contained in <strings_content.xml>
+	resource file.
+
+	# Not translatable strings:
+	Strings that are not considered to be translated should be marked by 'translatable="false"'
+	attribute or placed in <donottranslate.xml> resource file.
+
+	# Not-corrected strings:
+	Strings that have not been corrected yet, that is, they are not ready for production environment,
+	should be marked by 'corrected="false"' attribute.
+-->
+<resources>
+
+	<!-- ### APPLICATION ======================================================================= -->
+
+	<string name="app_name">Template</string>
+</resources>

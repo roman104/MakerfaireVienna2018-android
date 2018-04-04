@@ -1,0 +1,33 @@
+/*
+ * *************************************************************************************************
+ *                                 Copyright 2018 Universum Studios
+ * *************************************************************************************************
+ *                  Licensed under the Apache License, Version 2.0 (the "License")
+ * -------------------------------------------------------------------------------------------------
+ * You may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * *************************************************************************************************
+ */
+
+final File fabricPropertiesFile = file("fabric.properties")
+if (!fabricPropertiesFile.exists()) {
+    // File with properties for the Fabric tool does not exist, we will assume that the actual build
+    // is being executed in CI environment.
+    if (fabricPropertiesFile.createNewFile()) {
+        final Properties fabricProperties = new Properties()
+        fabricProperties.load(new FileReader(fabricPropertiesFile))
+        fabricProperties.setProperty("apiSecret", config.ci.FABRIC_API_SECRET == null ? "unspecified" : config.ci.FABRIC_API_SECRET)
+        fabricProperties.setProperty("apiKey", config.ci.FABRIC_API_KEY == null ? "unspecified" : config.ci.FABRIC_API_KEY)
+        fabricProperties.store(new FileWriter(fabricPropertiesFile), "Created only for purpose of the CI build.")
+    } else {
+        logger.quiet("Failed to create 'fabric.properties' file!")
+    }
+}

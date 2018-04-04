@@ -1,0 +1,42 @@
+// Global gradle configuration. This configuration will be used for all sub-projects.
+apply from: './configuration.gradle'
+apply from: './repositories.gradle'
+apply from: './dependencies.gradle'
+
+/**
+ * Global build script configuration ===============================================================
+ */
+buildscript {
+    apply from: './repositories.gradle'
+    apply from: './dependencies.gradle'
+
+    repositories {
+        google()
+        jcenter()
+        maven { url repos.fabric }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.11.0'
+        classpath 'io.fabric.tools:gradle:1.25.1'
+        classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
+    }
+}
+
+/**
+ * All projects global configuration ===============================================================
+ */
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+/**
+ * All projects global tasks =======================================================================
+ */
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

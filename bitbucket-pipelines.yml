@@ -1,0 +1,78 @@
+##
+# *************************************************************************************************
+#                                 Copyright 2018 Universum Studios
+# *************************************************************************************************
+#                  Licensed under the Apache License, Version 2.0 (the "License")
+# -------------------------------------------------------------------------------------------------
+# You may not use this file except in compliance with the License. You may obtain a copy of the
+# License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the License
+# is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+# or implied.
+#
+# See the License for the specific language governing permissions and limitations under the License.
+# *************************************************************************************************
+##
+image: universumstudios/android:api-27
+
+### CONFIGURATION ==================================================================================
+
+# Clone only in depth necessary to build the latest code base.
+clone:
+  depth: 1
+
+### PIPELINES ======================================================================================
+pipelines:
+  # Pipeline which runs by default for all branches (except those configured below).
+  default:
+    - step:
+        caches:
+          - maven
+          - gradle
+        script:
+          # Grant permissions to CI scripts.
+          - ./ci/permissions.sh
+          # Build code base for the Development environment.
+          - ./gradlew clean :mobile:buildDevelopment
+          # Run tests.
+          - ./gradlew :mobile:testDevelopmentWithUnitTests
+  # Pipelines which run only for a specific branches.
+  branches:
+    '*develop*':
+      - step:
+          deployment: quality-assurance
+          caches:
+            - maven
+            - gradle
+          script:
+            # Grant permissions to CI scripts.
+            - ./ci/permissions.sh
+            # Build code base for the Quality Assurance environment.
+            - ./gradlew clean :mobile:buildQA
+            # Run tests.
+            - ./gradlew :mobile:testQAWithUnitTests
+            # Deploy release artifacts.
+            # todo: ...
+    '*release/*':
+      - step:
+          deployment: staging
+          caches:
+            - maven
+            - gradle
+          script:
+            # Grant permissions to CI scripts.
+            - ./ci/permissions.sh
+            # Build code base for the Staging environment.
+            - ./gradlew clean :mobile:buildStaging
+            # Run tests.
+            - ./gradlew :mobile:testStagingWithUnitTests
+            # Deploy release artifacts.
+            # todo: ...
+    '*master*':
+      # Do not run for master branch in order to spare build minutes of the CI server.
+      - step:
+          script:
+            - echo "On master branch. Ignoring CI build."

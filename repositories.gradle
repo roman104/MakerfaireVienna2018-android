@@ -1,0 +1,19 @@
+// Defines repositories used across the project.
+def projectRepos = [
+        maven: "${rootProject.projectDir}/maven"
+]
+
+def bintrayRepos = [
+        universum: [studios: [
+                android: 'http://dl.bintray.com/universum-studios/android',
+                gradle : 'http://dl.bintray.com/universum-studios/gradle',
+        ]]
+]
+
+ext.repos = [
+        "project" : projectRepos,
+        "bintray" : bintrayRepos,
+        "fabric"  : 'https://maven.fabric.io/public',
+        "jitpack" : 'https://jitpack.io',
+        "idescout": 'http://www.idescout.com/maven/repo'
+]

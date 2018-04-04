@@ -1,0 +1,45 @@
+/*
+ * *************************************************************************************************
+ *                                 Copyright 2018 Universum Studios
+ * *************************************************************************************************
+ *                  Licensed under the Apache License, Version 2.0 (the "License")
+ * -------------------------------------------------------------------------------------------------
+ * You may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * *************************************************************************************************
+ */
+
+// Configuration specific for the STAGING environment.
+task buildStaging(dependsOn: [':mobile:assembleStagingRelease', ':mobile:assembleStagingReleaseUnitTest']) {
+    group 'staging'
+    description "Builds code base for the 'STAGING' environment."
+}
+
+task testStagingWithUnitTests(dependsOn: ':mobile:testStagingReleaseUnitTest') {
+    group 'staging'
+    description "Tests code base for the 'STAGING' environment using Unit tests."
+}
+
+task testStagingWithAcceptanceTests(dependsOn: ':mobile:connectedStagingDebugAndroidTest') {
+    group 'staging'
+    description "Tests code base for the 'STAGING' environment using Acceptance tests."
+}
+
+task deployStaging(dependsOn: ':mobile:publishApkStagingRelease') {
+    group 'staging'
+    description "Deploys APK into the 'STAGING' environment."
+    doLast {
+        copy {
+            from "${buildDir}/outputs/mapping/staging/release"
+            into "${projectDir}/play/apk/mapping/${config.mobile.version.major}.${config.mobile.version.minor}.${config.mobile.version.patch}.${android.defaultConfig.versionCode}"
+        }
+    }
+}

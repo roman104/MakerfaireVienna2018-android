@@ -1,0 +1,98 @@
+/**
+ * Application dependencies ========================================================================
+ */
+repositories {
+    maven { url repos.project.maven }
+    maven { url repos.bintray.universum.studios.android }
+    maven { url repos.fabric }
+    maven { url repos.idescout }
+}
+
+dependencies {
+    // PRODUCTION ----------------------------------------------------------------------------------
+    implementation deps.android.support.multiDex
+
+    // Language dependencies.
+    implementation deps.kotlin.stdlibJre8
+
+    // Google dependencies.
+    implementation deps.google.injection.dagger
+    implementation deps.google.injection.daggerAndroid
+    implementation deps.google.injection.daggerAndroidSupport
+    kapt deps.google.injection.daggerProcessor
+    kapt deps.google.injection.daggerAndroidProcessor
+    implementation deps.android.architecture.lifecycle
+    implementation deps.android.architecture.lifecycleExtensions
+    kapt deps.android.architecture.lifecycleProcessor
+    implementation deps.android.architecture.persistanceRoom
+    kapt deps.android.architecture.persistanceRoomProcessor
+    implementation deps.android.support.v13
+    implementation deps.android.support.preferenceV14
+    implementation deps.android.support.design
+    implementation deps.android.support.constraintLayout
+    implementation deps.google.other.gson
+
+    // Analytics dependencies.
+    implementation deps.google.playServices.gcm
+    implementation deps.google.firebase.core
+    implementation(deps.analytics.crashlytics) { transitive = true }
+    implementation(deps.analytics.answers) { transitive = true }
+    productionImplementation deps.analytics.leakcanaryAndroidNoOp
+    stagingImplementation deps.analytics.leakcanaryAndroidNoOp
+
+    // Other dependencies.
+    implementation deps.rx.java
+    implementation deps.rx.android
+    implementation deps.universum.studios.arkhitekton
+    implementation deps.universum.studios.logger
+    implementation deps.universum.studios.utils
+    implementation deps.universum.studios.preferencesCore
+    implementation deps.universum.studios.support.fragments
+    implementation deps.universum.studios.support.dialogs
+    implementation deps.universum.studios.support.settings
+    implementation deps.universum.studios.support.universi
+    implementation deps.universum.studios.recycler
+    implementation deps.universum.studios.widgetAdapters
+    implementation deps.universum.studios.transitions
+    implementation deps.universum.studios.ui
+    implementation deps.universum.studios.fontCore
+    implementation deps.universum.studios.graphicsColorUtil
+    implementation deps.universum.studios.crypto
+    implementation deps.universum.studios.officium
+    implementation deps.universum.studios.intents
+    implementation deps.other.permissionsDispatcher
+    kapt deps.other.permissionsDispatcherProcessor
+    implementation deps.other.butterknife
+    kapt deps.other.butterknifeProcessor
+    implementation deps.other.squareupOkio
+    implementation deps.other.squareupOkHttp
+    implementation deps.other.squareupOkHttpUrlConnection
+    implementation deps.other.squareupOkHttpLoggingInterceptor
+    implementation(deps.other.squareupRetrofit) {
+        exclude module: 'okhttp'
+    }
+    implementation deps.other.squareupRetrofitAdapterRxJava
+    implementation deps.other.squareupRetrofitConverterGson
+    implementation deps.other.squareupOtto
+    implementation deps.other.jodaTime
+    implementation deps.other.commonsIo
+
+    // QUALITY ASSURANCE ---------------------------------------------------------------------------
+    qaImplementation deps.analytics.leakcanaryAndroidNoOp
+
+    // DEVELOPMENT ---------------------------------------------------------------------------------
+    // NOTE: developmentImplementation ... does not work, i.e. the plugin does not recognize the dependency
+    implementation deps.debug.sqlscoutServer
+    developmentImplementation deps.debug.database
+    developmentImplementation deps.analytics.leakcanaryAndroid
+
+    // TEST ----------------------------------------------------------------------------------------
+    // Unit test dependencies.
+    testImplementation project(':test-local')
+    testImplementation deps.analytics.leakcanaryAndroidNoOp
+    // Instrumentation test dependencies.
+    androidTestImplementation project(':test-instrumented')
+    androidTestImplementation deps.analytics.leakcanaryAndroidNoOp
+    // Acceptance test dependencies.
+    androidTestImplementation project(':test-acceptance')
+}

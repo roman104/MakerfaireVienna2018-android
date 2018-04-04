@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+/**
+ * Library options =================================================================================
+ */
+android {
+    compileSdkVersion config.build.compileSdkVersion
+    buildToolsVersion config.build.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion config.build.minSdkVersion
+        targetSdkVersion config.build.targetSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+/**
+ * Library dependencies ============================================================================
+ */
+dependencies {
+    api deps.android.test.runner
+    api deps.android.test.rules
+    api deps.android.test.espressoCore
+    api deps.android.test.espressoIntents
+    api(deps.android.test.espressoContrib) {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+    api deps.test.mockitoCore
+    api deps.test.mockitoAndroid
+    implementation deps.kotlin.stdlibJre8
+    implementation deps.android.support.annotations
+}

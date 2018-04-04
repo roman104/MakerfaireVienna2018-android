@@ -1,0 +1,46 @@
+/*
+ * *************************************************************************************************
+ *                                 Copyright 2018 Universum Studios
+ * *************************************************************************************************
+ *                  Licensed under the Apache License, Version 2.0 (the "License")
+ * -------------------------------------------------------------------------------------------------
+ * You may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * *************************************************************************************************
+ */
+apply from: "${projectDir}/deployment/qa/fabric.gradle"
+
+// Configuration specific for the QUALITY ASSURANCE environment.
+task buildQA(dependsOn: [':mobile:assembleQaRelease', ':mobile:assembleQaReleaseUnitTest']) {
+    group 'qa'
+    description "Builds code base for the 'QUALITY ASSURANCE' environment."
+}
+
+task testQAWithUnitTests(dependsOn: ':mobile:testQaReleaseUnitTest') {
+    group 'qa'
+    description "Tests code base for the 'QUALITY ASSURANCE' environment using Unit tests."
+}
+
+task testQAWithAcceptanceTests(dependsOn: ':mobile:connectedQaDebugAndroidTest') {
+    group 'qa'
+    description "Tests code base for the 'QUALITY ASSURANCE' environment using Acceptance tests."
+}
+
+task deployQA(dependsOn: ':mobile:crashlyticsUploadDistributionQaRelease') {
+    group 'qa'
+    description "Deploys APK into the 'QUALITY ASSURANCE' environment."
+    doLast {
+        copy {
+            from "${buildDir}/outputs/mapping/qa/release"
+            into "${projectDir}/beta/apk/mapping/${config.mobile.version.major}.${config.mobile.version.minor}.${config.mobile.version.patch}.${android.defaultConfig.versionCode}"
+        }
+    }
+}

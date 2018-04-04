@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Resource file containing configuration for a particular parts of the application.
+-->
+<resources>
+
+    <!-- ### API =============================================================================== -->
+
+    <!-- ### DATA ============================================================================== -->
+
+    <bool name="config_data_allow_backup">true</bool>
+    <string name="config_data_authority">com.template.app.Provider</string>
+
+    <!-- ### ACCOUNT =========================================================================== -->
+
+    <string name="config_account_type">template.com</string>
+    <string name="config_account_authority">@string/config_data_authority</string>
+    <string name="config_account_name_default">user@template.com</string>
+    <string name="config_account_test_username"/>
+    <string name="config_account_test_password"/>
+</resources>
