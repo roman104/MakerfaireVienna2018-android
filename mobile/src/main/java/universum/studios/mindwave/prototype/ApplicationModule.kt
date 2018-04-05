@@ -18,33 +18,23 @@
  */
 package universum.studios.mindwave.prototype
 
-import universum.studios.android.support.fragment.annotation.FragmentAnnotations
-import universum.studios.mindwave.prototype.util.Logging
+import android.app.Application
+import android.content.Context
+import android.content.res.Resources
+import dagger.Module
+import dagger.Provides
+import universum.studios.mindwave.prototype.analytics.Analytics
 
 /**
  * @author Martin Albedinsky
  */
-class Config {
+@Module internal class ApplicationModule(private val application: Application, private val analytics: Analytics) {
 
-    class App private constructor() {
+    @Provides fun provideApplication(): Application = application
 
-        companion object {
+    @Provides @ApplicationContext fun provideApplicationContext(): Context = application
 
-            const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
-            const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME
+    @Provides fun provideResources(): Resources = application.resources
 
-            const val FLAVOR_ID = BuildConfig.APPLICATION_ID
-            const val FLAVOR_VERSION_NAME = BuildConfig.VERSION_NAME
-
-            val DEBUG = BuildConfig.DEBUG
-        }
-    }
-
-    companion object {
-
-        fun apply() {
-            Logging.configure()
-            FragmentAnnotations.setEnabled(true)
-        }
-    }
+    @Provides fun provideAnalytics(): Analytics = analytics
 }

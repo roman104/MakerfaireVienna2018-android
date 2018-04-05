@@ -16,35 +16,30 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.mindwave.prototype.welcome.view
 
-import universum.studios.android.support.fragment.annotation.FragmentAnnotations
-import universum.studios.mindwave.prototype.util.Logging
+import android.content.Context
+import android.os.Bundle
+import universum.studios.android.arkhitekton.control.Controller
+import universum.studios.android.arkhitekton.view.ViewModel
+import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.mindwave.prototype.R
+import universum.studios.mindwave.prototype.view.BaseFragment
 
 /**
  * @author Martin Albedinsky
  */
-class Config {
+@ContentView(R.layout.fragment_participants)
+class ParticipantsFragment : BaseFragment<ViewModel, Controller<*>>() {
 
-    class App private constructor() {
-
-        companion object {
-
-            const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
-            const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME
-
-            const val FLAVOR_ID = BuildConfig.APPLICATION_ID
-            const val FLAVOR_VERSION_NAME = BuildConfig.VERSION_NAME
-
-            val DEBUG = BuildConfig.DEBUG
-        }
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        requireActivity().setTitle(R.string.participants_title)
     }
 
-    companion object {
-
-        fun apply() {
-            Logging.configure()
-            FragmentAnnotations.setEnabled(true)
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
+
+
 }

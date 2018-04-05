@@ -16,35 +16,21 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.mindwave.prototype.view.dialog
 
-import universum.studios.android.support.fragment.annotation.FragmentAnnotations
-import universum.studios.mindwave.prototype.util.Logging
+import universum.studios.android.support.dialog.DialogOptions
 
 /**
  * @author Martin Albedinsky
  */
-class Config {
-
-    class App private constructor() {
-
-        companion object {
-
-            const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
-            const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME
-
-            const val FLAVOR_ID = BuildConfig.APPLICATION_ID
-            const val FLAVOR_VERSION_NAME = BuildConfig.VERSION_NAME
-
-            val DEBUG = BuildConfig.DEBUG
-        }
-    }
+interface DialogsView {
 
     companion object {
 
-        fun apply() {
-            Logging.configure()
-            FragmentAnnotations.setEnabled(true)
-        }
+        val NO_DIALOG_OPTIONS: DialogOptions<*>? = null
     }
+
+    fun showDialogWithId(dialogId: Int, options: DialogOptions<*>?): Boolean
+
+    fun dismissDialogWithId(dialogId: Int): Boolean
 }

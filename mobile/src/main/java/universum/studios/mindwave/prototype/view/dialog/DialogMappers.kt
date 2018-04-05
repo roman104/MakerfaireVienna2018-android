@@ -16,35 +16,26 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.mindwave.prototype.view.dialog
 
-import universum.studios.android.support.fragment.annotation.FragmentAnnotations
-import universum.studios.mindwave.prototype.util.Logging
+import universum.studios.android.arkhitekton.data.model.ModelMapper
+import universum.studios.android.arkhitekton.util.Description
+import universum.studios.android.support.dialog.DialogOptions
 
 /**
  * @author Martin Albedinsky
  */
-class Config {
-
-    class App private constructor() {
-
-        companion object {
-
-            const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
-            const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME
-
-            const val FLAVOR_ID = BuildConfig.APPLICATION_ID
-            const val FLAVOR_VERSION_NAME = BuildConfig.VERSION_NAME
-
-            val DEBUG = BuildConfig.DEBUG
-        }
-    }
+class DialogMappers private constructor() {
 
     companion object {
 
-        fun apply() {
-            Logging.configure()
-            FragmentAnnotations.setEnabled(true)
+        val DESCRIPTION_TO_OPTIONS: ModelMapper<Description, DialogOptions<*>> = DescriptionToOptions()
+
+        private class DescriptionToOptions : ModelMapper<Description, DialogOptions<*>> {
+
+            override fun map(description: Description): DialogOptions<*> = DialogOptions<DialogOptions<*>>()
+                    .title(description.getTitle())
+                    .content(description.getSummary())
         }
     }
 }

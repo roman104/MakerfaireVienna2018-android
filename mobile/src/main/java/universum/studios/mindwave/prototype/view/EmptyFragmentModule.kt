@@ -16,35 +16,22 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.mindwave.prototype.view
 
-import universum.studios.android.support.fragment.annotation.FragmentAnnotations
-import universum.studios.mindwave.prototype.util.Logging
+import dagger.Module
+import dagger.Provides
+import universum.studios.android.arkhitekton.control.Controller
+import universum.studios.android.arkhitekton.interaction.Interactor
+import universum.studios.android.arkhitekton.presentation.Presenter
+import universum.studios.android.arkhitekton.view.ViewModel
 
 /**
  * @author Martin Albedinsky
  */
-class Config {
+@Module object EmptyFragmentModule {
 
-    class App private constructor() {
-
-        companion object {
-
-            const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
-            const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME
-
-            const val FLAVOR_ID = BuildConfig.APPLICATION_ID
-            const val FLAVOR_VERSION_NAME = BuildConfig.VERSION_NAME
-
-            val DEBUG = BuildConfig.DEBUG
-        }
-    }
-
-    companion object {
-
-        fun apply() {
-            Logging.configure()
-            FragmentAnnotations.setEnabled(true)
-        }
-    }
+    @JvmStatic @Provides fun provideEmptyController(): Controller<*> = Controller.empty()
+    @JvmStatic @Provides fun provideEmptyInteractor(): Interactor = Interactor.empty()
+    @JvmStatic @Provides fun provideEmptyPresenter(): Presenter<*> = Presenter.empty()
+    @JvmStatic @Provides fun provideEmptyViewModel(): ViewModel = ViewModel.empty()
 }

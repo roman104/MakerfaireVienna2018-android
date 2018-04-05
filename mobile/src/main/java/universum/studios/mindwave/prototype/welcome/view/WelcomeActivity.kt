@@ -16,35 +16,23 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.mindwave.prototype.welcome.view
 
-import universum.studios.android.support.fragment.annotation.FragmentAnnotations
-import universum.studios.mindwave.prototype.util.Logging
+import android.os.Bundle
+import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.mindwave.prototype.R
+import universum.studios.mindwave.prototype.view.BaseActivity
 
 /**
  * @author Martin Albedinsky
  */
-class Config {
+@ContentView(R.layout.activity_container)
+class WelcomeActivity : BaseActivity() {
 
-    class App private constructor() {
-
-        companion object {
-
-            const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
-            const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME
-
-            const val FLAVOR_ID = BuildConfig.APPLICATION_ID
-            const val FLAVOR_VERSION_NAME = BuildConfig.VERSION_NAME
-
-            val DEBUG = BuildConfig.DEBUG
-        }
-    }
-
-    companion object {
-
-        fun apply() {
-            Logging.configure()
-            FragmentAnnotations.setEnabled(true)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) {
+            fragmentController.newRequest(ParticipantsFragment()).immediate(true).execute()
         }
     }
 }

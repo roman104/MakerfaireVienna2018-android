@@ -123,6 +123,7 @@ def rx = [
 ]
 
 def universum = [studios: [
+        analytics        : 'universum.studios.android:analytics:1.0.0@aar',
         arkhitekton      : 'universum.studios.android:arkhitekton:0.3.0@aar',
         logger           : 'universum.studios.android:logger:1.0.1@aar',
         utils            : 'universum.studios.android:utils:2.0.5@aar',

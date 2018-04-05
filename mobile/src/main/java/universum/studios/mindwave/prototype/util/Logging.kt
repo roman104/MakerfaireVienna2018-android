@@ -16,35 +16,30 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.mindwave.prototype.util
 
-import universum.studios.android.support.fragment.annotation.FragmentAnnotations
-import universum.studios.mindwave.prototype.util.Logging
+import android.util.Log
+import universum.studios.android.logging.Logger
+import universum.studios.android.logging.SimpleLogger
+import universum.studios.mindwave.prototype.Config
 
 /**
  * @author Martin Albedinsky
  */
-class Config {
-
-    class App private constructor() {
-
-        companion object {
-
-            const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
-            const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME
-
-            const val FLAVOR_ID = BuildConfig.APPLICATION_ID
-            const val FLAVOR_VERSION_NAME = BuildConfig.VERSION_NAME
-
-            val DEBUG = BuildConfig.DEBUG
-        }
-    }
+class Logging private constructor() {
 
     companion object {
 
-        fun apply() {
-            Logging.configure()
-            FragmentAnnotations.setEnabled(true)
+        val logger: Logger = SimpleLogger(Log.VERBOSE)
+
+        fun configure() {
+            logger.logLevel = if (Config.App.DEBUG) Log.VERBOSE else Log.ASSERT
         }
+
+        fun currentThread(tag: String, message: String = "") = i(tag, message + " on thread => " + Thread.currentThread().name)
+        fun d(tag: String, message: String, throwable: Throwable? = null) = logger.d(tag, message, throwable)
+        fun i(tag: String, message: String, throwable: Throwable? = null) = logger.i(tag, message, throwable)
+        fun w(tag: String, message: String, cause: Throwable? = null) = logger.w(tag, message, cause)
+        fun e(tag: String, message: String, cause: Throwable? = null) = logger.e(tag, message, cause)
     }
 }

@@ -18,33 +18,21 @@
  */
 package universum.studios.mindwave.prototype
 
-import universum.studios.android.support.fragment.annotation.FragmentAnnotations
-import universum.studios.mindwave.prototype.util.Logging
+import dagger.Component
+import universum.studios.mindwave.prototype.data.DataModule
+import javax.inject.Singleton
 
 /**
  * @author Martin Albedinsky
  */
-class Config {
+@Singleton
+@Component(modules = [
+        ApplicationModule::class,
+        //PreferencesModule::class,
+        DataModule::class,
+        ActivityInjectionModule::class
+])
+interface ApplicationComponent {
 
-    class App private constructor() {
-
-        companion object {
-
-            const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
-            const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME
-
-            const val FLAVOR_ID = BuildConfig.APPLICATION_ID
-            const val FLAVOR_VERSION_NAME = BuildConfig.VERSION_NAME
-
-            val DEBUG = BuildConfig.DEBUG
-        }
-    }
-
-    companion object {
-
-        fun apply() {
-            Logging.configure()
-            FragmentAnnotations.setEnabled(true)
-        }
-    }
+    fun inject(application: BaseApplication)
 }

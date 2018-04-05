@@ -19,4 +19,10 @@
 	<!-- ### APPLICATION ======================================================================= -->
 
 	<string name="app_name">MindWaves Prototype</string>
+
+	<!-- ### PARTICIPANTS ====================================================================== -->
+
+	<string name="participants_title">Participants</string>
+	<string name="participants_label_first">First participant</string>
+	<string name="participants_label_second">Second participant</string>
 </resources>
