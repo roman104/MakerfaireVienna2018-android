@@ -16,18 +16,29 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
+def FABRIC_API_SECRET = config.ci.FABRIC_API_SECRET == null ? "unspecified" : config.ci.FABRIC_API_SECRET
+def FABRIC_API_KEY = config.ci.FABRIC_API_KEY == null ? "unspecified" : config.ci.FABRIC_API_KEY
 
 final File fabricPropertiesFile = file("fabric.properties")
-if (!fabricPropertiesFile.exists()) {
+if (fabricPropertiesFile.exists()) {
+    final Properties fabricProperties = new Properties()
+    fabricProperties.load(new FileReader(fabricPropertiesFile))
+    FABRIC_API_SECRET = fabricProperties.getProperty("apiSecret")
+    FABRIC_API_KEY = fabricProperties.getProperty("apiKey")
+} else {
     // File with properties for the Fabric tool does not exist, we will assume that the actual build
     // is being executed in CI environment.
     if (fabricPropertiesFile.createNewFile()) {
         final Properties fabricProperties = new Properties()
         fabricProperties.load(new FileReader(fabricPropertiesFile))
-        fabricProperties.setProperty("apiSecret", config.ci.FABRIC_API_SECRET == null ? "unspecified" : config.ci.FABRIC_API_SECRET)
-        fabricProperties.setProperty("apiKey", config.ci.FABRIC_API_KEY == null ? "unspecified" : config.ci.FABRIC_API_KEY)
+        fabricProperties.setProperty("apiSecret", FABRIC_API_SECRET)
         fabricProperties.store(new FileWriter(fabricPropertiesFile), "Created only for purpose of the CI build.")
     } else {
         logger.quiet("Failed to create 'fabric.properties' file!")
     }
 }
+
+ext.fabric = [api: [
+        secret: FABRIC_API_SECRET,
+        key   : FABRIC_API_KEY
+]]

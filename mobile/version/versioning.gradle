@@ -1,0 +1,29 @@
+ext {
+    loadVersionCode = {
+        final boolean isCIBuild = config.ci.EXECUTING
+        final boolean isLocalBuild = file("version/version.properties").exists()
+        // Resolve which version properties file to use.
+        File versionPropertiesFile = new File("unspecified")
+        if (isCIBuild) {
+            logger.info("Using 'version.properties' file for CI build.")
+            versionPropertiesFile = new File("/build_codes/android/${config.ci.PRODUCT_KEY}/version.properties")
+        } else if (isLocalBuild) {
+            logger.info("Using 'version.properties' file for LOCAL build.")
+            versionPropertiesFile = file("version/version.properties")
+        } else {
+            logger.info("No 'version.properties' file specified.")
+        }
+        // Extract build code value from the version properties file if it exists. Use '1' by default.
+        int buildCode = 1
+        if (versionPropertiesFile.exists()) {
+            final Properties versionProperties = new Properties()
+            versionProperties.load(new FileInputStream(versionPropertiesFile))
+            if (!versionProperties.containsKey("build.code")) {
+                throw new GradleException("Version properties file '${versionPropertiesFile.getPath()}' does not contain 'build.code' property!")
+            }
+            buildCode = Integer.valueOf(versionProperties.getProperty("build.code"))
+        }
+        logger.quiet("Using build code '${buildCode}' for the current build configuration.")
+        return buildCode
+    }
+}
