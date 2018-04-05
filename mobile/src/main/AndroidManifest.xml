@@ -19,17 +19,21 @@
  */
 -->
 <manifest package="universum.studios.mindwave.prototype"
-		  xmlns:android="http://schemas.android.com/apk/res/android">
+		  xmlns:android="http://schemas.android.com/apk/res/android"
+		  xmlns:tools="http://schemas.android.com/tools">
 
 	<!-- ### PERMISSIONS ======================================================================= -->
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-	<uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<!-- Remove permissions requested by dependencies but not required by our application. -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
 
 	<!-- ### FEATURES ========================================================================== -->
 
@@ -61,5 +65,7 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+
+		<activity android:name=".challenge.view.ChallengeActivity" />
 	</application>
 </manifest>

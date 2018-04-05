@@ -30,6 +30,7 @@ import universum.studios.mindwave.prototype.view.BaseActivity
 class WelcomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestFeature(FEATURE_INJECTION_BASIC)
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             fragmentController.newRequest(ParticipantsFragment()).immediate(true).execute()

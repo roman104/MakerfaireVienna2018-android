@@ -18,21 +18,33 @@
  */
 package universum.studios.mindwave.prototype.welcome.view
 
+import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
-import universum.studios.android.arkhitekton.control.Controller
-import universum.studios.android.arkhitekton.view.ViewModel
+import android.view.MenuItem
+import android.view.View
+import kotlinx.android.synthetic.main.fragment_participants.*
 import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.android.support.fragment.annotation.MenuOptions
 import universum.studios.mindwave.prototype.R
+import universum.studios.mindwave.prototype.challenge.ChallengeSession
+import universum.studios.mindwave.prototype.challenge.view.ChallengeTransition
 import universum.studios.mindwave.prototype.view.BaseFragment
+import universum.studios.mindwave.prototype.welcome.control.ParticipantsController
+import universum.studios.mindwave.prototype.welcome.view.presentation.BluetoothDevicesSpinnerAdapter
 
 /**
  * @author Martin Albedinsky
  */
+@MenuOptions(R.menu.participants)
 @ContentView(R.layout.fragment_participants)
-class ParticipantsFragment : BaseFragment<ViewModel, Controller<*>>() {
+class ParticipantsFragment : BaseFragment<ParticipantsViewModel, ParticipantsController>() {
+
+    private val firstParticipantDevicesAdapter: BluetoothDevicesSpinnerAdapter by lazy { BluetoothDevicesSpinnerAdapter(requireContext()) }
+    private val secondParticipantDevicesAdapter: BluetoothDevicesSpinnerAdapter by lazy { BluetoothDevicesSpinnerAdapter(requireContext()) }
 
     override fun onAttach(context: Context?) {
+        requestFeature(FEATURE_INJECTION_BASIC)
         super.onAttach(context)
         requireActivity().setTitle(R.string.participants_title)
     }
@@ -41,5 +53,38 @@ class ParticipantsFragment : BaseFragment<ViewModel, Controller<*>>() {
         super.onCreate(savedInstanceState)
     }
 
+    override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
+        super.onBindViews(rootView, savedInstanceState)
+        this.first_participant_devices_spinner.adapter = firstParticipantDevicesAdapter
+        this.second_participant_devices_spinner.adapter = secondParticipantDevicesAdapter
+        getViewModel().getAvailableDevices().observe(this, Observer { devices ->
+            firstParticipantDevicesAdapter.changeItems(devices)
+            secondParticipantDevicesAdapter.changeItems(devices)
+        })
+        this.start.setOnClickListener {
+            // todo: check if both participants are selected ...
+            val session = ChallengeSession.create()
+            ChallengeTransition.get().session(session).start(this)
+        }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        getController().startDevicesScan()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.menu_item_refresh -> {
+                getController().restartDevicesScan()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        getController().stopDevicesScan()
+    }
 }

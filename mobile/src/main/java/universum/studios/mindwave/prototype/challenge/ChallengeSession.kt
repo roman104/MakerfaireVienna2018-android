@@ -6,36 +6,42 @@
  * -------------------------------------------------------------------------------------------------
  * You may not use this file except in compliance with the License. You may obtain a copy of the
  * License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied.
- *
+ * 
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.mindwave.prototype.challenge
 
-import dagger.Module
-import dagger.android.AndroidInjectionModule
-import dagger.android.ContributesAndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
-import universum.studios.mindwave.prototype.challenge.view.ChallengeActivity
-import universum.studios.mindwave.prototype.challenge.view.ChallengeActivityModule
-import universum.studios.mindwave.prototype.welcome.view.WelcomeActivity
-import universum.studios.mindwave.prototype.welcome.view.WelcomeActivityModule
+import android.os.Parcel
+import android.os.Parcelable
+import android.os.Parcelable.Creator
 
 /**
  * @author Martin Albedinsky
  */
-@Module(includes = [AndroidInjectionModule::class, AndroidSupportInjectionModule::class])
-internal abstract class ActivityInjectionModule {
+class ChallengeSession private constructor() : Parcelable {
 
-    @ContributesAndroidInjector(modules = [WelcomeActivityModule::class])
-    internal abstract fun contributeWelcomeActivityInjector(): WelcomeActivity
+    companion object  CREATOR : Creator<ChallengeSession>  {
 
-    @ContributesAndroidInjector(modules = [ChallengeActivityModule::class])
-    internal abstract fun contributeChallengeActivityInjector(): ChallengeActivity
+        fun create(): ChallengeSession = ChallengeSession()
+
+        override fun createFromParcel(source: Parcel) = ChallengeSession(source)
+
+        override fun newArray(size: Int): Array<ChallengeSession?> = arrayOfNulls(size)
+    }
+
+    internal constructor(source: Parcel) : this() {
+    }
+
+    override fun writeToParcel(destination: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int = 0
 }

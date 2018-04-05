@@ -6,36 +6,32 @@
  * -------------------------------------------------------------------------------------------------
  * You may not use this file except in compliance with the License. You may obtain a copy of the
  * License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied.
- *
+ * 
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.mindwave.prototype.challenge.view.presentation
 
-import dagger.Module
-import dagger.android.AndroidInjectionModule
-import dagger.android.ContributesAndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
-import universum.studios.mindwave.prototype.challenge.view.ChallengeActivity
-import universum.studios.mindwave.prototype.challenge.view.ChallengeActivityModule
-import universum.studios.mindwave.prototype.welcome.view.WelcomeActivity
-import universum.studios.mindwave.prototype.welcome.view.WelcomeActivityModule
+import universum.studios.android.arkhitekton.presentation.BasePresenter
+import universum.studios.mindwave.prototype.challenge.view.ChallengeView
+import universum.studios.mindwave.prototype.challenge.view.ChallengeViewModel
 
 /**
  * @author Martin Albedinsky
  */
-@Module(includes = [AndroidInjectionModule::class, AndroidSupportInjectionModule::class])
-internal abstract class ActivityInjectionModule {
+class DefaultChallengePresenter(viewModel: ChallengeViewModel) : BasePresenter<ChallengeView, ChallengeViewModel>(viewModel), ChallengePresenter {
 
-    @ContributesAndroidInjector(modules = [WelcomeActivityModule::class])
-    internal abstract fun contributeWelcomeActivityInjector(): WelcomeActivity
+	override fun onFirstParticipantAttentionChanged(attention: Int) {
+		getViewModel().setFirstParticipantAttention(attention)
+	}
 
-    @ContributesAndroidInjector(modules = [ChallengeActivityModule::class])
-    internal abstract fun contributeChallengeActivityInjector(): ChallengeActivity
+	override fun onSecondParticipantAttentionChanged(attention: Int) {
+		getViewModel().setSecondParticipantAttention(attention)
+	}
 }

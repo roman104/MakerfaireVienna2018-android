@@ -20,6 +20,10 @@
 
 	<string name="app_name">MindWaves Prototype</string>
 
+	<!-- ## APPLICATION:Menu -->
+
+	<string name="menu_item_refresh">Refresh</string>
+
 	<!-- ### PARTICIPANTS ====================================================================== -->
 
 	<string name="participants_title">Participants</string>

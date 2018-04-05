@@ -9,6 +9,7 @@
 	<color name="text_secondary">#FF757575</color>
 
 	<color name="icon">#FFFFFFFF</color>
+	<color name="icon_toolbar">#FFFFFFFF</color>
 
 	<color name="divider">#FFBDBDBD</color>
 </resources>
