@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.mindwave.prototype
+package universum.studios.synergy.prototype
 
 import android.support.annotation.Keep
 

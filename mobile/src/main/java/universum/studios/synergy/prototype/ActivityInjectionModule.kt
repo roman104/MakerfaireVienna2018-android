@@ -18,9 +18,24 @@
  */
 package universum.studios.synergy.prototype
 
-import android.support.annotation.Keep
+import dagger.Module
+import dagger.android.AndroidInjectionModule
+import dagger.android.ContributesAndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
+import universum.studios.synergy.prototype.challenge.view.ChallengeActivity
+import universum.studios.synergy.prototype.challenge.view.ChallengeActivityModule
+import universum.studios.synergy.prototype.welcome.view.WelcomeActivity
+import universum.studios.synergy.prototype.welcome.view.WelcomeActivityModule
 
 /**
  * @author Martin Albedinsky
  */
-@Keep class MobileApplication : BaseApplication()
+@Module(includes = [AndroidInjectionModule::class, AndroidSupportInjectionModule::class])
+internal abstract class ActivityInjectionModule {
+
+    @ContributesAndroidInjector(modules = [WelcomeActivityModule::class])
+    internal abstract fun contributeWelcomeActivityInjector(): WelcomeActivity
+
+    @ContributesAndroidInjector(modules = [ChallengeActivityModule::class])
+    internal abstract fun contributeChallengeActivityInjector(): ChallengeActivity
+}

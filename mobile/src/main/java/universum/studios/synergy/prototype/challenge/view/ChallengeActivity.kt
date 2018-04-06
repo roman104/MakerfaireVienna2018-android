@@ -16,11 +16,33 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype
+package universum.studios.synergy.prototype.challenge.view
 
-import android.support.annotation.Keep
+import android.os.Bundle
+import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.synergy.prototype.R
+import universum.studios.synergy.prototype.challenge.ChallengeSession
+import universum.studios.synergy.prototype.data.Extra
+import universum.studios.synergy.prototype.view.BaseActivity
 
 /**
  * @author Martin Albedinsky
  */
-@Keep class MobileApplication : BaseApplication()
+@ContentView(R.layout.activity_container)
+class ChallengeActivity : BaseActivity() {
+
+    companion object {
+
+        val EXTRA_SESSION = Extra.createKey("Session")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        requestFeature(FEATURE_INJECTION_BASIC)
+        super.onCreate(savedInstanceState)
+        navigationalTransition = ChallengeTransition.get()
+        if (savedInstanceState == null) {
+            val session = intent.getParcelableExtra<ChallengeSession>(EXTRA_SESSION)
+            fragmentController.newRequest(ChallengeFragment.newInstance(session)).immediate(true).execute()
+        }
+    }
+}

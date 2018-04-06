@@ -23,8 +23,8 @@ def mobileConfig = [
                 // and also to access signing key along with signing properties that are specific
                 // for this application.
                 // See build.gradle in mobile/ directory for more info.
-                key  : 'mindwaves-prototype',
-                id   : 'universum.studios.mindwave.prototype'
+                key  : 'synergy-prototype',
+                id   : 'universum.studios.synergy.prototype'
         ],
         version: [
                 major: 0,

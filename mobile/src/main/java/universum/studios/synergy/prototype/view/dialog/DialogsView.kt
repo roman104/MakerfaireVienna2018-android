@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
 /*
  * *************************************************************************************************
  *                                 Copyright 2018 Universum Studios
  * *************************************************************************************************
  *                  Licensed under the Apache License, Version 2.0 (the "License")
- * =================================================================================================
+ * -------------------------------------------------------------------------------------------------
  * You may not use this file except in compliance with the License. You may obtain a copy of the
  * License at
  *
@@ -18,19 +16,21 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
--->
-<manifest package="universum.studios.synergy.prototype"
-		  xmlns:android="http://schemas.android.com/apk/res/android">
+package universum.studios.synergy.prototype.view.dialog
 
-	<!-- ### PERMISSIONS ======================================================================= -->
+import universum.studios.android.support.dialog.DialogOptions
 
-	<!-- Leak canary needs access to External storage to save heap dumps -->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+/**
+ * @author Martin Albedinsky
+ */
+interface DialogsView {
 
-	<!-- ### FEATURES ========================================================================== -->
+    companion object {
 
-	<!-- ### APPLICATION ======================================================================= -->
+        val NO_DIALOG_OPTIONS: DialogOptions<*>? = null
+    }
 
-	<application/>
-</manifest>
+    fun showDialogWithId(dialogId: Int, options: DialogOptions<*>?): Boolean
+
+    fun dismissDialogWithId(dialogId: Int): Boolean
+}

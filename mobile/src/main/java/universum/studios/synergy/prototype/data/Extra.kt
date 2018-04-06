@@ -1,36 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
 /*
  * *************************************************************************************************
  *                                 Copyright 2018 Universum Studios
  * *************************************************************************************************
  *                  Licensed under the Apache License, Version 2.0 (the "License")
- * =================================================================================================
+ * -------------------------------------------------------------------------------------------------
  * You may not use this file except in compliance with the License. You may obtain a copy of the
  * License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied.
- *
+ * 
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
--->
-<manifest package="universum.studios.synergy.prototype"
-		  xmlns:android="http://schemas.android.com/apk/res/android">
+package universum.studios.synergy.prototype.data
 
-	<!-- ### PERMISSIONS ======================================================================= -->
+import universum.studios.synergy.prototype.Config
 
-	<!-- Leak canary needs access to External storage to save heap dumps -->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+/**
+ * @author Martin Albedinsky
+ */
+class Extra {
 
-	<!-- ### FEATURES ========================================================================== -->
+    companion object {
 
-	<!-- ### APPLICATION ======================================================================= -->
-
-	<application/>
-</manifest>
+        fun createKey(extra: String) = "${Config.App.FLAVOR_ID}.EXTRA.$extra"
+    }
+}

@@ -16,11 +16,26 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype
+package universum.studios.synergy.prototype.util
 
-import android.support.annotation.Keep
+import android.util.Log
+import universum.studios.android.logging.Logger
+import universum.studios.android.logging.SimpleLogger
+import universum.studios.synergy.prototype.Config
 
 /**
  * @author Martin Albedinsky
  */
-@Keep class MobileApplication : BaseApplication()
+class Logging private constructor() {
+
+    companion object {
+
+        val logger: Logger = SimpleLogger(if (Config.App.DEBUG) Log.VERBOSE else Log.ASSERT)
+
+        fun currentThread(tag: String, message: String = "") = i(tag, message + " on thread => " + Thread.currentThread().name)
+        fun d(tag: String, message: String, throwable: Throwable? = null) = logger.d(tag, message, throwable)
+        fun i(tag: String, message: String, throwable: Throwable? = null) = logger.i(tag, message, throwable)
+        fun w(tag: String, message: String, cause: Throwable? = null) = logger.w(tag, message, cause)
+        fun e(tag: String, message: String, cause: Throwable? = null) = logger.e(tag, message, cause)
+    }
+}

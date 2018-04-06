@@ -1,3 +1,3 @@
-Mind Waves Prototype
+Synergy Prototype
 ===============
 
