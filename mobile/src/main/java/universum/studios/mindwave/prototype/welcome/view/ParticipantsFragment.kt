@@ -40,8 +40,8 @@ import universum.studios.mindwave.prototype.welcome.view.presentation.BluetoothD
 @ContentView(R.layout.fragment_participants)
 class ParticipantsFragment : BaseFragment<ParticipantsViewModel, ParticipantsController>() {
 
-    private val firstParticipantDevicesAdapter: BluetoothDevicesSpinnerAdapter by lazy { BluetoothDevicesSpinnerAdapter(requireContext()) }
-    private val secondParticipantDevicesAdapter: BluetoothDevicesSpinnerAdapter by lazy { BluetoothDevicesSpinnerAdapter(requireContext()) }
+    internal val firstParticipantDevicesAdapter: BluetoothDevicesSpinnerAdapter by lazy { BluetoothDevicesSpinnerAdapter(requireContext()) }
+    internal val secondParticipantDevicesAdapter: BluetoothDevicesSpinnerAdapter by lazy { BluetoothDevicesSpinnerAdapter(requireContext()) }
 
     override fun onAttach(context: Context?) {
         requestFeature(FEATURE_INJECTION_BASIC)
@@ -49,23 +49,24 @@ class ParticipantsFragment : BaseFragment<ParticipantsViewModel, ParticipantsCon
         requireActivity().setTitle(R.string.participants_title)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
         super.onBindViews(rootView, savedInstanceState)
         this.first_participant_devices_spinner.adapter = firstParticipantDevicesAdapter
         this.second_participant_devices_spinner.adapter = secondParticipantDevicesAdapter
+        this.start.setOnClickListener {
+            val session = ChallengeSession.create()
+            val firstParticipantDevice = firstParticipantDevicesAdapter.selectedItem
+            val secondParticipantDevice = secondParticipantDevicesAdapter.selectedItem
+            session.setFirstParticipantAddress(firstParticipantDevice!!.address)
+            session.setSecondParticipantDeviceAddress(secondParticipantDevice!!.address)
+            ChallengeTransition.get().session(session).start(this)
+        }
+        this.start.isEnabled = false
         getViewModel().getAvailableDevices().observe(this, Observer { devices ->
             firstParticipantDevicesAdapter.changeItems(devices)
             secondParticipantDevicesAdapter.changeItems(devices)
+            start.isEnabled = devices!!.count() > 1
         })
-        this.start.setOnClickListener {
-            // todo: check if both participants are selected ...
-            val session = ChallengeSession.create()
-            ChallengeTransition.get().session(session).start(this)
-        }
     }
 
     override fun onStart() {

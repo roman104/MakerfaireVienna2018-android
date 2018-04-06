@@ -19,16 +19,16 @@
 package universum.studios.mindwave.prototype.challenge.view
 
 import android.arch.lifecycle.ViewModel
-import android.databinding.ObservableInt
+import android.databinding.ObservableField
 
 /**
  * @author Martin Albedinsky
  */
 class ChallengeViewModelImpl : ViewModel(), ChallengeViewModel {
 
-    override val firstParticipantAttention = ObservableInt()
-    override val secondParticipantAttention = ObservableInt()
+    override val firstParticipantAttentionState = ObservableField<CharSequence>()
+    override val secondParticipantAttentionState = ObservableField<CharSequence>()
 
-    override fun setFirstParticipantAttention(attention: Int) = firstParticipantAttention.set(attention)
-    override fun setSecondParticipantAttention(attention: Int) = secondParticipantAttention.set(attention)
+    override fun setFirstParticipantAttentionState(attentionState: String) = firstParticipantAttentionState.set(attentionState)
+    override fun setSecondParticipantAttentionState(attentionState: String) = secondParticipantAttentionState.set(attentionState)
 }

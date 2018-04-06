@@ -1,0 +1,9 @@
+<resources>
+
+	<style name="TextAppearance.Widget.TextView" parent="android:TextAppearance.Material.Widget.TextView" />
+
+	<style name="TextAppearance.Widget.TextView.Participant.Label" parent="TextAppearance.Widget.TextView">
+		<item name="android:textSize">24sp</item>
+		<item name="android:fontFamily">sans-serif-medium</item>
+	</style>
+</resources>

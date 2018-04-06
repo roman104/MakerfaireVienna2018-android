@@ -19,6 +19,7 @@
 package universum.studios.mindwave.prototype.challenge.view.presentation
 
 import universum.studios.android.arkhitekton.presentation.BasePresenter
+import universum.studios.mindwave.prototype.R
 import universum.studios.mindwave.prototype.challenge.view.ChallengeView
 import universum.studios.mindwave.prototype.challenge.view.ChallengeViewModel
 
@@ -28,10 +29,12 @@ import universum.studios.mindwave.prototype.challenge.view.ChallengeViewModel
 class DefaultChallengePresenter(viewModel: ChallengeViewModel) : BasePresenter<ChallengeView, ChallengeViewModel>(viewModel), ChallengePresenter {
 
 	override fun onFirstParticipantAttentionChanged(attention: Int) {
-		getViewModel().setFirstParticipantAttention(attention)
+		val resources = getView().getResources()
+		getViewModel().setFirstParticipantAttentionState(resources.getString(R.string.challenge_participant_attention_value_format, attention))
 	}
 
 	override fun onSecondParticipantAttentionChanged(attention: Int) {
-		getViewModel().setSecondParticipantAttention(attention)
+        val resources = getView().getResources()
+		getViewModel().setSecondParticipantAttentionState(resources.getString(R.string.challenge_participant_attention_value_format, attention))
 	}
 }

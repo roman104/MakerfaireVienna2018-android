@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     // PRODUCTION ----------------------------------------------------------------------------------
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation deps.android.support.multiDex
 
     // Language dependencies.

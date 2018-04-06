@@ -29,4 +29,8 @@
 	<string name="participants_title">Participants</string>
 	<string name="participants_label_first">First participant</string>
 	<string name="participants_label_second">Second participant</string>
+
+	<!-- ### CHALLENGE ========================================================================= -->
+	
+	<string name="challenge_participant_attention_value_format">Attention: %1$d</string>
 </resources>

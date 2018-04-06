@@ -21,6 +21,7 @@ package universum.studios.mindwave.prototype.challenge.view
 import android.os.Bundle
 import universum.studios.android.support.fragment.annotation.ContentView
 import universum.studios.mindwave.prototype.R
+import universum.studios.mindwave.prototype.challenge.ChallengeSession
 import universum.studios.mindwave.prototype.data.Extra
 import universum.studios.mindwave.prototype.view.BaseActivity
 
@@ -39,5 +40,9 @@ class ChallengeActivity : BaseActivity() {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onCreate(savedInstanceState)
         navigationalTransition = ChallengeTransition.get()
+        if (savedInstanceState == null) {
+            val session = intent.getParcelableExtra<ChallengeSession>(EXTRA_SESSION)
+            fragmentController.newRequest(ChallengeFragment.newInstance(session)).immediate(true).execute()
+        }
     }
 }

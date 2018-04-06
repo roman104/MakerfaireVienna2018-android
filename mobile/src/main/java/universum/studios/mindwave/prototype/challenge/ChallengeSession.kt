@@ -36,12 +36,29 @@ class ChallengeSession private constructor() : Parcelable {
         override fun newArray(size: Int): Array<ChallengeSession?> = arrayOfNulls(size)
     }
 
+    private var firstParticipantAddress: String = ""
+    private var secondParticipantAddress: String = ""
+
     internal constructor(source: Parcel) : this() {
+        this.firstParticipantAddress = source.readString()
+        this.secondParticipantAddress = source.readString()
     }
 
     override fun writeToParcel(destination: Parcel, flags: Int) {
-
+        destination.writeString(firstParticipantAddress)
+        destination.writeString(secondParticipantAddress)
     }
 
     override fun describeContents(): Int = 0
+
+    fun setFirstParticipantAddress(address: String) {
+        this.firstParticipantAddress = address
+    }
+
+    fun setSecondParticipantDeviceAddress(address: String) {
+        this.secondParticipantAddress = address
+    }
+
+    fun getFirstParticipantDeviceAddress(): String = firstParticipantAddress
+    fun getSecondParticipantDeviceAddress(): String = secondParticipantAddress
 }

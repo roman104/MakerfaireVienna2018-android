@@ -18,7 +18,7 @@
  */
 package universum.studios.mindwave.prototype.challenge.view
 
-import android.databinding.ObservableInt
+import android.databinding.ObservableField
 import universum.studios.android.arkhitekton.view.ViewModel
 
 /**
@@ -26,9 +26,9 @@ import universum.studios.android.arkhitekton.view.ViewModel
  */
 interface ChallengeViewModel : ViewModel {
 
-    val firstParticipantAttention: ObservableInt
-    val secondParticipantAttention: ObservableInt
+    val firstParticipantAttentionState: ObservableField<CharSequence>
+    val secondParticipantAttentionState: ObservableField<CharSequence>
 
-    fun setFirstParticipantAttention(attention: Int)
-    fun setSecondParticipantAttention(attention: Int)
+    fun setFirstParticipantAttentionState(attentionState: String)
+    fun setSecondParticipantAttentionState(attentionState: String)
 }

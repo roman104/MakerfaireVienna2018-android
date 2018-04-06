@@ -47,6 +47,7 @@ class ChallengeFragmentModule : BaseFragmentModule() {
 		return if (holder.hasController()) holder.getController()
 		else holder.attachController(DefaultChallengeController.Builder(interactor, presenter)
 				.apply {
+					this.session = fragment.arguments?.getParcelable(ChallengeFragment.ARGUMENT_SESSION) ?: throw IllegalArgumentException("No session found in fragment arguments!")
 					this.context = context
 					this.bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
 				}
