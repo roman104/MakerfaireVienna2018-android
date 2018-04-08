@@ -161,7 +161,8 @@ def other = [
         butterknife                       : "com.jakewharton:butterknife:${versions.butterknife}",
         butterknifeProcessor              : "com.jakewharton:butterknife-compiler:${versions.butterknife}",
         jodaTime                          : 'joda-time:joda-time:2.9.2',
-        commonsIo                         : 'commons-io:commons-io:2.5'
+        commonsIo                         : 'commons-io:commons-io:2.5',
+        williamChart                      : 'com.diogobernardino:williamchart:2.5.0'
 ]
 
 def debug = [

@@ -78,6 +78,7 @@ dependencies {
     implementation deps.other.squareupOtto
     implementation deps.other.jodaTime
     implementation deps.other.commonsIo
+    implementation deps.other.williamChart
 
     // QUALITY ASSURANCE ---------------------------------------------------------------------------
     qaImplementation deps.analytics.leakcanaryAndroidNoOp
