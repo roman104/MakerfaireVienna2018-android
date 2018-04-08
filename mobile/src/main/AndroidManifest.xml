@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /*
  * *************************************************************************************************
  *                                 Copyright 2018 Universum Studios
@@ -19,18 +18,22 @@
  * *************************************************************************************************
  */
 -->
-<manifest package="universum.studios.mindwave.prototype"
-		  xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="universum.studios.synergy.prototype"
+		  xmlns:android="http://schemas.android.com/apk/res/android"
+		  xmlns:tools="http://schemas.android.com/tools">
 
 	<!-- ### PERMISSIONS ======================================================================= -->
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-	<uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
-	<uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
-	<uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<!-- Remove permissions requested by dependencies but not required by our application. -->
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove" />
 
 	<!-- ### FEATURES ========================================================================== -->
 
@@ -43,21 +46,26 @@
 		android:label="@string/app_name"
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
-		android:theme="@style/AppTheme" >
+		android:theme="@style/Theme">
 
 		<!-- ## Meta-data -->
 
-		<!--<meta-data
+		<meta-data
 			android:name="io.fabric.ApiKey"
-			android:value="${fabricApiKey}"/>-->
+			android:value="${fabricApiKey}" />
 
 		<!-- ## Activities -->
 
-		<activity android:name=".welcome.WelcomeActivity">
+		<activity
+			android:name=".welcome.view.WelcomeActivity"
+			android:theme="@style/Theme.Welcome">
+
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER"/>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+
+		<activity android:name=".challenge.view.ChallengeActivity" />
 	</application>
 </manifest>

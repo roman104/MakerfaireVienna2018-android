@@ -10,6 +10,7 @@ repositories {
 
 dependencies {
     // PRODUCTION ----------------------------------------------------------------------------------
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation deps.android.support.multiDex
 
     // Language dependencies.
@@ -43,6 +44,7 @@ dependencies {
     // Other dependencies.
     implementation deps.rx.java
     implementation deps.rx.android
+    implementation deps.universum.studios.analytics
     implementation deps.universum.studios.arkhitekton
     implementation deps.universum.studios.logger
     implementation deps.universum.studios.utils
@@ -76,6 +78,7 @@ dependencies {
     implementation deps.other.squareupOtto
     implementation deps.other.jodaTime
     implementation deps.other.commonsIo
+    implementation deps.other.williamChart
 
     // QUALITY ASSURANCE ---------------------------------------------------------------------------
     qaImplementation deps.analytics.leakcanaryAndroidNoOp

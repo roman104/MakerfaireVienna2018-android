@@ -1,0 +1,16 @@
+<resources>
+
+	<style name="Theme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+		<item name="uiSpacingSecondary">@dimen/ui_spacing_secondary</item>
+		<item name="uiSpacingTertiary">@dimen/ui_spacing_tertiary</item>
+
+		<item name="colorPrimary">@color/primary</item>
+		<item name="colorPrimaryDark">@color/primary_dark</item>
+		<item name="colorAccent">@color/accent</item>
+	</style>
+
+	<style name="Theme.Welcome">
+		<!--<item name="android:windowBackground">@drawable/bg_window_colored</item>-->
+	</style>
+</resources>

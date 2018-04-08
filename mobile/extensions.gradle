@@ -1,2 +1,3 @@
-apply from: "${projectDir}/deployment/environments.gradle"
+apply from: "${projectDir}/test/test.gradle"
 apply from: "${projectDir}/coverage/jacoco.gradle"
+apply from: "${projectDir}/deployment/environments.gradle"

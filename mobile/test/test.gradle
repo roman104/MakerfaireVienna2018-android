@@ -1,0 +1,8 @@
+gradle.projectsEvaluated {
+    tasks.withType(Test) { task ->
+        task.afterSuite { desc, result ->
+            if (!desc.parent)
+                println("Tests summary: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successful, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)")
+        }
+    }
+}

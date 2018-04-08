@@ -26,6 +26,6 @@
 
 	<!-- ### APPLICATION ======================================================================= -->
 
-	<string name="app_name">MindWaves Prototype {D}</string>
-	<string name="leak_canary_display_activity_label">MindWaves Prototype {LEAKS}</string>
+	<string name="app_name">Synergy {D}</string>
+	<string name="leak_canary_display_activity_label">Synergy {LEAKS}</string>
 </resources>
