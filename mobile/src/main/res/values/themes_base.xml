@@ -20,12 +20,15 @@
  */
 -->
 <!--
-	Strings used only when assembling application for DEVELOPMENT environment.
+ 	Resource file containing base themes that specify attributes that are available only from a
+ 	specific Android API Level. Each <themes_base.xml> file for a particular Android version should
+ 	be placed into <values-v{API_LEVEL}> folder where 'API_LEVEL' determines the Android version from
+ 	which are all needed attributes available in the SDK.
 -->
 <resources>
 
-	<!-- ### APPLICATION ======================================================================= -->
+	<style name="Platform.Theme" parent="Theme.AppCompat.Light.DarkActionBar"/>
 
-	<string name="app_name">Synergy {D}</string>
-	<string name="leak_canary_display_activity_label">Synergy {LEAKS}</string>
+	<!-- Default theme that should be used as base for all application themes. -->
+	<style name="Base.Theme" parent="Platform.Theme"/>
 </resources>

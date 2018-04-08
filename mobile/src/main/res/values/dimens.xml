@@ -20,12 +20,17 @@
  */
 -->
 <!--
-	Strings used only when assembling application for DEVELOPMENT environment.
+	Resource file containing global dimensions used across the application.
 -->
 <resources>
 
 	<!-- ### APPLICATION ======================================================================= -->
 
-	<string name="app_name">Synergy {D}</string>
-	<string name="leak_canary_display_activity_label">Synergy {LEAKS}</string>
+	<dimen name="spacing_primary">24dp</dimen>
+	<dimen name="spacing_primary_fallback">20dp</dimen>
+	<dimen name="spacing_secondary">16dp</dimen>
+	<dimen name="spacing_secondary_fallback">12dp</dimen>
+	<dimen name="spacing_tertiary">8dp</dimen>
+	<dimen name="spacing_tertiary_fallback">6dp</dimen>
+	<dimen name="spacing_small">4dp</dimen>
 </resources>

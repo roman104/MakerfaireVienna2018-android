@@ -20,12 +20,11 @@
  */
 -->
 <!--
-	Strings used only when assembling application for DEVELOPMENT environment.
+	Resource file containing attributes and styleables used by application specific widgets.
 -->
 <resources>
 
-	<!-- ### APPLICATION ======================================================================= -->
-
-	<string name="app_name">Synergy {D}</string>
-	<string name="leak_canary_display_activity_label">Synergy {LEAKS}</string>
+	<declare-styleable name="Attributes">
+		<attr name="toolbarIconTint" format="color"/>
+	</declare-styleable>
 </resources>

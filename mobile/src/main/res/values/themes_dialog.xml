@@ -20,12 +20,13 @@
  */
 -->
 <!--
-	Strings used only when assembling application for DEVELOPMENT environment.
+	Resource file containing themes used for Dialogs (popup windows) across the application.
 -->
 <resources>
 
-	<!-- ### APPLICATION ======================================================================= -->
-
-	<string name="app_name">Synergy {D}</string>
-	<string name="leak_canary_display_activity_label">Synergy {LEAKS}</string>
+	<style name="Theme.Dialog" parent="Dialog.Theme.Light">
+		<!--<item name="colorPrimary">@color/background_light</item>-->
+		<item name="colorPrimaryDark">@color/primary_dark</item>
+		<item name="colorAccent">@color/accent</item>
+	</style>
 </resources>

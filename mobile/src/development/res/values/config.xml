@@ -19,6 +19,9 @@
  * *************************************************************************************************
  */
 -->
+<!--
+	Configuration used only when assembling application for DEVELOPMENT environment.
+-->
 <resources xmlns:tools="http://schemas.android.com/tools"
 		   tools:ignore="MissingTranslation">
 

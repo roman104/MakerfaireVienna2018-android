@@ -1,31 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
 /*
  * *************************************************************************************************
  *                                 Copyright 2018 Universum Studios
  * *************************************************************************************************
  *                  Licensed under the Apache License, Version 2.0 (the "License")
- * =================================================================================================
+ * -------------------------------------------------------------------------------------------------
  * You may not use this file except in compliance with the License. You may obtain a copy of the
  * License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied.
- *
+ * 
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
--->
-<!--
-	Strings used only when assembling application for DEVELOPMENT environment.
--->
-<resources>
+package universum.studios.synergy.prototype.observation.view
 
-	<!-- ### APPLICATION ======================================================================= -->
+import android.os.Bundle
+import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.synergy.prototype.R
+import universum.studios.synergy.prototype.view.BaseActivity
 
-	<string name="app_name">Synergy {D}</string>
-	<string name="leak_canary_display_activity_label">Synergy {LEAKS}</string>
-</resources>
+/**
+ * @author Martin Albedinsky
+ */
+@ContentView(R.layout.activity_observation)
+class ObservationActivity : BaseActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        // todo: requestFeature(FEATURE_INJECTION_BASIC)
+        super.onCreate(savedInstanceState)
+        apply { navigationalTransition = ObservationTransition.get() }
+    }
+}

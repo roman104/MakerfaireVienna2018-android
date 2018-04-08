@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-											 xmlns:app="http://schemas.android.com/apk/res-auto"
-											 android:layout_width="match_parent"
-											 android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:orientation="vertical">
 
 	<Button
 		android:id="@+id/observation"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		app:layout_constraintHorizontal_chainStyle="spread" />
+		android:layout_weight="0.3"
+		android:background="@drawable/btn_ripple_primary"
+		android:text="@string/welcome_button_observation"
+		android:textSize="24sp" />
 
 	<Button
-		android:id="@+id/training"
+		android:id="@+id/synergy_time"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		app:layout_constraintTop_toBottomOf="@id/observation"
-		app:layout_constraintHorizontal_chainStyle="spread" />
-
-	<Button
-		android:id="@+id/game_time"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		app:layout_constraintTop_toBottomOf="@id/training"/>
-</android.support.constraint.ConstraintLayout>
+		android:layout_weight="0.3"
+		android:background="@drawable/btn_ripple_accent"
+		android:text="@string/welcome_button_synergy_time"
+		android:textSize="24sp" />
+</LinearLayout>

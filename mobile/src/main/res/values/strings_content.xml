@@ -20,12 +20,8 @@
  */
 -->
 <!--
-	Strings used only when assembling application for DEVELOPMENT environment.
+	Resource file containing all strings that are used to describe content of a specific widget via
+	'android:contentDescription' attribute.
 -->
 <resources>
-
-	<!-- ### APPLICATION ======================================================================= -->
-
-	<string name="app_name">Synergy {D}</string>
-	<string name="leak_canary_display_activity_label">Synergy {LEAKS}</string>
 </resources>

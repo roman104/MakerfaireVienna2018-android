@@ -20,12 +20,31 @@
  */
 -->
 <!--
-	Strings used only when assembling application for DEVELOPMENT environment.
+	Resource file containing styles used across the application. TextAppearance styles are contained
+	separately in <textappearances.xml> resource file.
+	Note that this file should contain only global styles or styles for specific contextual groups
+	that reduce Xml attributes redundancy in Xml layout files. Do not specify here styles for each
+	and every one widget just to keep layout resource files brief and small.
+
+	# Text associated styles:
+	All text related attributes should be placed within a specific TextAppearance style contained
+	in <textappearances.xml> resource file and referenced here via 'android:textAppearance' attribute.
+
+	# Layout specific attributes:
+	Layout related attributes like 'android:layout_width|height', 'android:layout_gravity' should not
+	be specified within style but rather kept in layout file for better 'layout positioning' readability.
 -->
 <resources>
 
 	<!-- ### APPLICATION ======================================================================= -->
 
-	<string name="app_name">Synergy {D}</string>
-	<string name="leak_canary_display_activity_label">Synergy {LEAKS}</string>
+	<style name="Widget" />
+
+	<style name="Layout" />
+
+	<style name="Widget.TextView" parent="android:Widget.Material.TextView" />
+
+	<style name="Widget.EditText" parent="Widget.AppCompat.EditText" />
+
+	<style name="Widget.Button" parent="android:Widget.Material.Button" />
 </resources>

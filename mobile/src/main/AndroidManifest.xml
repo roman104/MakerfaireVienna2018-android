@@ -66,6 +66,10 @@
 			</intent-filter>
 		</activity>
 
+		<activity
+			android:name=".observation.view.ObservationActivity"
+			android:label="@string/observation_title" />
+
 		<activity android:name=".challenge.view.ChallengeActivity" />
 	</application>
 </manifest>
