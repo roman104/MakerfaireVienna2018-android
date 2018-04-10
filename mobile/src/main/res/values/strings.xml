@@ -49,6 +49,11 @@
 	<string name="welcome_button_observation">Observation</string>
 	<string name="welcome_button_synergy_time">Synergy Time</string>
 
+	<!-- ### DEVICES =========================================================================== -->
+
+	<string name="device_selection_title">Select device</string>
+	<string name="device_selection_empty">No devices were found yet.</string>
+
 	<!-- ### OBSERVATION ======================================================================= -->
 
 	<string name="observation_title">Observation</string>

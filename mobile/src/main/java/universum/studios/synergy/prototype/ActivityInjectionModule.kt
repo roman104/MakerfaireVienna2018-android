@@ -24,6 +24,8 @@ import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 import universum.studios.synergy.prototype.challenge.view.ChallengeActivity
 import universum.studios.synergy.prototype.challenge.view.ChallengeActivityModule
+import universum.studios.synergy.prototype.observation.view.ObservationActivity
+import universum.studios.synergy.prototype.observation.view.ObservationActivityModule
 import universum.studios.synergy.prototype.welcome.view.WelcomeActivity
 import universum.studios.synergy.prototype.welcome.view.WelcomeActivityModule
 
@@ -35,6 +37,9 @@ internal abstract class ActivityInjectionModule {
 
     @ContributesAndroidInjector(modules = [WelcomeActivityModule::class])
     internal abstract fun contributeWelcomeActivityInjector(): WelcomeActivity
+
+    @ContributesAndroidInjector(modules = [ObservationActivityModule::class])
+    internal abstract fun contributeObservationActivityInjector(): ObservationActivity
 
     @ContributesAndroidInjector(modules = [ChallengeActivityModule::class])
     internal abstract fun contributeChallengeActivityInjector(): ChallengeActivity

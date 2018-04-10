@@ -16,38 +16,47 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.welcome.view.presentation
+package universum.studios.synergy.prototype.device.view.presentation
 
-import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
-import universum.studios.android.widget.adapter.SimpleSpinnerAdapter
-import universum.studios.android.widget.adapter.holder.ViewHolder
+import universum.studios.android.widget.adapter.SimpleRecyclerAdapter
+import universum.studios.android.widget.adapter.holder.RecyclerViewHolder
 import universum.studios.synergy.prototype.R
-import universum.studios.synergy.prototype.databinding.ItemBtDeviceSpinnerDropDownBinding
+import universum.studios.synergy.prototype.databinding.ItemDeviceListBinding
+import universum.studios.synergy.prototype.device.Device
 
 /**
  * @author Martin Albedinsky
  */
-class BluetoothDevicesSpinnerAdapter(context: Context) : SimpleSpinnerAdapter<
-        BluetoothDevicesSpinnerAdapter,
-        BluetoothDevicesSpinnerAdapter.ItemHolder,
-        BluetoothDevicesSpinnerAdapter.ItemHolder,
-        BluetoothDevice>(context) {
+class DevicesSelectionAdapter(context: Context) : SimpleRecyclerAdapter<
+        DevicesSelectionAdapter,
+        DevicesSelectionAdapter.ItemHolder,
+        Device>(context) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder = ItemHolder(inflateView(R.layout.item_bt_device_spinner_drop_down, parent))
-    override fun onCreateDropDownViewHolder(parent: ViewGroup, viewType: Int): ItemHolder = onCreateViewHolder(parent, viewType)
+    companion object {
+
+        const val ACTION_CLICK = 1
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder = ItemHolder(inflateView(R.layout.item_device_list, parent))
 
     override fun onBindViewHolder(viewHolder: ItemHolder, position: Int) {
         viewHolder.binding.device = getItem(position)
         viewHolder.binding.executePendingBindings()
     }
 
-    override fun onBindDropDownViewHolder(viewHolder: ItemHolder, position: Int) = onBindViewHolder(viewHolder, position)
+    inner class ItemHolder(itemView: View) : RecyclerViewHolder(itemView), View.OnClickListener {
 
-    inner class ItemHolder(itemView: View) : ViewHolder(itemView) {
+        internal val binding = ItemDeviceListBinding.bind(itemView)
 
-        internal val binding = ItemBtDeviceSpinnerDropDownBinding.bind(itemView)
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View) {
+            notifyDataSetActionSelected(ACTION_CLICK, adapterPosition, null)
+        }
     }
 }

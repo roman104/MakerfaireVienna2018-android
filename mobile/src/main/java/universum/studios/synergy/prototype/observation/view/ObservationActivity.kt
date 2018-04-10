@@ -19,19 +19,41 @@
 package universum.studios.synergy.prototype.observation.view
 
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_observation.*
 import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.android.support.fragment.manage.FragmentRequest
+import universum.studios.android.support.fragment.transition.FragmentTransitions
 import universum.studios.synergy.prototype.R
+import universum.studios.synergy.prototype.device.Device
+import universum.studios.synergy.prototype.device.view.DeviceSelectionFragment
+import universum.studios.synergy.prototype.util.Logging
 import universum.studios.synergy.prototype.view.BaseActivity
 
 /**
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.activity_observation)
-class ObservationActivity : BaseActivity() {
+class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelectionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // todo: requestFeature(FEATURE_INJECTION_BASIC)
+        requestFeature(FEATURE_INJECTION_BASIC)
         super.onCreate(savedInstanceState)
         apply { navigationalTransition = ObservationTransition.get() }
+        if (savedInstanceState == null) {
+            val deviceSelectionFragment = DeviceSelectionFragment()
+            deviceSelectionFragment.setOnDeviceSelectionListener(this)
+            fragmentController.newRequest(deviceSelectionFragment)
+                    .immediate(true)
+                    .execute()
+        }
+    }
+
+    override fun onDeviceSelected(device: Device) {
+        Logging.d(name(), "onDeviceSelected($device)")
+        fragmentController.newRequest(findCurrentFragment()!!)
+                .transaction(FragmentRequest.REMOVE)
+                .transition(FragmentTransitions.CROSS_FADE)
+                .execute()
+        this.fab.show()
     }
 }

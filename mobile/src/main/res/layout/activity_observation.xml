@@ -10,11 +10,17 @@
 		android:layout_height="match_parent" />
 
 	<android.support.design.widget.FloatingActionButton
-		android:id="@+id/add_observation"
+		android:id="@+id/fab"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="bottom|end"
 		android:layout_margin="?attr/uiSpacingSecondary"
 		android:src="@drawable/vc_ic_add_24dp"
+		android:visibility="gone"
 		app:fabSize="normal" />
+
+	<FrameLayout
+		android:id="@id/ui_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
 </merge>

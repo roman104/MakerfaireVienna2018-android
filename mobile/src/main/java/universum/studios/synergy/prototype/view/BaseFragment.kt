@@ -55,7 +55,7 @@ abstract class BaseFragment<VM : ViewModel, C : Controller<*>> : UniversiFragmen
 
     protected fun hasFeature(@Feature feature: Int) = features.has(feature)
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (hasFeature(FEATURE_INJECTION_BASIC)) {
             onInject()

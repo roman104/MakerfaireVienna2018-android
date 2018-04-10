@@ -43,6 +43,11 @@
 		<item name="android:windowNoTitle">?attr/windowNoTitle</item>
 	</style>
 
-	<style name="Theme.Welcome" parent="Theme.NoActionBar">
+	<style name="Theme.Toolbar" parent="Theme.NoActionBar" />
+
+	<style name="Theme.Welcome" parent="Theme.NoActionBar"/>
+
+	<style name="Theme.Observation" parent="Theme.Toolbar">
+
 	</style>
 </resources>

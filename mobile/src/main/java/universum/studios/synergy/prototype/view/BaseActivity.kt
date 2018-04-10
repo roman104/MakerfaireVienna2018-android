@@ -50,6 +50,8 @@ abstract class BaseActivity : UniversiCompatActivity(), HasSupportFragmentInject
     private val features = Flags(0)
     private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null
 
+    fun name(): String = javaClass.simpleName
+
     protected fun requestFeature(@Feature feature: Int) = features.add(feature)
 
     protected fun hasFeature(@Feature feature: Int) = features.has(feature)

@@ -43,7 +43,7 @@ class ParticipantsFragment : BaseFragment<ParticipantsViewModel, ParticipantsCon
     internal val firstParticipantDevicesAdapter: BluetoothDevicesSpinnerAdapter by lazy { BluetoothDevicesSpinnerAdapter(requireContext()) }
     internal val secondParticipantDevicesAdapter: BluetoothDevicesSpinnerAdapter by lazy { BluetoothDevicesSpinnerAdapter(requireContext()) }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onAttach(context)
         requireActivity().setTitle(R.string.participants_title)

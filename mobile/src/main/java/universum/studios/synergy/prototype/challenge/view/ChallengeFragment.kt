@@ -46,7 +46,7 @@ class ChallengeFragment : BaseFragment<ChallengeViewModel, ChallengeController>(
 
     private lateinit var binding: FragmentChallengeBinding
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onAttach(context)
     }

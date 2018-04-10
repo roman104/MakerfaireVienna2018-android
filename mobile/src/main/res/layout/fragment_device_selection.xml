@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		tools:context=".observation.view.ObservationActivity">
+	<data>
+		<import type="android.view.View"/>
+
+		<variable name="viewModel" type="universum.studios.synergy.prototype.device.view.DeviceSelectionViewModel"/>
+	</data>
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/bg_window_colored">
+
+		<universum.studios.android.ui.widget.EmptyView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:textColor="#AAFFFFFF"
+			android:text="@string/device_selection_empty"
+			android:visibility="@{viewModel.hasDevices ? View.GONE : View.VISIBLE}"
+			tools:visibility="invisible" />
+
+		<android.support.v7.widget.RecyclerView
+			android:id="@android:id/list"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:clipToPadding="false"
+			android:paddingTop="?attr/actionBarSize"
+			android:paddingBottom="?attr/actionBarSize"
+			tools:listitem="@layout/item_device_list" />
+
+		<universum.studios.android.ui.widget.LinearProgressBar
+			android:layout_width="match_parent"
+			android:layout_height="2dp"
+			app:uiColorProgress="?attr/colorAccent"
+			app:uiLinearProgressMode="indeterminate" />
+
+		<android.support.v7.widget.Toolbar
+			android:id="@id/ui_child_toolbar"
+			style="?attr/toolbarStyle"
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize"
+			android:background="@null"
+			app:title="@string/device_selection_title" />
+	</FrameLayout>
+</layout>
