@@ -16,13 +16,23 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.device
+package universum.studios.synergy.prototype.observation.attention.view.presentation
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import universum.studios.android.arkhitekton.presentation.BasePresenter
+import universum.studios.android.arkhitekton.view.View
+import universum.studios.synergy.prototype.device.headset.data.AttentionData
+import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationViewModel
 
 /**
  * @author Martin Albedinsky
  */
-@Parcelize
-data class Device(val name: String, val address: String): Parcelable
+class DefaultAttentionObservationPresenter(viewModel: AttentionObservationViewModel)
+	: BasePresenter<View<AttentionObservationViewModel>, AttentionObservationViewModel>(viewModel), AttentionObservationPresenter {
+
+    companion object {
+    
+    }
+
+    override fun onAttentionChanged(data: AttentionData) {
+    }
+}

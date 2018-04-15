@@ -16,13 +16,19 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.device
+package universum.studios.synergy.prototype.observation.attention.view
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import android.databinding.ObservableField
+import universum.studios.android.arkhitekton.view.ViewModel
 
 /**
  * @author Martin Albedinsky
  */
-@Parcelize
-data class Device(val name: String, val address: String): Parcelable
+interface AttentionObservationViewModel : ViewModel {
+
+    val inputError: ObservableField<CharSequence>
+    
+    fun setInputError(error: CharSequence?)
+
+    fun clearInputErrors()
+}

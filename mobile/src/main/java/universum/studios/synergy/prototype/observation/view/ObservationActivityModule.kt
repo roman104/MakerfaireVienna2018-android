@@ -22,14 +22,19 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import universum.studios.synergy.prototype.device.view.DeviceSelectionFragment
 import universum.studios.synergy.prototype.device.view.DeviceSelectionFragmentModule
+import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationFragment
+import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationFragmentModule
 
 /**
  * @author Martin Albedinsky
  */
 @Module
-@SuppressWarnings("unused")
+@Suppress("UNUSED")
 abstract class ObservationActivityModule {
 
 	@ContributesAndroidInjector(modules = [DeviceSelectionFragmentModule::class])
 	abstract fun contributeDeviceSelectionFragmentInjector(): DeviceSelectionFragment
+
+	@ContributesAndroidInjector(modules = [AttentionObservationFragmentModule::class])
+	abstract fun contributeAttentionObservationFragmentInjector(): AttentionObservationFragment
 }

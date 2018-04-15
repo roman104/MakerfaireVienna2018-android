@@ -26,6 +26,8 @@ import universum.studios.android.support.fragment.transition.FragmentTransitions
 import universum.studios.synergy.prototype.R
 import universum.studios.synergy.prototype.device.Device
 import universum.studios.synergy.prototype.device.view.DeviceSelectionFragment
+import universum.studios.synergy.prototype.observation.ObservationSubject.ATTENTION
+import universum.studios.synergy.prototype.observation.view.presentation.ObservationFragmentsAdapter
 import universum.studios.synergy.prototype.util.Logging
 import universum.studios.synergy.prototype.view.BaseActivity
 
@@ -34,6 +36,8 @@ import universum.studios.synergy.prototype.view.BaseActivity
  */
 @ContentView(R.layout.activity_observation)
 class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelectionListener {
+
+    private lateinit var pagerAdapter: ObservationFragmentsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestFeature(FEATURE_INJECTION_BASIC)
@@ -48,12 +52,22 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
         }
     }
 
+    override fun onContentChanged() {
+        super.onContentChanged()
+        this.fab.setOnClickListener {
+            pagerAdapter.addObservationSubject(ATTENTION)
+            this.fab.hide()
+        }
+    }
+
     override fun onDeviceSelected(device: Device) {
         Logging.d(name(), "onDeviceSelected($device)")
         fragmentController.newRequest(findCurrentFragment()!!)
                 .transaction(FragmentRequest.REMOVE)
                 .transition(FragmentTransitions.CROSS_FADE)
                 .execute()
+        this.pagerAdapter = ObservationFragmentsAdapter(supportFragmentManager, device)
+        this.pager.adapter = pagerAdapter
         this.fab.show()
     }
 }

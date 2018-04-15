@@ -16,13 +16,19 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.device
+package universum.studios.synergy.prototype.observation.attention.control
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import universum.studios.android.arkhitekton.control.Controller
+import universum.studios.synergy.prototype.observation.attention.view.presentation.AttentionObservationPresenter
 
 /**
  * @author Martin Albedinsky
  */
-@Parcelize
-data class Device(val name: String, val address: String): Parcelable
+interface AttentionObservationController : Controller<AttentionObservationPresenter> {
+
+    fun startObservation()
+
+    fun stopObservation()
+
+    class Holder : Controller.Holder<AttentionObservationController>()
+}

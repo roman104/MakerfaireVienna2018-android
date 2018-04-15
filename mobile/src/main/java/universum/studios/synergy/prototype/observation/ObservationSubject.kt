@@ -16,13 +16,11 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.device
-
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+package universum.studios.synergy.prototype.observation
 
 /**
  * @author Martin Albedinsky
  */
-@Parcelize
-data class Device(val name: String, val address: String): Parcelable
+enum class ObservationSubject {
+    ATTENTION
+}

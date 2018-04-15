@@ -16,13 +16,21 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.device
+package universum.studios.synergy.prototype.observation.attention.view
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableField;
 
 /**
  * @author Martin Albedinsky
  */
-@Parcelize
-data class Device(val name: String, val address: String): Parcelable
+class AttentionObservationViewModelImpl : ViewModel(), AttentionObservationViewModel {
+    
+	override val inputError = ObservableField<CharSequence>()
+
+    override fun setInputError(error: CharSequence?) = this.inputError.set(error)
+
+    override fun clearInputErrors() {
+        inputError.set(null)
+    }
+}

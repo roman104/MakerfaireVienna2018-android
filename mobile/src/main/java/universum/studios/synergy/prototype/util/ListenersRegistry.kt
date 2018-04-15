@@ -16,13 +16,20 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.device
-
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+package universum.studios.synergy.prototype.util
 
 /**
  * @author Martin Albedinsky
  */
-@Parcelize
-data class Device(val name: String, val address: String): Parcelable
+abstract class ListenersRegistry<T> {
+
+    protected val listeners = ArrayList<T>()
+
+    fun registerListener(listener: T) {
+        if (!listeners.contains(listener)) this.listeners.add(listener)
+    }
+
+    fun unregisterListener(listener: T) {
+        this.listeners.remove(listener)
+    }
+}

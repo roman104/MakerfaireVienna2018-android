@@ -27,7 +27,7 @@
 -->
 <resources>
 
-	<style name="Platform.Theme" parent="Theme.AppCompat.Light.DarkActionBar"/>
+	<style name="Platform.Theme" parent="Ui.Theme.Light"/>
 
 	<!-- Default theme that should be used as base for all application themes. -->
 	<style name="Base.Theme" parent="Platform.Theme"/>

@@ -16,13 +16,35 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.device
+package universum.studios.synergy.prototype.device.headset
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import universum.studios.synergy.prototype.device.headset.data.AttentionData
 
 /**
  * @author Martin Albedinsky
  */
-@Parcelize
-data class Device(val name: String, val address: String): Parcelable
+abstract class Headset {
+
+    companion object {
+
+
+    }
+
+    private val attentionListenerRegistry = AttentionListener.Registry()
+
+    fun registerAttentionListener(listener: AttentionListener) {
+        this.attentionListenerRegistry.registerListener(listener)
+    }
+
+    protected fun notifyAttentionChange(data: AttentionData) {
+        this.attentionListenerRegistry.notifyAttentionChanged(data)
+    }
+
+    fun unregisterAttentionListener(listener: AttentionListener) {
+        this.attentionListenerRegistry.unregisterListener(listener)
+    }
+
+    abstract fun connect()
+
+    abstract fun disconnect()
+}

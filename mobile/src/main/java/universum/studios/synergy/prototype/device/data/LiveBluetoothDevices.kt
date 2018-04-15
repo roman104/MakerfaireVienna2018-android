@@ -31,7 +31,7 @@ import universum.studios.synergy.prototype.util.Logging
 /**
  * @author Martin Albedinsky
  */
-class LiveBluetoothDevices private constructor(context: Context) : LiveData<List<BluetoothDevice>>() {
+class LiveBluetoothDevices private constructor(private val context: Context) : LiveData<List<BluetoothDevice>>() {
 
     companion object {
 
@@ -40,7 +40,6 @@ class LiveBluetoothDevices private constructor(context: Context) : LiveData<List
         fun create(context: Context): LiveBluetoothDevices = LiveBluetoothDevices(context.applicationContext)
     }
 
-    private val context = context
     private var bluetoothAdapter: BluetoothAdapter? = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
     private var devicesReceiver: DevicesReceiver? = null
     private val foundDevicesMap = HashMap<String, BluetoothDevice>()

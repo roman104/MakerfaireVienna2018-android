@@ -16,13 +16,12 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.device
-
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+package universum.studios.synergy.prototype.device.headset.data
 
 /**
  * @author Martin Albedinsky
  */
-@Parcelize
-data class Device(val name: String, val address: String): Parcelable
+class AttentionData(val value: Int) : HeadsetData() {
+
+    // todo: implement class
+}

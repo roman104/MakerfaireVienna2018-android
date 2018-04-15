@@ -5,6 +5,7 @@ repositories {
     maven { url repos.project.maven }
     maven { url repos.bintray.universum.studios.android }
     maven { url repos.fabric }
+    maven { url repos.jitpack }
     maven { url repos.idescout }
 }
 
@@ -53,6 +54,7 @@ dependencies {
     implementation deps.universum.studios.support.dialogs
     implementation deps.universum.studios.support.settings
     implementation deps.universum.studios.support.universi
+    implementation deps.universum.studios.support.pagerAdapters
     implementation deps.universum.studios.recycler
     implementation deps.universum.studios.widgetAdapters
     implementation deps.universum.studios.transitions
@@ -79,6 +81,7 @@ dependencies {
     implementation deps.other.jodaTime
     implementation deps.other.commonsIo
     implementation deps.other.williamChart
+    implementation deps.other.mpChart
 
     // QUALITY ASSURANCE ---------------------------------------------------------------------------
     qaImplementation deps.analytics.leakcanaryAndroidNoOp
