@@ -28,6 +28,7 @@ import com.neurosky.connection.TgStreamHandler
 import com.neurosky.connection.TgStreamReader
 import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.device.headset.data.AttentionData
+import universum.studios.synergy.prototype.device.headset.data.MeditationData
 import universum.studios.synergy.prototype.util.Logging
 
 /**
@@ -46,8 +47,10 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
         override fun onDataReceived(datatype: Int, data: Int, payload: Any?) {
             when (datatype) {
                 MindDataType.CODE_ATTENTION -> {
-                    val attValue = shortArrayOf(data.toShort())
-                    NskAlgoSdk.NskAlgoDataStream(NskAlgoDataType.NSK_ALGO_DATA_TYPE_ATT.value, attValue, 1)
+                    NskAlgoSdk.NskAlgoDataStream(NskAlgoDataType.NSK_ALGO_DATA_TYPE_ATT.value, shortArrayOf(data.toShort()), 1)
+                }
+                MindDataType.CODE_MEDITATION -> {
+                    NskAlgoSdk.NskAlgoDataStream(NskAlgoDataType.NSK_ALGO_DATA_TYPE_MED.value, shortArrayOf(data.toShort()), 1)
                 }
                 else -> {}
             }
@@ -65,6 +68,10 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
                 Logging.i(name(), "Attention changed to: $attention")
                 notifyAttentionChange(AttentionData(attention))
             }
+            setOnMedAlgoIndexListener{ meditation ->
+                Logging.i(name(), "Meditation changed to: $meditation")
+                notifyMeditationChange(MeditationData(meditation))
+            }
         }
     }
 
@@ -72,7 +79,11 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
         this.deviceStreamReader = TgStreamReader(bluetoothDevice, deviceStreamHandler)
         this.deviceStreamReader?.startLog()
         this.deviceStreamReader?.connectAndStart()
-        NskAlgoSdk.NskAlgoInit(NskAlgoType.NSK_ALGO_TYPE_ATT.value, context.filesDir.absolutePath, "NeuroSky_Release_To_GeneralFreeLicense_Use_Only_Nov 25 2016")
+        NskAlgoSdk.NskAlgoInit(
+                NskAlgoType.NSK_ALGO_TYPE_ATT.value + NskAlgoType.NSK_ALGO_TYPE_MED.value,
+                context.filesDir.absolutePath,
+                "NeuroSky_Release_To_GeneralFreeLicense_Use_Only_Nov 25 2016"
+        )
         NskAlgoSdk.NskAlgoStart(false)
     }
 

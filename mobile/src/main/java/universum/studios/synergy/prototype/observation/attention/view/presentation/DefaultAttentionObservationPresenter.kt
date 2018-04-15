@@ -40,7 +40,7 @@ class DefaultAttentionObservationPresenter(viewModel: AttentionObservationViewMo
         val chartData = viewModel.chartData.get()!!
         // todo: calculate x value based on time ...
         chartData.addEntry(Entry(xAxisCounter.incrementAndGet().toFloat(), data.value.toFloat()), 0)
-        if (getViewLifecycleCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+        if (isViewAttached() && getViewLifecycleCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
             getView().refreshChart()
         }
     }
