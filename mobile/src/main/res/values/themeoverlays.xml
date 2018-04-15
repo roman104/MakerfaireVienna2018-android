@@ -18,22 +18,9 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
--->
-<!--
-	Resource file containing all strings that are presented in the application's dialogs, that is,
-	within DialogFragments (popup windows).
+--><!--
 -->
 <resources>
 
-	<!-- ### APPLICATION ======================================================================= -->
-
-	<string name="dialog_title">@string/app_name</string>
-
-	<!-- ### OBSERVATION ======================================================================= -->
-
-	<string name="dialog_observation_select_subject_title">Select subject</string>
-	<string name="dialog_observation_exit_title">Exit observation</string>
-	<string name="dialog_observation_exit_content">
-		Are you sure you want to exit? All observations will be stopped and this operation cannot be undone.
-	</string>
+	<style name="ThemeOverlay.Toolbar" parent="ThemeOverlay.AppCompat.Dark" />
 </resources>

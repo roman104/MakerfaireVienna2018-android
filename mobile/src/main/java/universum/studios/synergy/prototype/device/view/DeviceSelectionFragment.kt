@@ -60,8 +60,10 @@ class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSel
 
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
         super.onBindViews(rootView, savedInstanceState)
-        this.binding = FragmentDeviceSelectionBinding.bind(rootView)
-        this.binding.viewModel = super.getViewModel()
+        this.binding = FragmentDeviceSelectionBinding.bind(rootView).apply {
+            viewModel = super.getViewModel()
+        }
+        this.ui_child_toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
         this.list.apply {
             layoutManager = LinearLayoutManager(rootView.context, LinearLayoutManager.VERTICAL, false)
             adapter = devicesAdapter

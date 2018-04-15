@@ -32,6 +32,8 @@ abstract class Headset {
 
     private val attentionListenerRegistry = AttentionListener.Registry()
 
+    fun name(): String = javaClass.simpleName
+
     fun registerAttentionListener(listener: AttentionListener) {
         this.attentionListenerRegistry.registerListener(listener)
     }

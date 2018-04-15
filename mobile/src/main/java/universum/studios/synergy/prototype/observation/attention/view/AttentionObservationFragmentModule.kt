@@ -46,6 +46,7 @@ class AttentionObservationFragmentModule : BaseFragmentModule() {
 		return if (holder.hasController()) holder.getController()
 		else holder.attachController(DefaultAttentionObservationController.Builder(interactor, presenter)
                 .apply {
+					context = fragment.requireContext()
                     bluetoothAdapter = (fragment.requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
                     device = fragment.arguments?.getParcelable(AttentionObservationFragment.ARGUMENT_DEVICE) as Device
                 }

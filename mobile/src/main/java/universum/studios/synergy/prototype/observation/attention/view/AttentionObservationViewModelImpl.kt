@@ -18,19 +18,23 @@
  */
 package universum.studios.synergy.prototype.observation.attention.view
 
-import android.arch.lifecycle.ViewModel;
-import android.databinding.ObservableField;
+import android.arch.lifecycle.ViewModel
+import android.databinding.ObservableField
+import android.databinding.ObservableInt
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
 
 /**
  * @author Martin Albedinsky
  */
 class AttentionObservationViewModelImpl : ViewModel(), AttentionObservationViewModel {
-    
-	override val inputError = ObservableField<CharSequence>()
 
-    override fun setInputError(error: CharSequence?) = this.inputError.set(error)
+    override val actualValue = ObservableInt()
 
-    override fun clearInputErrors() {
-        inputError.set(null)
-    }
+	override val chartData: ObservableField<LineData> = ObservableField(LineData(LineDataSet(
+            // Data set must contain at least one entry!
+            arrayListOf(Entry(0f, 0f)),
+            "Values")
+    ))
 }

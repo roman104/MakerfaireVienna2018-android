@@ -19,6 +19,8 @@
 package universum.studios.synergy.prototype.observation.attention.view
 
 import android.databinding.ObservableField
+import android.databinding.ObservableInt
+import com.github.mikephil.charting.data.LineData
 import universum.studios.android.arkhitekton.view.ViewModel
 
 /**
@@ -26,9 +28,6 @@ import universum.studios.android.arkhitekton.view.ViewModel
  */
 interface AttentionObservationViewModel : ViewModel {
 
-    val inputError: ObservableField<CharSequence>
-    
-    fun setInputError(error: CharSequence?)
-
-    fun clearInputErrors()
+    val actualValue: ObservableInt
+    val chartData: ObservableField<LineData>
 }

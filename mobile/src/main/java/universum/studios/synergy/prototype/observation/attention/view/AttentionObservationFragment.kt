@@ -21,22 +21,22 @@ package universum.studios.synergy.prototype.observation.attention.view
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.utils.Utils
 import kotlinx.android.synthetic.main.fragment_observation_attention.*
 import universum.studios.android.support.fragment.annotation.ContentView
 import universum.studios.android.util.BundleKey
 import universum.studios.synergy.prototype.R
+import universum.studios.synergy.prototype.databinding.FragmentObservationAttentionBinding
 import universum.studios.synergy.prototype.device.Device
 import universum.studios.synergy.prototype.observation.attention.control.AttentionObservationController
-import universum.studios.synergy.prototype.view.BaseFragment
+import universum.studios.synergy.prototype.observation.view.BaseObservationFragment
+import universum.studios.synergy.prototype.observation.view.ObservationView
 
 /**
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.fragment_observation_attention)
-class AttentionObservationFragment : BaseFragment<AttentionObservationViewModel, AttentionObservationController>() {
+class AttentionObservationFragment : BaseObservationFragment<AttentionObservationViewModel, AttentionObservationController>(), ObservationView<AttentionObservationViewModel> {
 
     companion object {
 
@@ -47,28 +47,24 @@ class AttentionObservationFragment : BaseFragment<AttentionObservationViewModel,
         }
     }
 
+    private lateinit var binding: FragmentObservationAttentionBinding
+
     override fun onAttach(context: Context) {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onAttach(context)
+        Utils.init(context)
     }
 
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
         super.onBindViews(rootView, savedInstanceState)
-        val entries = ArrayList<Entry>()
-        entries.add(Entry(0f, 100f))
-        entries.add(Entry(50f, 200f))
-        entries.add(Entry(100f, 150f))
-        val dataSet = LineDataSet(entries, "Values")
-        this.chart_view.data = LineData(dataSet)
+        this.binding = FragmentObservationAttentionBinding.bind(rootView).apply {
+            viewModel = super.getViewModel()
+        }
+        this.chart_view.data = getViewModel().chartData.get()
     }
 
-    override fun onStart() {
-        super.onStart()
-        getController().startObservation()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        getController().stopObservation()
+    override fun refreshChart() {
+        this.chart_view.notifyDataSetChanged()
+        this.chart_view.invalidate()
     }
 }

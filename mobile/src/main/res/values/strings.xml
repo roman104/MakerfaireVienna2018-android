@@ -36,6 +36,8 @@
 -->
 <resources>
 
+	<string name="empty"/>
+
 	<!-- ### APPLICATION ======================================================================= -->
 
 	<string name="app_name">Synergy</string>
@@ -43,6 +45,13 @@
 	<!-- ## APPLICATION:Menu -->
 
 	<string name="menu_item_refresh">Refresh</string>
+
+	<!-- ## APPLICATION:Button -->
+
+	<string name="button_ok">OK</string>
+	<string name="button_cancel">Cancel</string>
+	<string name="button_exit">Exit</string>
+	<string name="button_dismiss">Dismiss</string>
 
 	<!-- ### WELCOME =========================================================================== -->
 
@@ -57,6 +66,9 @@
 	<!-- ### OBSERVATION ======================================================================= -->
 
 	<string name="observation_title">Observation</string>
+	<string name="observation_menu_item_stop">Stop current observation</string>
+	<string name="observation_subject_attention">Attention</string>
+	<string name="observation_subject_meditation">Meditation</string>
 
 	<!-- ### PARTICIPANTS ====================================================================== -->
 

@@ -47,4 +47,8 @@
 	<style name="Widget.EditText" parent="Widget.AppCompat.EditText" />
 
 	<style name="Widget.Button" parent="android:Widget.Material.Button" />
+
+	<style name="Widget.Toolbar" parent="Ui.Widget.Toolbar">
+		<item name="android:theme">@style/ThemeOverlay.Toolbar</item>
+	</style>
 </resources>

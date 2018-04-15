@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  xmlns:app="http://schemas.android.com/apk/res-auto"
-			  android:layout_width="match_parent"
-			  android:layout_height="match_parent"
-			  android:orientation="vertical">
-
-	<android.support.v7.widget.Toolbar
-		android:id="@id/ui_child_toolbar"
-		style="?attr/toolbarStyle"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		tools:context=".observation.view.ObservationActivity">
+	<data>
+		<variable name="viewModel" type="universum.studios.synergy.prototype.observation.attention.view.AttentionObservationViewModel" />
+	</data>
+	<LinearLayout
 		android:layout_width="match_parent"
-		android:layout_height="?attr/actionBarSize"
-		app:title="Attention" />
+		android:layout_height="match_parent"
+		android:orientation="vertical">
 
-	<com.github.mikephil.charting.charts.LineChart
-		android:id="@+id/chart_view"
-		android:layout_width="match_parent"
-		android:layout_height="300dp"/>
-</LinearLayout>
+		<android.support.design.widget.AppBarLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:background="?attr/colorPrimary">
+
+			<android.support.design.widget.CollapsingToolbarLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:titleEnabled="false">
+
+				<android.support.v7.widget.Toolbar
+					android:id="@id/ui_child_toolbar"
+					style="?attr/toolbarStyle"
+					android:layout_width="match_parent"
+					android:layout_height="?attr/actionBarSize"
+					android:background="@drawable/none"
+					android:elevation="@dimen/none"
+					app:navigationIcon="@drawable/vc_ic_close_24dp"
+					app:title="Attention" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="56dp"
+					android:layout_marginTop="?attr/actionBarSize"
+					android:paddingStart="?attr/uiSpacingSecondary"
+					android:paddingEnd="?attr/uiSpacingSecondary"
+					android:paddingBottom="?attr/uiSpacingTertiary"
+					android:text="@{Integer.toString(viewModel.actualValue)}"
+					android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.ActualValue" />
+			</android.support.design.widget.CollapsingToolbarLayout>
+		</android.support.design.widget.AppBarLayout>
+
+		<com.github.mikephil.charting.charts.LineChart
+			android:id="@+id/chart_view"
+			android:layout_width="match_parent"
+			android:layout_height="300dp"
+			android:layout_margin="?attr/uiSpacingSecondary" />
+	</LinearLayout>
+</layout>

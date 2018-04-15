@@ -18,21 +18,27 @@
  */
 package universum.studios.synergy.prototype.observation.attention.view.presentation
 
+import com.github.mikephil.charting.data.Entry
 import universum.studios.android.arkhitekton.presentation.BasePresenter
-import universum.studios.android.arkhitekton.view.View
 import universum.studios.synergy.prototype.device.headset.data.AttentionData
 import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationViewModel
+import universum.studios.synergy.prototype.observation.view.ObservationView
+import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * @author Martin Albedinsky
  */
 class DefaultAttentionObservationPresenter(viewModel: AttentionObservationViewModel)
-	: BasePresenter<View<AttentionObservationViewModel>, AttentionObservationViewModel>(viewModel), AttentionObservationPresenter {
+	: BasePresenter<ObservationView<AttentionObservationViewModel>, AttentionObservationViewModel>(viewModel), AttentionObservationPresenter {
 
-    companion object {
-    
-    }
+    private val xAxisCounter = AtomicInteger()
 
     override fun onAttentionChanged(data: AttentionData) {
+        val viewModel = getViewModel()
+        viewModel.actualValue.set(data.value)
+        val chartData = viewModel.chartData.get()!!
+        // todo: calculate x value based on time ...
+        chartData.addEntry(Entry(xAxisCounter.incrementAndGet().toFloat(), data.value.toFloat()), 0)
+        getView().refreshChart()
     }
 }

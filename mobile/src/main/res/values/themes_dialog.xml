@@ -25,8 +25,12 @@
 <resources>
 
 	<style name="Theme.Dialog" parent="Dialog.Theme.Light">
-		<!--<item name="colorPrimary">@color/background_light</item>-->
+
+		<!-- ### COLORS ======================================================================== -->
+
 		<item name="colorPrimaryDark">@color/primary_dark</item>
-		<item name="colorAccent">@color/accent</item>
+		<item name="colorAccent">@color/primary</item>
+
+		<!-- ### OPTIONS ======================================================================= -->
 	</style>
 </resources>

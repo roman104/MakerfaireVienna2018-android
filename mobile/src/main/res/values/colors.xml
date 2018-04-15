@@ -29,9 +29,10 @@
 
 	<!-- ### PALETTE =========================================================================== -->
 
-	<color name="primary">#FF607D8B</color>
-	<color name="primary_dark">#FF455A64</color>
-	<color name="accent">#FF8BC34A</color>
+	<color name="primary">#FF009688</color>
+	<color name="primary_light">#FFB2DFDB</color>
+	<color name="primary_dark">#FF00796B</color>
+	<color name="accent">#FFFFC107</color>
 
 	<!-- ### TINT ============================================================================== -->
 

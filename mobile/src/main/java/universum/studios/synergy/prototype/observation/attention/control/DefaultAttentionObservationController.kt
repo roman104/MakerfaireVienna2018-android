@@ -43,6 +43,11 @@ class DefaultAttentionObservationController internal constructor(builder: Builde
     private val device = builder.device
     private var headset: Headset? = null
 
+    override fun onActivated() {
+        super.onActivated()
+        startObservation()
+    }
+
     override fun startObservation() {
         this.headset = NeuroSkyHeadset(context, bluetoothAdapter.getRemoteDevice(device.address))
         this.headset?.registerAttentionListener(object : AttentionListener {
@@ -57,6 +62,11 @@ class DefaultAttentionObservationController internal constructor(builder: Builde
     override fun stopObservation() {
         this.headset?.disconnect()
         this.headset = null
+    }
+
+    override fun onDeactivated() {
+        super.onDeactivated()
+        stopObservation()
     }
     
     class Builder(

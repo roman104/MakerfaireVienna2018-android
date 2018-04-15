@@ -19,14 +19,14 @@
 package universum.studios.synergy.prototype.observation.attention.view.presentation
 
 import universum.studios.android.arkhitekton.presentation.Presenter
-import universum.studios.android.arkhitekton.view.View
 import universum.studios.synergy.prototype.device.headset.data.AttentionData
 import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationViewModel
+import universum.studios.synergy.prototype.observation.view.ObservationView
 
 /**
  * @author Martin Albedinsky
  */
-interface AttentionObservationPresenter : Presenter<View<AttentionObservationViewModel>> {
+interface AttentionObservationPresenter : Presenter<ObservationView<AttentionObservationViewModel>> {
 
     fun onAttentionChanged(data: AttentionData)
 }

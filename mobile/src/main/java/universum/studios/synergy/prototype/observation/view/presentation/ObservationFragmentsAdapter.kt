@@ -52,6 +52,7 @@ class ObservationFragmentsAdapter(fragmentManager: FragmentManager, private val 
     override fun getItem(position: Int): Fragment {
         return when (items[position]) {
             ObservationSubject.ATTENTION -> AttentionObservationFragment.newInstance(device)
+            ObservationSubject.MEDITATION -> AttentionObservationFragment.newInstance(device)
         }
     }
 }

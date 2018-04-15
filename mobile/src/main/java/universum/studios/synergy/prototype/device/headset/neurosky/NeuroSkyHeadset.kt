@@ -26,7 +26,6 @@ import com.neurosky.AlgoSdk.NskAlgoType
 import com.neurosky.connection.DataType.MindDataType
 import com.neurosky.connection.TgStreamHandler
 import com.neurosky.connection.TgStreamReader
-import universum.studios.synergy.prototype.challenge.control.DefaultChallengeController
 import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.device.headset.data.AttentionData
 import universum.studios.synergy.prototype.util.Logging
@@ -63,7 +62,7 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
             setOnSignalQualityListener { level -> /* todo: handle signal quality change ... */ }
             setOnStateChangeListener { state, reason -> /* todo: handle state change ... */  }
             setOnAttAlgoIndexListener { attention ->
-                Logging.i(DefaultChallengeController.TAG, "Attention for FIRST participant changed to: $attention")
+                Logging.i(name(), "Attention changed to: $attention")
                 notifyAttentionChange(AttentionData(attention))
             }
         }

@@ -18,9 +18,12 @@
  */
 package universum.studios.synergy.prototype.observation
 
+import universum.studios.synergy.prototype.R
+
 /**
  * @author Martin Albedinsky
  */
-enum class ObservationSubject {
-    ATTENTION
+enum class ObservationSubject constructor(val id: Int, val flag: Int, val nameRes: Int) {
+    ATTENTION(1, 0x00000001, R.string.observation_subject_attention),
+    MEDITATION(2, 0x00000002, R.string.observation_subject_meditation)
 }

@@ -28,16 +28,28 @@
 	<!-- Default application theme. -->
 	<style name="Theme" parent="Base.Theme">
 
+		<!-- ## METRICS ======================================================================== -->
+
+		<!-- ### COLORS ======================================================================== -->
+
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/accent</item>
+
+		<!-- ### DRAWABLES ===================================================================== -->
+
+		<!-- ### STYLES ======================================================================== -->
+
+		<item name="toolbarStyle">@style/Widget.Toolbar</item>
+
+		<!-- ### THEMES ======================================================================== -->
+
+		<item name="dialogTheme">@style/Theme.Dialog</item>
 	</style>
 
 	<style name="Theme.NoActionBar">
 		<item name="windowActionBar">false</item>
-		<item name="android:windowActionBar">?attr/windowActionBar</item>
 		<item name="windowNoTitle">true</item>
-		<item name="android:windowNoTitle">?attr/windowNoTitle</item>
 	</style>
 
 	<style name="Theme.Toolbar" parent="Theme.NoActionBar" />
