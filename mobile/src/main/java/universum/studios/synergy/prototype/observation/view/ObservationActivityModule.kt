@@ -24,6 +24,8 @@ import universum.studios.synergy.prototype.device.view.DeviceSelectionFragment
 import universum.studios.synergy.prototype.device.view.DeviceSelectionFragmentModule
 import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationFragment
 import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationFragmentModule
+import universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationFragment
+import universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationFragmentModule
 
 /**
  * @author Martin Albedinsky
@@ -37,4 +39,7 @@ abstract class ObservationActivityModule {
 
 	@ContributesAndroidInjector(modules = [AttentionObservationFragmentModule::class])
 	abstract fun contributeAttentionObservationFragmentInjector(): AttentionObservationFragment
+
+	@ContributesAndroidInjector(modules = [MeditationObservationFragmentModule::class])
+	abstract fun contributeMeditationObservationFragmentInjector(): MeditationObservationFragment
 }

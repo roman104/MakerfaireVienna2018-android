@@ -25,6 +25,7 @@ import universum.studios.android.support.pager.adapter.FragmentPagerAdapter
 import universum.studios.synergy.prototype.device.Device
 import universum.studios.synergy.prototype.observation.ObservationSubject
 import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationFragment
+import universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationFragment
 
 /**
  * @author Martin Albedinsky
@@ -52,7 +53,7 @@ class ObservationFragmentsAdapter(fragmentManager: FragmentManager, private val 
     override fun getItem(position: Int): Fragment {
         return when (items[position]) {
             ObservationSubject.ATTENTION -> AttentionObservationFragment.newInstance(device)
-            ObservationSubject.MEDITATION -> AttentionObservationFragment.newInstance(device)
+            ObservationSubject.MEDITATION -> MeditationObservationFragment.newInstance(device)
         }
     }
 }

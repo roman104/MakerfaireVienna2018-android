@@ -18,49 +18,20 @@
  */
 package universum.studios.synergy.prototype.device.headset
 
-import universum.studios.synergy.prototype.device.headset.data.AttentionData
 import universum.studios.synergy.prototype.device.headset.data.MeditationData
+import universum.studios.synergy.prototype.util.ListenersRegistry
 
 /**
  * @author Martin Albedinsky
  */
-abstract class Headset {
+interface MeditationListener {
 
-    companion object {
+    fun onMeditationChanged(data: MeditationData)
 
+    class Registry : ListenersRegistry<MeditationListener>() {
 
+        fun notifyMeditationChanged(data: MeditationData) {
+            listeners.forEach { it.onMeditationChanged(data) }
+        }
     }
-
-    private val attentionListenerRegistry = AttentionListener.Registry()
-    private val meditationListenerRegistry = MeditationListener.Registry()
-
-    fun name(): String = javaClass.simpleName
-
-    fun registerAttentionListener(listener: AttentionListener) {
-        this.attentionListenerRegistry.registerListener(listener)
-    }
-
-    protected fun notifyAttentionChange(data: AttentionData) {
-        this.attentionListenerRegistry.notifyAttentionChanged(data)
-    }
-
-    fun unregisterAttentionListener(listener: AttentionListener) {
-        this.attentionListenerRegistry.unregisterListener(listener)
-    }
-
-    fun registerMeditationListener(listener: MeditationListener) {
-        this.meditationListenerRegistry.registerListener(listener)
-    }
-
-    protected fun notifyMeditationChange(data: MeditationData) {
-        this.meditationListenerRegistry.notifyMeditationChanged(data)
-    }
-
-    fun unregisterMeditationListener(listener: MeditationListener) {
-        this.meditationListenerRegistry.unregisterListener(listener)
-    }
-
-    abstract fun connect()
-
-    abstract fun disconnect()
 }

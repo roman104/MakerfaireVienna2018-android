@@ -16,25 +16,25 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.observation.attention.view.presentation
+package universum.studios.synergy.prototype.observation.meditation.view.presentation
 
 import android.arch.lifecycle.Lifecycle
 import com.github.mikephil.charting.data.Entry
 import universum.studios.android.arkhitekton.presentation.BasePresenter
-import universum.studios.synergy.prototype.device.headset.data.AttentionData
-import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationViewModel
+import universum.studios.synergy.prototype.device.headset.data.MeditationData
+import universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationViewModel
 import universum.studios.synergy.prototype.observation.view.ObservationView
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * @author Martin Albedinsky
  */
-class DefaultAttentionObservationPresenter(viewModel: AttentionObservationViewModel)
-	: BasePresenter<ObservationView<AttentionObservationViewModel>, AttentionObservationViewModel>(viewModel), AttentionObservationPresenter {
+class DefaultMeditationObservationPresenter(viewModel: MeditationObservationViewModel)
+	: BasePresenter<ObservationView<MeditationObservationViewModel>, MeditationObservationViewModel>(viewModel), MeditationObservationPresenter {
 
     private val xAxisCounter = AtomicInteger()
 
-    override fun onAttentionChanged(data: AttentionData) {
+    override fun onMeditationChanged(data: MeditationData) {
         val viewModel = getViewModel()
         viewModel.actualValue.set(data.value)
         val chartData = viewModel.chartData.get()!!

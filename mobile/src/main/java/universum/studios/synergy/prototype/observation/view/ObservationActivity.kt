@@ -98,10 +98,11 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
             R.id.dialog_observation_subjects -> {
                 val selectedSubject = subjectsDialogAdapter!!.getItem(position)
                 if ((selectedSubjectFlags and selectedSubject.flag) == 0) {
-                    this.selectedSubjectFlags != selectedSubject.flag
+                    this.selectedSubjectFlags = selectedSubjectFlags or selectedSubject.flag
                     this.pagerAdapter.addObservationSubject(selectedSubject)
+                    this.pager.setCurrentItem(pagerAdapter.count - 1, true)
+                    dialog.dismiss()
                 }
-                dialog.dismiss()
                 true
             }
             else -> false

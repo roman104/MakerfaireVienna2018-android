@@ -16,24 +16,24 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.observation.attention.control
+package universum.studios.synergy.prototype.observation.meditation.control
 
 import android.bluetooth.BluetoothAdapter
 import android.content.Context
 import universum.studios.android.arkhitekton.control.ReactiveController
 import universum.studios.android.arkhitekton.interaction.Interactor
 import universum.studios.synergy.prototype.device.Device
-import universum.studios.synergy.prototype.device.headset.AttentionListener
 import universum.studios.synergy.prototype.device.headset.Headset
-import universum.studios.synergy.prototype.device.headset.data.AttentionData
+import universum.studios.synergy.prototype.device.headset.MeditationListener
+import universum.studios.synergy.prototype.device.headset.data.MeditationData
 import universum.studios.synergy.prototype.device.headset.neurosky.NeuroSkyHeadset
-import universum.studios.synergy.prototype.observation.attention.view.presentation.AttentionObservationPresenter
+import universum.studios.synergy.prototype.observation.meditation.view.presentation.MeditationObservationPresenter
 
 /**
  * @author Martin Albedinsky
  */
-class DefaultAttentionObservationController internal constructor(builder: Builder)
-    : ReactiveController<Interactor, AttentionObservationPresenter>(builder), AttentionObservationController {
+class DefaultMeditationObservationController internal constructor(builder: Builder)
+    : ReactiveController<Interactor, MeditationObservationPresenter>(builder), MeditationObservationController {
 
     companion object {
     
@@ -51,10 +51,10 @@ class DefaultAttentionObservationController internal constructor(builder: Builde
 
     override fun startObservation() {
         this.headset = NeuroSkyHeadset(context, bluetoothAdapter.getRemoteDevice(device.address))
-        this.headset?.registerAttentionListener(object : AttentionListener {
+        this.headset?.registerMeditationListener(object : MeditationListener {
 
-            override fun onAttentionChanged(data: AttentionData) {
-                getPresenter().onAttentionChanged(data)
+            override fun onMeditationChanged(data: MeditationData) {
+                getPresenter().onMeditationChanged(data)
             }
         })
         this.headset?.connect()
@@ -72,14 +72,14 @@ class DefaultAttentionObservationController internal constructor(builder: Builde
     
     class Builder(
         interactor: Interactor,
-        presenter: AttentionObservationPresenter
-    ) : ReactiveController.BaseBuilder<Builder, Interactor, AttentionObservationPresenter>(interactor, presenter) {
+        presenter: MeditationObservationPresenter
+    ) : ReactiveController.BaseBuilder<Builder, Interactor, MeditationObservationPresenter>(interactor, presenter) {
     
         override val self = this
         lateinit var context: Context
         lateinit var bluetoothAdapter: BluetoothAdapter
         lateinit var device: Device
 
-        override fun build() = DefaultAttentionObservationController(this)
+        override fun build() = DefaultMeditationObservationController(this)
     }
 }

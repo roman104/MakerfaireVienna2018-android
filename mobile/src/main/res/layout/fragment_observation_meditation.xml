@@ -4,7 +4,7 @@
 		xmlns:tools="http://schemas.android.com/tools"
 		tools:context=".observation.view.ObservationActivity">
 	<data>
-		<variable name="viewModel" type="universum.studios.synergy.prototype.observation.attention.view.AttentionObservationViewModel" />
+		<variable name="viewModel" type="universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationViewModel" />
 	</data>
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -29,7 +29,7 @@
 					android:background="@drawable/none"
 					android:elevation="@dimen/none"
 					app:navigationIcon="@drawable/vc_ic_close_24dp"
-					app:title="@string/observation_subject_attention" />
+					app:title="@string/observation_subject_meditation" />
 
 				<TextView
 					android:layout_width="wrap_content"
