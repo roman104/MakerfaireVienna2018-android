@@ -19,6 +19,9 @@
 package universum.studios.synergy.prototype.observation.view
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentManager.FragmentLifecycleCallbacks
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import android.view.MenuItem
 import android.view.View
@@ -52,6 +55,20 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
 
     internal lateinit var selectedDevice: Device
     private lateinit var pagerAdapter: ObservationFragmentsAdapter
+    private val fragmentLifecycleCallbacks = object : FragmentLifecycleCallbacks() {
+
+        override fun onFragmentCreated(fragmentManager: FragmentManager, fragment: Fragment, savedInstanceState: Bundle?) {
+            if (fragment is ObservationFragment) {
+                fragment.setOnOptionsItemSelectedListener(this@ObservationActivity)
+            }
+        }
+
+        override fun onFragmentDestroyed(fragmentManager: FragmentManager, fragment: Fragment) {
+            if (fragment is ObservationFragment) {
+                fragment.setOnOptionsItemSelectedListener(null)
+            }
+        }
+    }
     private var subjectsDialogAdapter: ObservationSubjectsDialogAdapter? = null
     private var selectedSubjectFlags = 0
     private var selectedPagePosition = FragmentPagerAdapter.NO_POSITION
@@ -62,6 +79,7 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
         apply {
             navigationalTransition = ObservationTransition.get()
         }
+        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentLifecycleCallbacks, false)
         setDialogXmlFactory(R.xml.dialogs_observation)
         if (savedInstanceState == null) {
             val deviceSelectionFragment = DeviceSelectionFragment()
@@ -97,11 +115,7 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
 
     override fun onPageSelected(position: Int) {
         if (selectedPagePosition != position) {
-            if (selectedPagePosition != FragmentPagerAdapter.NO_POSITION) {
-                this.pagerAdapter.getFragmentAt(selectedPagePosition)?.setOnOptionsItemSelectedListener(null)
-            }
             this.selectedPagePosition = position
-            this.pagerAdapter.getFragmentAt(position)?.setOnOptionsItemSelectedListener(this)
         }
     }
 
@@ -168,6 +182,7 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
 
     override fun onDestroy() {
         super.onDestroy()
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentLifecycleCallbacks)
         this.pager.adapter = null
     }
 }
