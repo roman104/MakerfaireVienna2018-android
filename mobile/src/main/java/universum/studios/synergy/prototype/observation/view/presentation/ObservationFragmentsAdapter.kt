@@ -20,14 +20,14 @@ package universum.studios.synergy.prototype.observation.view.presentation
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.util.LongSparseArray
-import android.support.v4.view.PagerAdapter
+import android.util.SparseArray
 import android.view.ViewGroup
 import universum.studios.android.support.pager.adapter.FragmentPagerAdapter
 import universum.studios.synergy.prototype.observation.ObservationSubject
 import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationFragment
 import universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationFragment
 import universum.studios.synergy.prototype.observation.view.ObservationFragment
+import universum.studios.synergy.prototype.view.PageFragment
 
 /**
  * @author Martin Albedinsky
@@ -40,7 +40,7 @@ class ObservationFragmentsAdapter(fragmentManager: FragmentManager) : FragmentPa
     }
 
     private val items: MutableList<ObservationSubject> = ArrayList()
-    private val fragments = LongSparseArray<ObservationFragment>()
+    private val fragments = SparseArray<ObservationFragment>()
 
     fun addObservationSubject(subject: ObservationSubject) {
         items.add(subject)
@@ -58,13 +58,31 @@ class ObservationFragmentsAdapter(fragmentManager: FragmentManager) : FragmentPa
         return if (position >= 0 && position < items.size) items[position].id else NO_ID
     }
 
-    override fun getItemPosition(`object`: Any): Int {
-        return PagerAdapter.POSITION_NONE
+    override fun getItemPosition(item: Any): Int {
+        if (items.isEmpty() || item !is PageFragment) {
+            return POSITION_NONE
+        }
+        val contentId = item.getContentId()
+        if (contentId >= 0) {
+            var position = 0
+            items.forEach {
+                if (contentId == it.id) {
+                    fragments.put(position, item as ObservationFragment)
+                    item.setPosition(position)
+                    return position
+                }
+                position++
+            }
+            fragments.removeAt(fragments.indexOfValue(item as ObservationFragment))
+            return POSITION_NONE
+        }
+        return POSITION_UNCHANGED
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val item = super.instantiateItem(container, position)
-        this.fragments.put(getItemId(position), item as ObservationFragment)
+        this.fragments.put(position, item as ObservationFragment)
+        (item as PageFragment).setPosition(position)
         return item
     }
 
@@ -76,10 +94,24 @@ class ObservationFragmentsAdapter(fragmentManager: FragmentManager) : FragmentPa
         }
     }
 
-    fun getFragmentAt(position: Int): ObservationFragment? = fragments.get(getItemId(position))
+    fun getFragmentAt(position: Int): ObservationFragment? = fragments.get(position)
+
+    override fun setPrimaryItem(container: ViewGroup, position: Int, item: Any?) {
+        if (primaryPosition == position) {
+            return
+        }
+        val previousPrimaryFragment = primaryFragment
+        if (previousPrimaryFragment is PageFragment) {
+            previousPrimaryFragment.setPrimary(false)
+        }
+        if (item is PageFragment) {
+            item.setPrimary(true)
+        }
+        super.setPrimaryItem(container, position, item)
+    }
 
     override fun destroyItem(container: ViewGroup, position: Int, item: Any) {
         super.destroyItem(container, position, item)
-        this.fragments.remove(getItemId(position))
+        this.fragments.remove(position)
     }
 }

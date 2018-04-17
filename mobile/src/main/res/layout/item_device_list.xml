@@ -9,7 +9,10 @@
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		android:gravity="center_horizontal"
-		android:padding="?attr/uiSpacingSecondary"
+		android:paddingStart="?attr/uiSpacingSecondary"
+		android:paddingEnd="?attr/uiSpacingSecondary"
+		android:paddingTop="?attr/uiSpacingPrimary"
+		android:paddingBottom="?attr/uiSpacingPrimary"
 		android:background="?attr/selectableItemBackground">
 
 		<TextView

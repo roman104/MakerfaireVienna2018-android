@@ -6,34 +6,39 @@
  * -------------------------------------------------------------------------------------------------
  * You may not use this file except in compliance with the License. You may obtain a copy of the
  * License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied.
- * 
+ *
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.util
+package universum.studios.synergy.prototype.view
 
 /**
+ * todo:
+ *
  * @author Martin Albedinsky
  */
-open class ListenersRegistry<T> {
+interface PageFragment {
 
-    protected val listeners = ArrayList<T>()
+    companion object {
 
-    fun registerListener(listener: T) {
-        if (!listeners.contains(listener)) this.listeners.add(listener)
+        const val NO_ID = -1L
+
+        const val NO_POSITION = -1
     }
 
-    fun unregisterListener(listener: T) {
-        this.listeners.remove(listener)
-    }
+    fun getContentId(): Long
 
-    fun isEmpty() = listeners.isEmpty()
+    fun setPosition(position: Int)
 
-    fun isNotEmpty() = listeners.isNotEmpty()
+    fun getPosition(): Int
+
+    fun setPrimary(primary: Boolean)
+
+    fun isPrimary(): Boolean
 }

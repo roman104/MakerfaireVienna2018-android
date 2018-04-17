@@ -20,15 +20,23 @@ package universum.studios.synergy.prototype.observation.control
 
 import universum.studios.android.arkhitekton.control.ReactiveController
 import universum.studios.android.arkhitekton.interaction.Interactor
-import universum.studios.android.arkhitekton.presentation.Presenter
 import universum.studios.synergy.prototype.device.headset.Headset
+import universum.studios.synergy.prototype.device.headset.Headset.SignalQuality
+import universum.studios.synergy.prototype.observation.view.presentation.ObservationPresenter
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * @author Martin Albedinsky
  */
-abstract class BaseObservationController<out I : Interactor, out P : Presenter<*>> protected constructor(builder: BaseBuilder<*, I, P>)
+abstract class BaseObservationController<out I : Interactor, out P : ObservationPresenter<*, *>> protected constructor(builder: BaseBuilder<*, I, P>)
     : ReactiveController<I, P>(builder), ObservationController<P> {
+
+    private val headsetSignalQualityListener = object : Headset.SignalQualityListener {
+
+        override fun onSignalQualityChanged(quality: SignalQuality) {
+            getPresenter().onHeadsetSignalQualityChanged(quality)
+        }
+    }
 
     private val headset = builder.headset
     private val observing = AtomicBoolean()
@@ -38,6 +46,7 @@ abstract class BaseObservationController<out I : Interactor, out P : Presenter<*
             return
         }
         onObservationStart(headset)
+        this.headset.registerSignalQualityListener(headsetSignalQualityListener)
         this.headset.connect()
         this.observing.set(true)
     }
@@ -48,6 +57,7 @@ abstract class BaseObservationController<out I : Interactor, out P : Presenter<*
         if (observing.get()) {
             onObservationStop(headset)
             this.headset.disconnect()
+            this.headset.unregisterSignalQualityListener(headsetSignalQualityListener)
             this.observing.set(false)
         }
     }
@@ -59,7 +69,7 @@ abstract class BaseObservationController<out I : Interactor, out P : Presenter<*
         stopObservation()
     }
 
-    abstract class BaseBuilder<B : BaseBuilder<B, I, P>, I : Interactor, P : Presenter<*>>
+    abstract class BaseBuilder<B : BaseBuilder<B, I, P>, I : Interactor, P : ObservationPresenter<*, *>>
     protected constructor(interactor: I, presenter: P) : ReactiveController.BaseBuilder<B, I, P>(interactor, presenter) {
 
         lateinit var headset: Headset

@@ -33,7 +33,7 @@ class DefaultAttentionObservationController internal constructor(builder: Builde
 
     private val subjectListener = object : AttentionListener {
 
-        override fun onAttentionChanged(data: AttentionData) = getPresenter().onAttentionChanged(data)
+        override fun onAttentionChanged(data: AttentionData) = getPresenter().onObservationDataChanged(data)
     }
 
     override fun onObservationStart(headset: Headset) {

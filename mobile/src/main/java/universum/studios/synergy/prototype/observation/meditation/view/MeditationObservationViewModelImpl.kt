@@ -30,6 +30,7 @@ import com.github.mikephil.charting.data.LineDataSet
  */
 class MeditationObservationViewModelImpl : ViewModel(), MeditationObservationViewModel {
 
+    override val deviceSignalQuality = ObservableField<CharSequence>("")
     override val actualValue = ObservableInt()
 
 	override val chartData: ObservableField<LineData> = ObservableField(LineData(LineDataSet(

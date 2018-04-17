@@ -23,6 +23,7 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
+import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.utils.Utils
 import universum.studios.android.arkhitekton.view.ViewModel
 import universum.studios.android.util.BundleKey
@@ -31,11 +32,12 @@ import universum.studios.synergy.prototype.observation.ObservationSubject
 import universum.studios.synergy.prototype.observation.control.ObservationController
 import universum.studios.synergy.prototype.util.Logging
 import universum.studios.synergy.prototype.view.BaseFragment
+import universum.studios.synergy.prototype.view.PageFragment
 
 /**
  * @author Martin Albedinsky
  */
-abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController<*>> : BaseFragment<VM, C>(), ObservationFragment {
+abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController<*>> : BaseFragment<VM, C>(), ObservationFragment, ObservationView<VM> {
 
     companion object {
 
@@ -44,8 +46,19 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
         fun createArguments(subject: ObservationSubject) = Bundle().apply { putString(ARGUMENT_OBSERVATION_SUBJECT, subject.name) }
     }
 
+    private var position = PageFragment.NO_POSITION
+    private var primary = false
     private lateinit var subject: ObservationSubject
     private var optionsItemSelectedListener: ObservationFragment.OnOptionsItemSelectedListener? = null
+    private var chartView: Chart<*>? = null;
+
+    override fun setPosition(position: Int) {
+        if (this.position != position) {
+            this.position = position
+        }
+    }
+
+    override fun getPosition(): Int = position
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -57,6 +70,8 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
         this.subject = ObservationSubject.valueOf(arguments?.getString(ARGUMENT_OBSERVATION_SUBJECT) ?: ObservationSubject.UNSPECIFIED.name)
         Logging.d(name(), "Created with subject '$subject'.")
     }
+
+    override fun getContentId(): Long = subject.id
 
     override fun getSubject(): ObservationSubject = subject
 
@@ -73,11 +88,25 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
             toolbar.inflateMenu(R.menu.observation)
             toolbar.setOnMenuItemClickListener { onOptionsItemSelected(it) }
         }
+        this.chartView = rootView.findViewById(R.id.chart_view)
     }
+
+    override fun setPrimary(primary: Boolean) {
+        if (this.primary != primary) {
+            this.primary = primary
+        }
+    }
+
+    override fun isPrimary(): Boolean = primary
 
     override fun onStart() {
         super.onStart()
         getController().startObservation()
+    }
+
+    override fun refreshChart() {
+        this.chartView?.notifyDataSetChanged()
+        this.chartView?.invalidate()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

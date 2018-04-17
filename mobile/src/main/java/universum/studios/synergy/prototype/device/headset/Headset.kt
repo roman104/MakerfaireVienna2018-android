@@ -20,6 +20,7 @@ package universum.studios.synergy.prototype.device.headset
 
 import universum.studios.synergy.prototype.device.headset.data.AttentionData
 import universum.studios.synergy.prototype.device.headset.data.MeditationData
+import universum.studios.synergy.prototype.util.ListenersRegistry
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -27,11 +28,40 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 abstract class Headset {
 
+    enum class SignalQuality {
+        UNKNOWN, GOOD, MEDIUM, POOR
+    }
+
+    interface SignalQualityListener {
+
+        fun onSignalQualityChanged(quality: SignalQuality)
+
+        class Registry : ListenersRegistry<SignalQualityListener>() {
+
+            fun notifySignalQualityChange(quality: SignalQuality) {
+                listeners.forEach { it.onSignalQualityChanged(quality) }
+            }
+        }
+    }
+
+    private val signalQualityListeners = SignalQualityListener.Registry()
     private val attentionListenerRegistry = AttentionListener.Registry()
     private val meditationListenerRegistry = MeditationListener.Registry()
     private val connected = AtomicBoolean()
 
     fun name(): String = javaClass.simpleName
+
+    fun registerSignalQualityListener(listener: SignalQualityListener) {
+        this.signalQualityListeners.registerListener(listener)
+    }
+
+    protected fun notifySignalQualityChange(quality: SignalQuality) {
+        this.signalQualityListeners.notifySignalQualityChange(quality)
+    }
+
+    fun unregisterSignalQualityListener(listener: SignalQualityListener) {
+        this.signalQualityListeners.unregisterListener(listener)
+    }
 
     fun registerAttentionListener(listener: AttentionListener) {
         this.attentionListenerRegistry.registerListener(listener)

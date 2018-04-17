@@ -33,7 +33,7 @@ class DefaultMeditationObservationController internal constructor(builder: Build
 
     private val subjectListener = object : MeditationListener {
 
-        override fun onMeditationChanged(data: MeditationData) = getPresenter().onMeditationChanged(data)
+        override fun onMeditationChanged(data: MeditationData) = getPresenter().onObservationDataChanged(data)
     }
 
     override fun onObservationStart(headset: Headset) {

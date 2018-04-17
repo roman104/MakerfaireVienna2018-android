@@ -21,7 +21,6 @@ package universum.studios.synergy.prototype.observation.meditation.view
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import com.github.mikephil.charting.utils.Utils
 import kotlinx.android.synthetic.main.fragment_observation_attention.*
 import universum.studios.android.support.fragment.annotation.ContentView
 import universum.studios.synergy.prototype.R
@@ -29,13 +28,12 @@ import universum.studios.synergy.prototype.databinding.FragmentObservationMedita
 import universum.studios.synergy.prototype.observation.ObservationSubject
 import universum.studios.synergy.prototype.observation.meditation.control.MeditationObservationController
 import universum.studios.synergy.prototype.observation.view.BaseObservationFragment
-import universum.studios.synergy.prototype.observation.view.ObservationView
 
 /**
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.fragment_observation_meditation)
-class MeditationObservationFragment : BaseObservationFragment<MeditationObservationViewModel, MeditationObservationController>(), ObservationView<MeditationObservationViewModel> {
+class MeditationObservationFragment : BaseObservationFragment<MeditationObservationViewModel, MeditationObservationController>() {
 
     companion object {
 
@@ -49,7 +47,6 @@ class MeditationObservationFragment : BaseObservationFragment<MeditationObservat
     override fun onAttach(context: Context) {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onAttach(context)
-        Utils.init(context)
     }
 
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
@@ -58,10 +55,5 @@ class MeditationObservationFragment : BaseObservationFragment<MeditationObservat
             viewModel = super.getViewModel()
         }
         this.chart_view.data = getViewModel().chartData.get()
-    }
-
-    override fun refreshChart() {
-        this.chart_view.notifyDataSetChanged()
-        this.chart_view.invalidate()
     }
 }

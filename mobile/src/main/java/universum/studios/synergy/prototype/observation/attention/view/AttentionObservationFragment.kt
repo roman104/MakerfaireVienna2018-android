@@ -28,13 +28,12 @@ import universum.studios.synergy.prototype.databinding.FragmentObservationAttent
 import universum.studios.synergy.prototype.observation.ObservationSubject
 import universum.studios.synergy.prototype.observation.attention.control.AttentionObservationController
 import universum.studios.synergy.prototype.observation.view.BaseObservationFragment
-import universum.studios.synergy.prototype.observation.view.ObservationView
 
 /**
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.fragment_observation_attention)
-class AttentionObservationFragment : BaseObservationFragment<AttentionObservationViewModel, AttentionObservationController>(), ObservationView<AttentionObservationViewModel> {
+class AttentionObservationFragment : BaseObservationFragment<AttentionObservationViewModel, AttentionObservationController>() {
 
     companion object {
 
@@ -56,10 +55,5 @@ class AttentionObservationFragment : BaseObservationFragment<AttentionObservatio
             viewModel = super.getViewModel()
         }
         this.chart_view.data = getViewModel().chartData.get()
-    }
-
-    override fun refreshChart() {
-        this.chart_view.notifyDataSetChanged()
-        this.chart_view.invalidate()
     }
 }

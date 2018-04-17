@@ -20,11 +20,12 @@ package universum.studios.synergy.prototype.observation.view
 
 import android.view.MenuItem
 import universum.studios.synergy.prototype.observation.ObservationSubject
+import universum.studios.synergy.prototype.view.PageFragment
 
 /**
  * @author Martin Albedinsky
  */
-interface ObservationFragment {
+interface ObservationFragment : PageFragment {
 
     interface OnOptionsItemSelectedListener {
 

@@ -16,24 +16,19 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.util
+package universum.studios.synergy.prototype.observation.view.presentation
+
+import universum.studios.android.arkhitekton.presentation.Presenter
+import universum.studios.android.arkhitekton.view.View
+import universum.studios.synergy.prototype.device.headset.Headset.SignalQuality
+import universum.studios.synergy.prototype.device.headset.data.ObservationData
 
 /**
  * @author Martin Albedinsky
  */
-open class ListenersRegistry<T> {
+interface ObservationPresenter<in V : View<*>, in D : ObservationData> : Presenter<V> {
 
-    protected val listeners = ArrayList<T>()
+    fun onHeadsetSignalQualityChanged(quality: SignalQuality)
 
-    fun registerListener(listener: T) {
-        if (!listeners.contains(listener)) this.listeners.add(listener)
-    }
-
-    fun unregisterListener(listener: T) {
-        this.listeners.remove(listener)
-    }
-
-    fun isEmpty() = listeners.isEmpty()
-
-    fun isNotEmpty() = listeners.isNotEmpty()
+    fun onObservationDataChanged(data: D)
 }

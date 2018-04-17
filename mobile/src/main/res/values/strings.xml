@@ -68,6 +68,7 @@
 
 	<string name="observation_title">Observation</string>
 	<string name="observation_menu_item_stop">Stop current observation</string>
+	<string name="observation_device_signal_quality_format">Device signal quality: <b>%1$s</b></string>
 	<string name="observation_subject_attention">Attention</string>
 	<string name="observation_subject_meditation">Meditation</string>
 

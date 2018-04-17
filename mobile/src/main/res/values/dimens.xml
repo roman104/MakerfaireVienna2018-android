@@ -35,4 +35,9 @@
 	<dimen name="spacing_tertiary">8dp</dimen>
 	<dimen name="spacing_tertiary_fallback">6dp</dimen>
 	<dimen name="spacing_small">4dp</dimen>
+
+	<!-- ### OBSERVATION ======================================================================= -->
+
+	<dimen name="observation_toolbar_actual_value_margin_start">56dp</dimen>
+	<dimen name="observation_char_height">280dp</dimen>
 </resources>

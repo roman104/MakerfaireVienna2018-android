@@ -21,7 +21,14 @@ package universum.studios.synergy.prototype.device.headset.data
 /**
  * @author Martin Albedinsky
  */
-class MeditationData(val value: Int) : HeadsetData() {
+class MeditationData internal constructor(builder: Builder) : ObservationData(builder) {
 
-    // todo: implement class
+    val value = builder.value
+
+    class Builder : ObservationData.DataBuilder<MeditationData>() {
+
+        var value: Int = 0
+
+        override fun build() = MeditationData(this)
+    }
 }

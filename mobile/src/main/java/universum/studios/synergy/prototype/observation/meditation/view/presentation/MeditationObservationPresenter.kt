@@ -18,15 +18,12 @@
  */
 package universum.studios.synergy.prototype.observation.meditation.view.presentation
 
-import universum.studios.android.arkhitekton.presentation.Presenter
 import universum.studios.synergy.prototype.device.headset.data.MeditationData
 import universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationViewModel
 import universum.studios.synergy.prototype.observation.view.ObservationView
+import universum.studios.synergy.prototype.observation.view.presentation.ObservationPresenter
 
 /**
  * @author Martin Albedinsky
  */
-interface MeditationObservationPresenter : Presenter<ObservationView<MeditationObservationViewModel>> {
-
-    fun onMeditationChanged(data: MeditationData)
-}
+interface MeditationObservationPresenter : ObservationPresenter<ObservationView<MeditationObservationViewModel>, MeditationData>
