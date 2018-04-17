@@ -16,16 +16,14 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.observation.meditation.control
+package universum.studios.synergy.prototype.device.headset
 
-import universum.studios.android.arkhitekton.control.Controller
-import universum.studios.synergy.prototype.observation.control.ObservationController
-import universum.studios.synergy.prototype.observation.meditation.view.presentation.MeditationObservationPresenter
+import universum.studios.synergy.prototype.device.headset.data.HeadsetData
 
 /**
  * @author Martin Albedinsky
  */
-interface MeditationObservationController : ObservationController<MeditationObservationPresenter> {
+interface HeadsetDataListener<in T : HeadsetData> {
 
-    class Holder : Controller.Holder<MeditationObservationController>()
+    fun onHeadsetDataChanged(data: T)
 }

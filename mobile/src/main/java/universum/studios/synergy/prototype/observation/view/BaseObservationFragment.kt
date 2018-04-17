@@ -18,37 +18,79 @@
  */
 package universum.studios.synergy.prototype.observation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.view.View
-import universum.studios.android.arkhitekton.control.Controller
+import com.github.mikephil.charting.utils.Utils
 import universum.studios.android.arkhitekton.view.ViewModel
+import universum.studios.android.util.BundleKey
 import universum.studios.synergy.prototype.R
+import universum.studios.synergy.prototype.observation.ObservationSubject
+import universum.studios.synergy.prototype.observation.control.ObservationController
+import universum.studios.synergy.prototype.util.Logging
 import universum.studios.synergy.prototype.view.BaseFragment
 
 /**
  * @author Martin Albedinsky
  */
-abstract class BaseObservationFragment<VM : ViewModel, C : Controller<*>> : BaseFragment<VM, C>() {
+abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController<*>> : BaseFragment<VM, C>(), ObservationFragment {
+
+    companion object {
+
+        val ARGUMENT_OBSERVATION_SUBJECT = BundleKey.argument(ObservationFragment::class.java, "ObservationSubject")
+
+        fun createArguments(subject: ObservationSubject) = Bundle().apply { putString(ARGUMENT_OBSERVATION_SUBJECT, subject.name) }
+    }
+
+    private lateinit var subject: ObservationSubject
+    private var optionsItemSelectedListener: ObservationFragment.OnOptionsItemSelectedListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Utils.init(context)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.subject = ObservationSubject.valueOf(arguments?.getString(ARGUMENT_OBSERVATION_SUBJECT) ?: ObservationSubject.UNSPECIFIED.name)
+        Logging.d(name(), "Created with subject '$subject'.")
+    }
+
+    override fun getSubject(): ObservationSubject = subject
+
+    override fun setOnOptionsItemSelectedListener(listener: ObservationFragment.OnOptionsItemSelectedListener?) {
+        this.optionsItemSelectedListener = listener
+    }
 
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
         super.onBindViews(rootView, savedInstanceState)
         val toolbar = rootView.findViewById<Toolbar>(R.id.ui_child_toolbar)
         toolbar?.let {
+            toolbar.setTitle(subject.nameRes)
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             toolbar.inflateMenu(R.menu.observation)
             toolbar.setOnMenuItemClickListener { onOptionsItemSelected(it) }
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        getController().startObservation()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_item_stop -> {
-                // todo: remove this fragment from pager adapter ...
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        return optionsItemSelectedListener?.onObservationOptionsItemSelected(this, item) ?: false
+    }
+
+    override fun onStop() {
+        super.onStop()
+        getController().stopObservation()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        this.optionsItemSelectedListener = null
     }
 }

@@ -44,7 +44,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="?attr/actionBarSize"
 			android:background="@null"
-			app:navigationIcon="@drawable/vc_ic_close_24dp"
+			app:navigationIcon="@drawable/vc_ic_tb_close_24dp"
 			app:title="@string/device_selection_title" />
 	</FrameLayout>
 </layout>

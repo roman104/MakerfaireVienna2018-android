@@ -18,68 +18,40 @@
  */
 package universum.studios.synergy.prototype.observation.meditation.control
 
-import android.bluetooth.BluetoothAdapter
-import android.content.Context
-import universum.studios.android.arkhitekton.control.ReactiveController
 import universum.studios.android.arkhitekton.interaction.Interactor
-import universum.studios.synergy.prototype.device.Device
 import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.device.headset.MeditationListener
 import universum.studios.synergy.prototype.device.headset.data.MeditationData
-import universum.studios.synergy.prototype.device.headset.neurosky.NeuroSkyHeadset
+import universum.studios.synergy.prototype.observation.control.BaseObservationController
 import universum.studios.synergy.prototype.observation.meditation.view.presentation.MeditationObservationPresenter
 
 /**
  * @author Martin Albedinsky
  */
 class DefaultMeditationObservationController internal constructor(builder: Builder)
-    : ReactiveController<Interactor, MeditationObservationPresenter>(builder), MeditationObservationController {
+    : BaseObservationController<Interactor, MeditationObservationPresenter>(builder), MeditationObservationController {
 
-    companion object {
-    
+    private val subjectListener = object : MeditationListener {
+
+        override fun onMeditationChanged(data: MeditationData) = getPresenter().onMeditationChanged(data)
     }
 
-    private val context = builder.context
-    private val bluetoothAdapter = builder.bluetoothAdapter
-    private val device = builder.device
-    private var headset: Headset? = null
-
-    override fun onActivated() {
-        super.onActivated()
-        startObservation()
+    override fun onObservationStart(headset: Headset) {
+        super.onObservationStart(headset)
+        headset.registerMeditationListener(subjectListener)
     }
 
-    override fun startObservation() {
-        this.headset = NeuroSkyHeadset(context, bluetoothAdapter.getRemoteDevice(device.address))
-        this.headset?.registerMeditationListener(object : MeditationListener {
-
-            override fun onMeditationChanged(data: MeditationData) {
-                getPresenter().onMeditationChanged(data)
-            }
-        })
-        this.headset?.connect()
+    override fun onObservationStop(headset: Headset) {
+        super.onObservationStop(headset)
+        headset.unregisterMeditationListener(subjectListener)
     }
 
-    override fun stopObservation() {
-        this.headset?.disconnect()
-        this.headset = null
-    }
-
-    override fun onDeactivated() {
-        super.onDeactivated()
-        stopObservation()
-    }
-    
     class Builder(
         interactor: Interactor,
         presenter: MeditationObservationPresenter
-    ) : ReactiveController.BaseBuilder<Builder, Interactor, MeditationObservationPresenter>(interactor, presenter) {
+    ) : BaseObservationController.BaseBuilder<Builder, Interactor, MeditationObservationPresenter>(interactor, presenter) {
     
         override val self = this
-        lateinit var context: Context
-        lateinit var bluetoothAdapter: BluetoothAdapter
-        lateinit var device: Device
-
         override fun build() = DefaultMeditationObservationController(this)
     }
 }

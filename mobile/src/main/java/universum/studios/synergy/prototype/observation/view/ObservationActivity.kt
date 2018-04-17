@@ -19,6 +19,8 @@
 package universum.studios.synergy.prototype.observation.view
 
 import android.os.Bundle
+import android.support.v4.view.ViewPager.OnPageChangeListener
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import kotlinx.android.synthetic.main.activity_observation.*
@@ -29,6 +31,7 @@ import universum.studios.android.support.dialog.Dialog.OnDialogListener
 import universum.studios.android.support.fragment.annotation.ContentView
 import universum.studios.android.support.fragment.manage.FragmentRequest
 import universum.studios.android.support.fragment.transition.FragmentTransitions
+import universum.studios.android.support.pager.adapter.FragmentPagerAdapter
 import universum.studios.synergy.prototype.R
 import universum.studios.synergy.prototype.device.Device
 import universum.studios.synergy.prototype.device.view.DeviceSelectionFragment
@@ -41,13 +44,17 @@ import universum.studios.synergy.prototype.view.BaseActivity
  */
 @ContentView(R.layout.activity_observation)
 class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelectionListener,
+        OnPageChangeListener,
+        ObservationFragment.OnOptionsItemSelectedListener,
         AdapterProvider,
         OnDialogListener,
         AdapterDialog.OnItemClickListener {
 
+    internal lateinit var selectedDevice: Device
     private lateinit var pagerAdapter: ObservationFragmentsAdapter
     private var subjectsDialogAdapter: ObservationSubjectsDialogAdapter? = null
     private var selectedSubjectFlags = 0
+    private var selectedPagePosition = FragmentPagerAdapter.NO_POSITION
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestFeature(FEATURE_INJECTION_BASIC)
@@ -71,13 +78,43 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
     }
 
     override fun onDeviceSelected(device: Device) {
+        this.selectedDevice = device
         fragmentController.newRequest(findCurrentFragment()!!)
                 .transaction(FragmentRequest.REMOVE)
                 .transition(FragmentTransitions.CROSS_FADE)
                 .execute()
-        this.pagerAdapter = ObservationFragmentsAdapter(supportFragmentManager, device)
+        this.pagerAdapter = ObservationFragmentsAdapter(supportFragmentManager)
         this.pager.adapter = pagerAdapter
+        this.pager.addOnPageChangeListener(this)
         this.fab.show()
+    }
+
+    override fun onPageScrollStateChanged(state: Int) {}
+
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        if (positionOffset == 0f) onPageSelected(position)
+    }
+
+    override fun onPageSelected(position: Int) {
+        if (selectedPagePosition != position) {
+            if (selectedPagePosition != FragmentPagerAdapter.NO_POSITION) {
+                this.pagerAdapter.getFragmentAt(selectedPagePosition)?.setOnOptionsItemSelectedListener(null)
+            }
+            this.selectedPagePosition = position
+            this.pagerAdapter.getFragmentAt(position)?.setOnOptionsItemSelectedListener(this)
+        }
+    }
+
+    override fun onObservationOptionsItemSelected(fragment: ObservationFragment, item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_item_stop -> {
+                val subject = fragment.getSubject()
+                this.selectedSubjectFlags = selectedSubjectFlags and subject.flag.inv()
+                this.pagerAdapter.removeObservationSubject(subject)
+                true
+            }
+            else -> false
+        }
     }
 
     override fun provideDialogAdapter(dialog: Dialog): Any? {
@@ -127,5 +164,10 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
             return true
         }
         return false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.pager.adapter = null
     }
 }

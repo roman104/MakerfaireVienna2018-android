@@ -16,16 +16,34 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.observation.meditation.control
+package universum.studios.synergy.prototype.observation.view
 
-import universum.studios.android.arkhitekton.control.Controller
-import universum.studios.synergy.prototype.observation.control.ObservationController
-import universum.studios.synergy.prototype.observation.meditation.view.presentation.MeditationObservationPresenter
+import android.arch.lifecycle.ViewModel
+import universum.studios.android.arkhitekton.util.Preconditions
+import universum.studios.synergy.prototype.device.headset.Headset
 
 /**
  * @author Martin Albedinsky
  */
-interface MeditationObservationController : ObservationController<MeditationObservationPresenter> {
+class ObservationHeadsetHolder : ViewModel() {
 
-    class Holder : Controller.Holder<MeditationObservationController>()
+    private var headset: Headset? = null
+
+    fun attachHeadset(headset: Headset): Headset {
+        this.headset = headset
+        return getHeadset()
+    }
+
+    fun hasHeadset() = headset != null
+
+    fun getHeadset(): Headset = Preconditions.checkNotNull(headset, "No headset attached!")
+
+    fun detachHeadset() {
+        this.headset = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        detachHeadset()
+    }
 }

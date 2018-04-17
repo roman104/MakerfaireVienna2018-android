@@ -16,16 +16,17 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.observation.meditation.control
+package universum.studios.synergy.prototype.observation.control
 
 import universum.studios.android.arkhitekton.control.Controller
-import universum.studios.synergy.prototype.observation.control.ObservationController
-import universum.studios.synergy.prototype.observation.meditation.view.presentation.MeditationObservationPresenter
+import universum.studios.android.arkhitekton.presentation.Presenter
 
 /**
  * @author Martin Albedinsky
  */
-interface MeditationObservationController : ObservationController<MeditationObservationPresenter> {
+interface ObservationController<out P : Presenter<*>> : Controller<P> {
 
-    class Holder : Controller.Holder<MeditationObservationController>()
+    fun startObservation()
+
+    fun stopObservation()
 }

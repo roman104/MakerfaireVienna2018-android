@@ -20,19 +20,16 @@ package universum.studios.synergy.prototype.device.headset
 
 import universum.studios.synergy.prototype.device.headset.data.AttentionData
 import universum.studios.synergy.prototype.device.headset.data.MeditationData
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * @author Martin Albedinsky
  */
 abstract class Headset {
 
-    companion object {
-
-
-    }
-
     private val attentionListenerRegistry = AttentionListener.Registry()
     private val meditationListenerRegistry = MeditationListener.Registry()
+    private val connected = AtomicBoolean()
 
     fun name(): String = javaClass.simpleName
 
@@ -60,7 +57,29 @@ abstract class Headset {
         this.meditationListenerRegistry.unregisterListener(listener)
     }
 
-    abstract fun connect()
+    private fun hasRegisteredListeners(): Boolean {
+        return attentionListenerRegistry.isNotEmpty() || meditationListenerRegistry.isNotEmpty()
+    }
 
-    abstract fun disconnect()
+    fun connect() {
+        if (connected.get()) {
+            return
+        }
+        onConnect()
+        this.connected.set(true)
+    }
+
+    abstract fun onConnect()
+
+    fun disconnect() {
+        if (hasRegisteredListeners()) {
+            return
+        }
+        if (connected.get()) {
+            onDisconnect()
+            this.connected.set(false)
+        }
+    }
+
+    abstract fun onDisconnect()
 }

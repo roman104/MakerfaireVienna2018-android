@@ -32,7 +32,9 @@ import universum.studios.synergy.prototype.observation.ObservationSubject
  * @author Martin Albedinsky
  */
 class ObservationSubjectsDialogAdapter(context: Context, private val layoutInflater: LayoutInflater)
-    : SimpleListAdapter<ObservationSubjectsDialogAdapter, ObservationSubjectsDialogAdapter.ItemHolder, ObservationSubject>(context, ObservationSubject.values()) {
+    : SimpleListAdapter<ObservationSubjectsDialogAdapter, ObservationSubjectsDialogAdapter.ItemHolder, ObservationSubject>(
+        context,
+        ObservationSubject.values().filter { it != ObservationSubject.UNSPECIFIED }) {
 
     private var selectedSubjectFlags = 0
 

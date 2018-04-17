@@ -22,6 +22,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_device_selection.*
 import universum.studios.android.support.fragment.annotation.ContentView
@@ -64,6 +65,8 @@ class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSel
             viewModel = super.getViewModel()
         }
         this.ui_child_toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        this.ui_child_toolbar.inflateMenu(R.menu.device_selection)
+        this.ui_child_toolbar.setOnMenuItemClickListener { onOptionsItemSelected(it) }
         this.list.apply {
             layoutManager = LinearLayoutManager(rootView.context, LinearLayoutManager.VERTICAL, false)
             adapter = devicesAdapter
@@ -80,6 +83,16 @@ class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSel
             devicesAdapter.changeItems(devices)
         })
         getController().startDevicesDiscovery()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_item_refresh -> {
+                getController().restartDevicesDiscovery()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onStop() {

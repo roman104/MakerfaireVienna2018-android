@@ -18,12 +18,10 @@
  */
 package universum.studios.synergy.prototype.observation.attention.view
 
-import android.bluetooth.BluetoothManager
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import universum.studios.android.arkhitekton.interaction.Interactor
-import universum.studios.synergy.prototype.device.Device
+import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.observation.attention.control.AttentionObservationController
 import universum.studios.synergy.prototype.observation.attention.control.DefaultAttentionObservationController
 import universum.studios.synergy.prototype.observation.attention.view.presentation.AttentionObservationPresenter
@@ -40,16 +38,13 @@ class AttentionObservationFragmentModule : BaseFragmentModule() {
 	@Provides fun provideController(
 			fragment: AttentionObservationFragment,
 			interactor: Interactor,
-			presenter: AttentionObservationPresenter
+			presenter: AttentionObservationPresenter,
+			headset: Headset
 	): AttentionObservationController {
 	    val holder = provideControllerHolder(fragment, AttentionObservationController.Holder::class.java)
 		return if (holder.hasController()) holder.getController()
 		else holder.attachController(DefaultAttentionObservationController.Builder(interactor, presenter)
-                .apply {
-					context = fragment.requireContext()
-                    bluetoothAdapter = (fragment.requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
-                    device = fragment.arguments?.getParcelable(AttentionObservationFragment.ARGUMENT_DEVICE) as Device
-                }
+                .apply { this.headset = headset }
                 .build())
 	}
 	

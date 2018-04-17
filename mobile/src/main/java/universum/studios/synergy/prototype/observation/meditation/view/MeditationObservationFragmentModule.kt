@@ -18,12 +18,10 @@
  */
 package universum.studios.synergy.prototype.observation.meditation.view
 
-import android.bluetooth.BluetoothManager
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import universum.studios.android.arkhitekton.interaction.Interactor
-import universum.studios.synergy.prototype.device.Device
+import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.observation.meditation.control.DefaultMeditationObservationController
 import universum.studios.synergy.prototype.observation.meditation.control.MeditationObservationController
 import universum.studios.synergy.prototype.observation.meditation.view.presentation.DefaultMeditationObservationPresenter
@@ -40,16 +38,13 @@ class MeditationObservationFragmentModule : BaseFragmentModule() {
 	@Provides fun provideController(
 			fragment: MeditationObservationFragment,
 			interactor: Interactor,
-			presenter: MeditationObservationPresenter
+			presenter: MeditationObservationPresenter,
+			headset: Headset
 	): MeditationObservationController {
 	    val holder = provideControllerHolder(fragment, MeditationObservationController.Holder::class.java)
 		return if (holder.hasController()) holder.getController()
 		else holder.attachController(DefaultMeditationObservationController.Builder(interactor, presenter)
-                .apply {
-					context = fragment.requireContext()
-                    bluetoothAdapter = (fragment.requireContext().getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
-                    device = fragment.arguments?.getParcelable(MeditationObservationFragment.ARGUMENT_DEVICE) as Device
-                }
+                .apply { this.headset = headset }
                 .build())
 	}
 	

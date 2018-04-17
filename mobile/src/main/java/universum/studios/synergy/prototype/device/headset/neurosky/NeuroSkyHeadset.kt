@@ -61,6 +61,7 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
     }
 
     init {
+        Logging.i(name(), "Created new instance ...")
         nskAlgoSdk.apply {
             setOnSignalQualityListener { level -> /* todo: handle signal quality change ... */ }
             setOnStateChangeListener { state, reason -> /* todo: handle state change ... */  }
@@ -75,7 +76,7 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
         }
     }
 
-    override fun connect() {
+    override fun onConnect() {
         this.deviceStreamReader = TgStreamReader(bluetoothDevice, deviceStreamHandler)
         this.deviceStreamReader?.startLog()
         this.deviceStreamReader?.connectAndStart()
@@ -87,7 +88,7 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
         NskAlgoSdk.NskAlgoStart(false)
     }
 
-    override fun disconnect() {
+    override fun onDisconnect() {
         this.deviceStreamReader?.stop()
         this.deviceStreamReader?.close()
         this.deviceStreamReader = null

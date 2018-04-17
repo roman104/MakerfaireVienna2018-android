@@ -16,16 +16,25 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.observation.meditation.control
+package universum.studios.synergy.prototype.device.headset
 
-import universum.studios.android.arkhitekton.control.Controller
-import universum.studios.synergy.prototype.observation.control.ObservationController
-import universum.studios.synergy.prototype.observation.meditation.view.presentation.MeditationObservationPresenter
+import android.bluetooth.BluetoothManager
+import android.content.Context
+import dagger.Module
+import dagger.Provides
+import universum.studios.android.arkhitekton.util.Preconditions
+import universum.studios.synergy.prototype.device.Device
+import universum.studios.synergy.prototype.device.headset.neurosky.NeuroSkyHeadset
 
 /**
  * @author Martin Albedinsky
  */
-interface MeditationObservationController : ObservationController<MeditationObservationPresenter> {
+@Module class HeadsetModule {
 
-    class Holder : Controller.Holder<MeditationObservationController>()
+    @Provides fun provideHeadset(context: Context, device: Device): Headset {
+        val bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        Preconditions.checkNotNull(bluetoothAdapter, "No bluetooth adapter available!")
+        val bluetoothDevice = bluetoothAdapter!!.getRemoteDevice(device.address)
+        return NeuroSkyHeadset(context, bluetoothDevice)
+    }
 }

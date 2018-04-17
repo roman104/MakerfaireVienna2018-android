@@ -28,6 +28,8 @@ interface DeviceSelectionController : Controller<DeviceSelectionPresenter> {
 
     fun startDevicesDiscovery()
 
+    fun restartDevicesDiscovery()
+
     fun stopDevicesDiscovery()
 
     class Holder : Controller.Holder<DeviceSelectionController>()

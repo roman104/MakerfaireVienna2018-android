@@ -43,6 +43,11 @@ class DefaultDeviceSelectionController internal constructor(builder: Builder) : 
         isActive().let { devicesLiveData.observeForever(devicesObserver) }
     }
 
+    override fun restartDevicesDiscovery() {
+        stopDevicesDiscovery()
+        startDevicesDiscovery()
+    }
+
     override fun stopDevicesDiscovery() {
         devicesLiveData.removeObserver(devicesObserver)
     }

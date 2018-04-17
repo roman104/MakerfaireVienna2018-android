@@ -28,8 +28,8 @@
 					android:layout_height="?attr/actionBarSize"
 					android:background="@drawable/none"
 					android:elevation="@dimen/none"
-					app:navigationIcon="@drawable/vc_ic_close_24dp"
-					app:title="@string/observation_subject_attention" />
+					app:navigationIcon="@drawable/vc_ic_tb_close_24dp"
+					tools:title="@string/observation_subject_attention" />
 
 				<TextView
 					android:layout_width="wrap_content"

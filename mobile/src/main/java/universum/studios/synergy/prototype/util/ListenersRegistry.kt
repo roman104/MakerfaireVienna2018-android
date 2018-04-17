@@ -32,4 +32,8 @@ abstract class ListenersRegistry<T> {
     fun unregisterListener(listener: T) {
         this.listeners.remove(listener)
     }
+
+    fun isEmpty() = listeners.isEmpty()
+
+    fun isNotEmpty() = listeners.isNotEmpty()
 }

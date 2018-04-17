@@ -62,6 +62,7 @@
 
 	<string name="device_selection_title">Select device</string>
 	<string name="device_selection_empty">No devices were found yet.</string>
+	<string name="device_selection_menu_item_refresh">Restart discovery</string>
 
 	<!-- ### OBSERVATION ======================================================================= -->
 

@@ -21,6 +21,8 @@ package universum.studios.synergy.prototype.view
 import android.os.Bundle
 import android.support.annotation.IntDef
 import android.support.v4.app.Fragment
+import butterknife.ButterKnife
+import butterknife.Unbinder
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -39,16 +41,19 @@ abstract class BaseActivity : UniversiCompatActivity(), HasSupportFragmentInject
     companion object {
 
         const val FEATURE_INJECTION_BASIC = 0x00000001
+        const val FEATURE_INJECTION_UI = 0x00000001 shl 1
     }
 
     @IntDef(flag = true, value = [
-        FEATURE_INJECTION_BASIC
+        FEATURE_INJECTION_BASIC,
+        FEATURE_INJECTION_UI
     ])
     @Retention(AnnotationRetention.SOURCE)
     protected annotation class Feature
 
     private val features = Flags(0)
     private var fragmentInjector: DispatchingAndroidInjector<Fragment>? = null
+    private var unbinder: Unbinder? = null
 
     fun name(): String = javaClass.simpleName
 
@@ -73,4 +78,17 @@ abstract class BaseActivity : UniversiCompatActivity(), HasSupportFragmentInject
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = Preconditions.checkNotNull(fragmentInjector, "No fragment injector attached!")
+
+    override fun onBindViews() {
+        super.onBindViews()
+        if (hasFeature(FEATURE_INJECTION_UI)) {
+            this.unbinder =  ButterKnife.bind(this)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.unbinder?.unbind()
+        this.unbinder = null
+    }
 }

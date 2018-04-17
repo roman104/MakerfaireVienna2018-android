@@ -16,16 +16,22 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.observation.meditation.control
+package universum.studios.synergy.prototype.observation.view
 
-import universum.studios.android.arkhitekton.control.Controller
-import universum.studios.synergy.prototype.observation.control.ObservationController
-import universum.studios.synergy.prototype.observation.meditation.view.presentation.MeditationObservationPresenter
+import android.view.MenuItem
+import universum.studios.synergy.prototype.observation.ObservationSubject
 
 /**
  * @author Martin Albedinsky
  */
-interface MeditationObservationController : ObservationController<MeditationObservationPresenter> {
+interface ObservationFragment {
 
-    class Holder : Controller.Holder<MeditationObservationController>()
+    interface OnOptionsItemSelectedListener {
+
+        fun onObservationOptionsItemSelected(fragment: ObservationFragment, item: MenuItem): Boolean
+    }
+
+    fun getSubject(): ObservationSubject
+
+    fun setOnOptionsItemSelectedListener(listener: OnOptionsItemSelectedListener?)
 }

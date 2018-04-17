@@ -24,10 +24,9 @@ import android.view.View
 import com.github.mikephil.charting.utils.Utils
 import kotlinx.android.synthetic.main.fragment_observation_attention.*
 import universum.studios.android.support.fragment.annotation.ContentView
-import universum.studios.android.util.BundleKey
 import universum.studios.synergy.prototype.R
 import universum.studios.synergy.prototype.databinding.FragmentObservationMeditationBinding
-import universum.studios.synergy.prototype.device.Device
+import universum.studios.synergy.prototype.observation.ObservationSubject
 import universum.studios.synergy.prototype.observation.meditation.control.MeditationObservationController
 import universum.studios.synergy.prototype.observation.view.BaseObservationFragment
 import universum.studios.synergy.prototype.observation.view.ObservationView
@@ -40,10 +39,8 @@ class MeditationObservationFragment : BaseObservationFragment<MeditationObservat
 
     companion object {
 
-        val ARGUMENT_DEVICE = BundleKey.argument(MeditationObservationFragment::class.java, "Device")
-
-        fun newInstance(device: Device) = MeditationObservationFragment().apply {
-            arguments = Bundle().apply { putParcelable(ARGUMENT_DEVICE, device) }
+        fun newInstance() = MeditationObservationFragment().apply {
+            arguments = BaseObservationFragment.createArguments(ObservationSubject.MEDITATION)
         }
     }
 

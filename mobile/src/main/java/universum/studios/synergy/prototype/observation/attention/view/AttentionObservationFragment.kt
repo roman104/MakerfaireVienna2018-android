@@ -21,13 +21,11 @@ package universum.studios.synergy.prototype.observation.attention.view
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import com.github.mikephil.charting.utils.Utils
 import kotlinx.android.synthetic.main.fragment_observation_attention.*
 import universum.studios.android.support.fragment.annotation.ContentView
-import universum.studios.android.util.BundleKey
 import universum.studios.synergy.prototype.R
 import universum.studios.synergy.prototype.databinding.FragmentObservationAttentionBinding
-import universum.studios.synergy.prototype.device.Device
+import universum.studios.synergy.prototype.observation.ObservationSubject
 import universum.studios.synergy.prototype.observation.attention.control.AttentionObservationController
 import universum.studios.synergy.prototype.observation.view.BaseObservationFragment
 import universum.studios.synergy.prototype.observation.view.ObservationView
@@ -40,10 +38,8 @@ class AttentionObservationFragment : BaseObservationFragment<AttentionObservatio
 
     companion object {
 
-        val ARGUMENT_DEVICE = BundleKey.argument(AttentionObservationFragment::class.java, "Device")
-
-        fun newInstance(device: Device) = AttentionObservationFragment().apply {
-            arguments = Bundle().apply { putParcelable(ARGUMENT_DEVICE, device) }
+        fun newInstance() = AttentionObservationFragment().apply {
+            arguments = BaseObservationFragment.createArguments(ObservationSubject.ATTENTION)
         }
     }
 
@@ -52,7 +48,6 @@ class AttentionObservationFragment : BaseObservationFragment<AttentionObservatio
     override fun onAttach(context: Context) {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onAttach(context)
-        Utils.init(context)
     }
 
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {

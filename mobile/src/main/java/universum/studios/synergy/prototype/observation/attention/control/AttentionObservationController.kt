@@ -20,15 +20,12 @@ package universum.studios.synergy.prototype.observation.attention.control
 
 import universum.studios.android.arkhitekton.control.Controller
 import universum.studios.synergy.prototype.observation.attention.view.presentation.AttentionObservationPresenter
+import universum.studios.synergy.prototype.observation.control.ObservationController
 
 /**
  * @author Martin Albedinsky
  */
-interface AttentionObservationController : Controller<AttentionObservationPresenter> {
-
-    fun startObservation()
-
-    fun stopObservation()
+interface AttentionObservationController : ObservationController<AttentionObservationPresenter> {
 
     class Holder : Controller.Holder<AttentionObservationController>()
 }
