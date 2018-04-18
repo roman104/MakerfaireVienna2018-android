@@ -17,6 +17,8 @@
  * *************************************************************************************************
  */
 
+// Configuration specific for the DEVELOPMENT environment.
+
 task buildDevelopment(dependsOn: [':mobile:assembleDevelopmentDebug', ':mobile:assembleDevelopmentDebugUnitTest']) {
     group 'development'
     description "Builds code base for the 'DEVELOPMENT' environment."

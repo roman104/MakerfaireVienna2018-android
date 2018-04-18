@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-	Resource file containing all application strings that are used in the application's main UI,
-	that is within Fragments and Activities. Strings that are used in application dialogs are contained
+/*
+ * *************************************************************************************************
+ *                                 Copyright 2018 Universum Studios
+ * *************************************************************************************************
+ *                  Licensed under the Apache License, Version 2.0 (the "License")
+ * =================================================================================================
+ * You may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * *************************************************************************************************
+ */
+-->
+<!--
+	Resource file containing all strings that are presented in the application's main UI, that is,
+	within Fragments and Activities. Strings that are presented in application dialogs are contained
 	in <strings_dialog.xml> resource file. Equally, strings that are used to describe content of a
 	specific UI element via 'android:contentDescription' attribute are contained in <strings_content.xml>
 	resource file.
@@ -11,10 +31,12 @@
 	attribute or placed in <donottranslate.xml> resource file.
 
 	# Not-corrected strings:
-	Strings that have not been corrected yet, that is, they are not ready for production environment,
+	Strings that have not been corrected yet, that is, they are not ready for PRODUCTION environment,
 	should be marked by 'corrected="false"' attribute.
 -->
 <resources>
+
+	<string name="empty"/>
 
 	<!-- ### APPLICATION ======================================================================= -->
 
@@ -23,6 +45,32 @@
 	<!-- ## APPLICATION:Menu -->
 
 	<string name="menu_item_refresh">Refresh</string>
+
+	<!-- ## APPLICATION:Button -->
+
+	<string name="button_ok">OK</string>
+	<string name="button_cancel">Cancel</string>
+	<string name="button_exit">Exit</string>
+	<string name="button_dismiss">Dismiss</string>
+
+	<!-- ### WELCOME =========================================================================== -->
+
+	<string name="welcome_button_observation">Observation</string>
+	<string name="welcome_button_synergy_time">Synergy Time</string>
+
+	<!-- ### DEVICES =========================================================================== -->
+
+	<string name="device_selection_title">Select device</string>
+	<string name="device_selection_empty">No devices were found yet.</string>
+	<string name="device_selection_menu_item_refresh">Restart discovery</string>
+
+	<!-- ### OBSERVATION ======================================================================= -->
+
+	<string name="observation_title">Observation</string>
+	<string name="observation_menu_item_stop">Stop current observation</string>
+	<string name="observation_device_signal_quality_format">Device signal quality: <b>%1$s</b></string>
+	<string name="observation_subject_attention">Attention</string>
+	<string name="observation_subject_meditation">Meditation</string>
 
 	<!-- ### PARTICIPANTS ====================================================================== -->
 

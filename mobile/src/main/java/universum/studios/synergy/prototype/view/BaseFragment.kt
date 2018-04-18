@@ -51,11 +51,13 @@ abstract class BaseFragment<VM : ViewModel, C : Controller<*>> : UniversiFragmen
     private var viewModel: VM? = null
     private var controller: C? = null
 
+    open fun name(): String = javaClass.simpleName
+
     protected fun requestFeature(@Feature feature: Int) = features.add(feature)
 
     protected fun hasFeature(@Feature feature: Int) = features.has(feature)
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         if (hasFeature(FEATURE_INJECTION_BASIC)) {
             onInject()

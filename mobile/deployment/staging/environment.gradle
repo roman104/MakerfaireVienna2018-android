@@ -17,6 +17,8 @@
  * *************************************************************************************************
  */
 
+// Configuration specific for the STAGING environment.
+
 task buildStaging(dependsOn: [':mobile:assembleStagingRelease', ':mobile:assembleStagingReleaseUnitTest']) {
     group 'staging'
     description "Builds code base for the 'STAGING' environment."

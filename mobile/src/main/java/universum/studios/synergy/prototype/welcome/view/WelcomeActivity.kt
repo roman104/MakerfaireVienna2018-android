@@ -33,7 +33,7 @@ class WelcomeActivity : BaseActivity() {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            fragmentController.newRequest(ParticipantsFragment()).immediate(true).execute()
+            fragmentController.newRequest(WelcomeFragment()).immediate(true).execute()
         }
     }
 }

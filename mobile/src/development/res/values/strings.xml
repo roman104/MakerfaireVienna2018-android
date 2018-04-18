@@ -20,7 +20,7 @@
  */
 -->
 <!--
-	Strings used only when distributing for Development environment.
+	Strings used only when assembling application for DEVELOPMENT environment.
 -->
 <resources>
 

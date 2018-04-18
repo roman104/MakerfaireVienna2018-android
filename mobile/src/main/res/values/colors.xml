@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+ * *************************************************************************************************
+ *                                 Copyright 2018 Universum Studios
+ * *************************************************************************************************
+ *                  Licensed under the Apache License, Version 2.0 (the "License")
+ * =================================================================================================
+ * You may not use this file except in compliance with the License. You may obtain a copy of the
+ * License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied.
+ *
+ * See the License for the specific language governing permissions and limitations under the License.
+ * *************************************************************************************************
+ */
+-->
+<!--
+	Resource file containing colors used across the application.
+	Note that this file should contain only application's palette related and some globally used colors,
+	do not specify here all colors used in the application, but rather place them within a particular
+	style -> <styles.xml> or text-appearance -> <textappearances.xml> or within a color selector.
+-->
 <resources>
 
-	<color name="primary">#FF607D8B</color>
-	<color name="primary_dark">#FF455A64</color>
-	<color name="accent">#FF8BC34A</color>
+	<!-- ### PALETTE =========================================================================== -->
+
+	<color name="primary">#FF009688</color>
+	<color name="primary_light">#FFB2DFDB</color>
+	<color name="primary_dark">#FF00796B</color>
+	<color name="accent">#FFFFC107</color>
+
+	<!-- ### TINT ============================================================================== -->
+
+	<color name="icon">#FFFFFFFF</color>
+	<color name="icon_toolbar">#FFFFFFFF</color>
+
+	<!-- ### TEXT ============================================================================== -->
 
 	<color name="text_primary">#FF212121</color>
 	<color name="text_secondary">#FF757575</color>
 
-	<color name="icon">#FFFFFFFF</color>
-	<color name="icon_toolbar">#FFFFFFFF</color>
+	<!-- ### DIVIDER =========================================================================== -->
 
 	<color name="divider">#FFBDBDBD</color>
 </resources>

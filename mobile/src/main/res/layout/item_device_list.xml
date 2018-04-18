@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable name="device" type="universum.studios.synergy.prototype.device.Device" />
+	</data>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:gravity="center_horizontal"
+		android:paddingStart="?attr/uiSpacingSecondary"
+		android:paddingEnd="?attr/uiSpacingSecondary"
+		android:paddingTop="?attr/uiSpacingPrimary"
+		android:paddingBottom="?attr/uiSpacingPrimary"
+		android:background="?attr/selectableItemBackground">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@{device.name}"
+			android:textColor="#FFFFFFFF"
+			android:textSize="16sp"
+			android:fontFamily="sans-serif-medium"
+			tools:text="Device name" />
+	</LinearLayout>
+</layout>

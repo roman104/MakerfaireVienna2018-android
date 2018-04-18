@@ -32,8 +32,7 @@ import universum.studios.synergy.prototype.analytics.Analytics
 
     @Provides fun provideApplication(): Application = application
 
-    @Provides @ApplicationContext
-    fun provideApplicationContext(): Context = application
+    @Provides @ApplicationContext fun provideApplicationContext(): Context = application
 
     @Provides fun provideResources(): Resources = application.resources
 

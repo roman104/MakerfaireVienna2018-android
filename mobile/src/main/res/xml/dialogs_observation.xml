@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Dialogs xmlns:android="http://schemas.android.com/apk/res/android"
+		 xmlns:dialog="http://schemas.android.com/apk/res-auto">
+
+	<ListDialog
+		android:id="@+id/dialog_observation_subjects"
+		dialog:dialogTitle="@string/dialog_observation_select_subject_title"
+		dialog:dialogNeutralButton="@string/button_dismiss" />
+
+	<Dialog
+		android:id="@+id/dialog_observation_exit"
+		dialog:dialogTitle="@string/dialog_observation_exit_title"
+		dialog:dialogContent="@string/dialog_observation_exit_content"
+		dialog:dialogPositiveButton="@string/button_exit"
+		dialog:dialogNegativeButton="@string/button_cancel" />
+</Dialogs>

@@ -18,6 +18,8 @@
  */
 apply from: "${projectDir}/deployment/qa/fabric.gradle"
 
+// Configuration specific for the QUALITY ASSURANCE environment.
+
 task buildQA(dependsOn: [':mobile:assembleQaRelease', ':mobile:assembleQaReleaseUnitTest']) {
     group 'qa'
     description "Builds code base for the 'QUALITY ASSURANCE' environment."

@@ -66,6 +66,12 @@
 			</intent-filter>
 		</activity>
 
+		<activity
+			android:name=".observation.view.ObservationActivity"
+			android:theme="@style/Theme.Observation"
+			android:label="@string/observation_title"
+			android:screenOrientation="portrait" />
+
 		<activity android:name=".challenge.view.ChallengeActivity" />
 	</application>
 </manifest>

@@ -5,6 +5,6 @@
 	<item
 		android:id="@+id/menu_item_refresh"
 		android:title="@string/menu_item_refresh"
-		android:icon="@drawable/vc_tb_refresh_24dp"
+		android:icon="@drawable/vc_ic_tb_refresh_24dp"
 		app:showAsAction="always" />
 </menu>

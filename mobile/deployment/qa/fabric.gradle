@@ -16,6 +16,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
+
 def FABRIC_API_SECRET = config.ci.FABRIC_API_SECRET == null ? "unspecified" : config.ci.FABRIC_API_SECRET
 def FABRIC_API_KEY = config.ci.FABRIC_API_KEY == null ? "unspecified" : config.ci.FABRIC_API_KEY
 

@@ -26,15 +26,14 @@ import universum.studios.android.widget.adapter.SimpleSpinnerAdapter
 import universum.studios.android.widget.adapter.holder.ViewHolder
 import universum.studios.synergy.prototype.R
 import universum.studios.synergy.prototype.databinding.ItemBtDeviceSpinnerDropDownBinding
-import universum.studios.synergy.prototype.welcome.view.presentation.BluetoothDevicesSpinnerAdapter.ItemHolder
 
 /**
  * @author Martin Albedinsky
  */
 class BluetoothDevicesSpinnerAdapter(context: Context) : SimpleSpinnerAdapter<
         BluetoothDevicesSpinnerAdapter,
-        ItemHolder,
-        ItemHolder,
+        BluetoothDevicesSpinnerAdapter.ItemHolder,
+        BluetoothDevicesSpinnerAdapter.ItemHolder,
         BluetoothDevice>(context) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder = ItemHolder(inflateView(R.layout.item_bt_device_spinner_drop_down, parent))
