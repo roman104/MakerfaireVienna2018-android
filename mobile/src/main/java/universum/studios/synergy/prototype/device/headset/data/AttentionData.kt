@@ -21,11 +21,11 @@ package universum.studios.synergy.prototype.device.headset.data
 /**
  * @author Martin Albedinsky
  */
-class AttentionData internal constructor(builder: Builder) : ObservationData(builder) {
+class AttentionData internal constructor(builder: Builder) : HeadsetData(builder) {
 
     val value = builder.value
 
-    class Builder : ObservationData.DataBuilder<AttentionData>() {
+    class Builder : HeadsetData.DataBuilder<AttentionData>() {
 
         var value: Int = 0
 

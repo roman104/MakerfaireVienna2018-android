@@ -18,12 +18,12 @@
  */
 package universum.studios.synergy.prototype.device.headset
 
-import universum.studios.synergy.prototype.device.headset.data.ObservationData
+import universum.studios.synergy.prototype.device.headset.data.HeadsetData
 
 /**
  * @author Martin Albedinsky
  */
-interface HeadsetDataListener<in T : ObservationData> {
+interface HeadsetDataListener<in T : HeadsetData> {
 
     fun onHeadsetDataChanged(data: T)
 }

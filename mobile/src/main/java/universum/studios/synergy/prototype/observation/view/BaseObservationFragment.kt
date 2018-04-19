@@ -21,6 +21,7 @@ package universum.studios.synergy.prototype.observation.view
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.github.mikephil.charting.charts.Chart
@@ -28,7 +29,7 @@ import com.github.mikephil.charting.utils.Utils
 import universum.studios.android.arkhitekton.view.ViewModel
 import universum.studios.android.util.BundleKey
 import universum.studios.synergy.prototype.R
-import universum.studios.synergy.prototype.observation.ObservationSubject
+import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.observation.control.ObservationController
 import universum.studios.synergy.prototype.util.Logging
 import universum.studios.synergy.prototype.view.BaseFragment
@@ -43,14 +44,15 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
 
         val ARGUMENT_OBSERVATION_SUBJECT = BundleKey.argument(ObservationFragment::class.java, "ObservationSubject")
 
-        fun createArguments(subject: ObservationSubject) = Bundle().apply { putString(ARGUMENT_OBSERVATION_SUBJECT, subject.name) }
+        fun createArguments(subject: Headset.ObservationSubject) = Bundle().apply { putString(ARGUMENT_OBSERVATION_SUBJECT, subject.name) }
     }
 
     private var position = PageFragment.NO_POSITION
     private var primary = false
-    private lateinit var subject: ObservationSubject
+    private lateinit var subject: Headset.ObservationSubject
     private var optionsItemSelectedListener: ObservationFragment.OnOptionsItemSelectedListener? = null
-    private var chartView: Chart<*>? = null;
+    private lateinit var menu: Menu
+    private var chartView: Chart<*>? = null
 
     override fun setPosition(position: Int) {
         if (this.position != position) {
@@ -67,13 +69,13 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.subject = ObservationSubject.valueOf(arguments?.getString(ARGUMENT_OBSERVATION_SUBJECT) ?: ObservationSubject.UNSPECIFIED.name)
+        this.subject = Headset.ObservationSubject.valueOf(arguments?.getString(ARGUMENT_OBSERVATION_SUBJECT) ?: Headset.ObservationSubject.UNSPECIFIED.name)
         Logging.d(name(), "Created with subject '$subject'.")
     }
 
     override fun getContentId(): Long = subject.id
 
-    override fun getSubject(): ObservationSubject = subject
+    override fun getSubject(): Headset.ObservationSubject = subject
 
     override fun setOnOptionsItemSelectedListener(listener: ObservationFragment.OnOptionsItemSelectedListener?) {
         this.optionsItemSelectedListener = listener
@@ -86,6 +88,7 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
             toolbar.setTitle(subject.nameRes)
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             toolbar.inflateMenu(R.menu.observation)
+            this.menu = toolbar.menu
             toolbar.setOnMenuItemClickListener { onOptionsItemSelected(it) }
         }
         this.chartView = rootView.findViewById(R.id.chart_view)
@@ -110,7 +113,17 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return optionsItemSelectedListener?.onObservationOptionsItemSelected(this, item) ?: false
+        return when (item.itemId) {
+            R.id.menu_item_stop -> {
+                getController().stopObservation()
+                item.isVisible = false
+                menu.findItem(R.id.menu_item_download).isVisible = true
+                menu.findItem(R.id.menu_item_remove).isVisible = true
+                true
+            }
+            R.id.menu_item_download -> false
+            else -> return optionsItemSelectedListener?.onObservationOptionsItemSelected(this, item) ?: false
+        }
     }
 
     override fun onStop() {

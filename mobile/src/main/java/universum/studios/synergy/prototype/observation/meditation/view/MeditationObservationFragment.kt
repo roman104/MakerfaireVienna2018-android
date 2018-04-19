@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_observation_attention.*
 import universum.studios.android.support.fragment.annotation.ContentView
 import universum.studios.synergy.prototype.R
 import universum.studios.synergy.prototype.databinding.FragmentObservationMeditationBinding
-import universum.studios.synergy.prototype.observation.ObservationSubject
+import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.observation.meditation.control.MeditationObservationController
 import universum.studios.synergy.prototype.observation.view.BaseObservationFragment
 
@@ -38,7 +38,7 @@ class MeditationObservationFragment : BaseObservationFragment<MeditationObservat
     companion object {
 
         fun newInstance() = MeditationObservationFragment().apply {
-            arguments = BaseObservationFragment.createArguments(ObservationSubject.MEDITATION)
+            arguments = BaseObservationFragment.createArguments(Headset.ObservationSubject.MEDITATION)
         }
     }
 

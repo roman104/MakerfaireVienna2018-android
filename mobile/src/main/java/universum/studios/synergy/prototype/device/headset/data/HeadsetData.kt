@@ -19,21 +19,21 @@
 package universum.studios.synergy.prototype.device.headset.data
 
 import universum.studios.android.arkhitekton.util.Preconditions
-import universum.studios.synergy.prototype.observation.ObservationSubject
+import universum.studios.synergy.prototype.device.headset.Headset
 
 /**
  * @author Martin Albedinsky
  */
-open class ObservationData protected constructor(builder: DataBuilder<*>){
+open class HeadsetData protected constructor(builder: DataBuilder<*>){
 
     val deviceAddress = Preconditions.checkNotNull(builder.deviceAddress, "No device address specified!")
     val subject = Preconditions.checkNotNull(builder.subject, "No observation subject specified!")
     val timeObserved = builder.timeObserved
 
-    abstract class DataBuilder<out D : ObservationData> {
+    abstract class DataBuilder<out D : HeadsetData> {
 
         lateinit var deviceAddress: String
-        lateinit var subject: ObservationSubject
+        lateinit var subject: Headset.ObservationSubject
         var timeObserved: Long = System.currentTimeMillis()
 
         abstract fun build(): D

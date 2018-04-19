@@ -18,6 +18,7 @@
  */
 package universum.studios.synergy.prototype.device.headset
 
+import universum.studios.synergy.prototype.R
 import universum.studios.synergy.prototype.device.headset.data.AttentionData
 import universum.studios.synergy.prototype.device.headset.data.MeditationData
 import universum.studios.synergy.prototype.util.ListenersRegistry
@@ -30,6 +31,12 @@ abstract class Headset {
 
     enum class SignalQuality {
         UNKNOWN, GOOD, MEDIUM, POOR
+    }
+
+    enum class ObservationSubject constructor(val id: Long, val flag: Int, val nameRes: Int) {
+        UNSPECIFIED(0L, 0, R.string.empty),
+        ATTENTION(1L, 0x00000001, R.string.observation_subject_attention),
+        MEDITATION(2L, 0x00000001 shl 1, R.string.observation_subject_meditation)
     }
 
     interface SignalQualityListener {

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 		xmlns:tools="http://schemas.android.com/tools">
 	<data>
-		<variable name="observationSubject" type="universum.studios.synergy.prototype.observation.ObservationSubject"/>
+		<variable name="observationSubject" type="universum.studios.synergy.prototype.device.headset.Headset.ObservationSubject"/>
 		<variable name="selectable" type="boolean"/>
 	</data>
 	<LinearLayout

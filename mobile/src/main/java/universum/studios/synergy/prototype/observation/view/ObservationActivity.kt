@@ -121,7 +121,7 @@ class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSele
 
     override fun onObservationOptionsItemSelected(fragment: ObservationFragment, item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_item_stop -> {
+            R.id.menu_item_remove -> {
                 val subject = fragment.getSubject()
                 this.selectedSubjectFlags = selectedSubjectFlags and subject.flag.inv()
                 this.pagerAdapter.removeObservationSubject(subject)

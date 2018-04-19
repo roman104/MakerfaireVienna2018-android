@@ -39,10 +39,12 @@ class DefaultMeditationObservationController internal constructor(builder: Build
     override fun onObservationStart(headset: Headset) {
         super.onObservationStart(headset)
         headset.registerMeditationListener(subjectListener)
+        headset.connect()
     }
 
     override fun onObservationStop(headset: Headset) {
         super.onObservationStop(headset)
+        headset.disconnect()
         headset.unregisterMeditationListener(subjectListener)
     }
 

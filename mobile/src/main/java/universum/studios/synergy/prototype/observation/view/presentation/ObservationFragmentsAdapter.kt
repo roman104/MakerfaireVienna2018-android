@@ -23,7 +23,8 @@ import android.support.v4.app.FragmentManager
 import android.util.SparseArray
 import android.view.ViewGroup
 import universum.studios.android.support.pager.adapter.FragmentPagerAdapter
-import universum.studios.synergy.prototype.observation.ObservationSubject
+import universum.studios.synergy.prototype.device.headset.Headset
+import universum.studios.synergy.prototype.device.headset.Headset.ObservationSubject
 import universum.studios.synergy.prototype.observation.attention.view.AttentionObservationFragment
 import universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationFragment
 import universum.studios.synergy.prototype.observation.view.ObservationFragment
@@ -42,12 +43,12 @@ class ObservationFragmentsAdapter(fragmentManager: FragmentManager) : FragmentPa
     private val items: MutableList<ObservationSubject> = ArrayList()
     private val fragments = SparseArray<ObservationFragment>()
 
-    fun addObservationSubject(subject: ObservationSubject) {
+    fun addObservationSubject(subject: Headset.ObservationSubject) {
         items.add(subject)
         notifyDataSetChanged()
     }
 
-    fun removeObservationSubject(subject: ObservationSubject) {
+    fun removeObservationSubject(subject: Headset.ObservationSubject) {
         items.remove(subject)
         notifyDataSetChanged()
     }

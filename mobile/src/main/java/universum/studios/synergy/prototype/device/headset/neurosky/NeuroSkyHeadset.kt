@@ -32,7 +32,6 @@ import universum.studios.android.logging.SimpleLogger
 import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.device.headset.data.AttentionData
 import universum.studios.synergy.prototype.device.headset.data.MeditationData
-import universum.studios.synergy.prototype.observation.ObservationSubject
 
 /**
  * @author Martin Albedinsky
@@ -99,15 +98,15 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
     }
 
     override fun onConnect() {
-        this.deviceStreamReader = TgStreamReader(bluetoothDevice, deviceStreamHandler)
-        this.deviceStreamReader?.startLog()
-        this.deviceStreamReader?.connectAndStart()
         NskAlgoSdk.NskAlgoInit(
                 NskAlgoType.NSK_ALGO_TYPE_F.value + NskAlgoType.NSK_ALGO_TYPE_ATT.value + NskAlgoType.NSK_ALGO_TYPE_MED.value,
                 context.filesDir.absolutePath,
                 "NeuroSky_Release_To_GeneralFreeLicense_Use_Only_Nov 25 2016"
         )
         NskAlgoSdk.NskAlgoStart(false)
+        this.deviceStreamReader = TgStreamReader(bluetoothDevice, deviceStreamHandler)
+        this.deviceStreamReader?.startLog()
+        this.deviceStreamReader?.connectAndStart()
     }
 
     override fun onDisconnect() {

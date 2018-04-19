@@ -26,15 +26,15 @@ import universum.studios.android.widget.adapter.SimpleListAdapter
 import universum.studios.android.widget.adapter.holder.ViewHolder
 import universum.studios.synergy.prototype.R
 import universum.studios.synergy.prototype.databinding.ItemObservationSubjectListBinding
-import universum.studios.synergy.prototype.observation.ObservationSubject
+import universum.studios.synergy.prototype.device.headset.Headset
 
 /**
  * @author Martin Albedinsky
  */
 class ObservationSubjectsDialogAdapter(context: Context, private val layoutInflater: LayoutInflater)
-    : SimpleListAdapter<ObservationSubjectsDialogAdapter, ObservationSubjectsDialogAdapter.ItemHolder, ObservationSubject>(
+    : SimpleListAdapter<ObservationSubjectsDialogAdapter, ObservationSubjectsDialogAdapter.ItemHolder, Headset.ObservationSubject>(
         context,
-        ObservationSubject.values().filter { it != ObservationSubject.UNSPECIFIED }) {
+        Headset.ObservationSubject.values().filter { it != Headset.ObservationSubject.UNSPECIFIED }) {
 
     private var selectedSubjectFlags = 0
 

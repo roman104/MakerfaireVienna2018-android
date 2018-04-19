@@ -19,7 +19,7 @@
 package universum.studios.synergy.prototype.observation.view
 
 import android.view.MenuItem
-import universum.studios.synergy.prototype.observation.ObservationSubject
+import universum.studios.synergy.prototype.device.headset.Headset
 import universum.studios.synergy.prototype.view.PageFragment
 
 /**
@@ -32,7 +32,7 @@ interface ObservationFragment : PageFragment {
         fun onObservationOptionsItemSelected(fragment: ObservationFragment, item: MenuItem): Boolean
     }
 
-    fun getSubject(): ObservationSubject
+    fun getSubject(): Headset.ObservationSubject
 
     fun setOnOptionsItemSelectedListener(listener: OnOptionsItemSelectedListener?)
 }

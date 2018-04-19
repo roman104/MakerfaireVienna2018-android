@@ -18,10 +18,10 @@
  */
 package universum.studios.synergy.prototype.observation.attention.control
 
+import io.reactivex.disposables.Disposable
 import universum.studios.android.arkhitekton.interaction.Interactor
-import universum.studios.synergy.prototype.device.headset.AttentionListener
 import universum.studios.synergy.prototype.device.headset.Headset
-import universum.studios.synergy.prototype.device.headset.data.AttentionData
+import universum.studios.synergy.prototype.device.headset.data.HeadsetDataObservable
 import universum.studios.synergy.prototype.observation.attention.view.presentation.AttentionObservationPresenter
 import universum.studios.synergy.prototype.observation.control.BaseObservationController
 
@@ -31,19 +31,20 @@ import universum.studios.synergy.prototype.observation.control.BaseObservationCo
 class DefaultAttentionObservationController internal constructor(builder: Builder)
     : BaseObservationController<Interactor, AttentionObservationPresenter>(builder), AttentionObservationController {
 
-    private val subjectListener = object : AttentionListener {
-
-        override fun onAttentionChanged(data: AttentionData) = getPresenter().onObservationDataChanged(data)
-    }
+    private var attentionDisposable: Disposable? = null
 
     override fun onObservationStart(headset: Headset) {
         super.onObservationStart(headset)
-        headset.registerAttentionListener(subjectListener)
+        this.attentionDisposable = HeadsetDataObservable.attention(headset)
+                .observeOn(presentationScheduler)
+                .subscribeOn(interactionScheduler)
+                .subscribe(getPresenter()::onObservationDataChanged)
     }
 
     override fun onObservationStop(headset: Headset) {
         super.onObservationStop(headset)
-        headset.unregisterAttentionListener(subjectListener)
+        this.attentionDisposable?.dispose()
+        this.attentionDisposable = null
     }
     
     class Builder(

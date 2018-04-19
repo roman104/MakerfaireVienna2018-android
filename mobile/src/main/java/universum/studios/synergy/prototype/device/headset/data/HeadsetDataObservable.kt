@@ -16,15 +16,18 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.studios.synergy.prototype.observation
+package universum.studios.synergy.prototype.device.headset.data
 
-import universum.studios.synergy.prototype.R
+import io.reactivex.Observable
+import universum.studios.synergy.prototype.device.headset.Headset
 
 /**
  * @author Martin Albedinsky
  */
-enum class ObservationSubject constructor(val id: Long, val flag: Int, val nameRes: Int) {
-    UNSPECIFIED(0L, 0, R.string.empty),
-    ATTENTION(1L, 0x00000001, R.string.observation_subject_attention),
-    MEDITATION(2L, 0x00000001 shl 1, R.string.observation_subject_meditation)
+abstract class HeadsetDataObservable<D : HeadsetData> internal constructor(internal val headset: Headset) : Observable<D>() {
+
+    companion object {
+
+        fun attention(headset: Headset): HeadsetDataObservable<AttentionData> = AttentionDataObservable(headset)
+    }
 }

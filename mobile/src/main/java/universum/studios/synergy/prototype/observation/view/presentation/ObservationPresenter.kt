@@ -21,12 +21,12 @@ package universum.studios.synergy.prototype.observation.view.presentation
 import universum.studios.android.arkhitekton.presentation.Presenter
 import universum.studios.android.arkhitekton.view.View
 import universum.studios.synergy.prototype.device.headset.Headset.SignalQuality
-import universum.studios.synergy.prototype.device.headset.data.ObservationData
+import universum.studios.synergy.prototype.device.headset.data.HeadsetData
 
 /**
  * @author Martin Albedinsky
  */
-interface ObservationPresenter<in V : View<*>, in D : ObservationData> : Presenter<V> {
+interface ObservationPresenter<in V : View<*>, in D : HeadsetData> : Presenter<V> {
 
     fun onHeadsetSignalQualityChanged(quality: SignalQuality)
 

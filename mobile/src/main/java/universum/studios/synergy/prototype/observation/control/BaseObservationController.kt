@@ -21,7 +21,6 @@ package universum.studios.synergy.prototype.observation.control
 import universum.studios.android.arkhitekton.control.ReactiveController
 import universum.studios.android.arkhitekton.interaction.Interactor
 import universum.studios.synergy.prototype.device.headset.Headset
-import universum.studios.synergy.prototype.device.headset.Headset.SignalQuality
 import universum.studios.synergy.prototype.observation.view.presentation.ObservationPresenter
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -31,13 +30,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 abstract class BaseObservationController<out I : Interactor, out P : ObservationPresenter<*, *>> protected constructor(builder: BaseBuilder<*, I, P>)
     : ReactiveController<I, P>(builder), ObservationController<P> {
 
-    private val headsetSignalQualityListener = object : Headset.SignalQualityListener {
-
-        override fun onSignalQualityChanged(quality: SignalQuality) {
-            getPresenter().onHeadsetSignalQualityChanged(quality)
-        }
-    }
-
     private val headset = builder.headset
     private val observing = AtomicBoolean()
 
@@ -46,8 +38,6 @@ abstract class BaseObservationController<out I : Interactor, out P : Observation
             return
         }
         onObservationStart(headset)
-        this.headset.registerSignalQualityListener(headsetSignalQualityListener)
-        this.headset.connect()
         this.observing.set(true)
     }
 
@@ -56,8 +46,6 @@ abstract class BaseObservationController<out I : Interactor, out P : Observation
     override fun stopObservation() {
         if (observing.get()) {
             onObservationStop(headset)
-            this.headset.disconnect()
-            this.headset.unregisterSignalQualityListener(headsetSignalQualityListener)
             this.observing.set(false)
         }
     }
