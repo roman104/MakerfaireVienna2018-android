@@ -36,28 +36,13 @@
 # DEPENDENCIES SPECIFIC RULES ======================================================================
 
 ### ARCHITECTURE [start] ---------------------------------------------------------------------------
--keep class android.arch.lifecycle.** { *; }
-### ARCHITECTURE [end] -----------------------------------------------------------------------------
 
-### OTTO [start] -----------------------------------------------------------------------------------
--keepclassmembers class ** {
-    @com.squareup.otto.Subscribe public *;
-    @com.squareup.otto.Produce public *;
-}
-### OTTO [end] -------------------------------------------------------------------------------------
+-keep class android.arch.lifecycle.** { *; }
+
+### ARCHITECTURE [end] -----------------------------------------------------------------------------
 
 # APPLICATION SPECIFIC RULES =======================================================================
 
-# Keep implementation details for application services.
--keepnames class com.surglogs.app.service.api.Services { *; }
--keepnames class com.surglogs.app.service.api.AuthServices { *; }
--keep class com.surglogs.app.service.model.** { *; }
--keep class com.surglogs.app.service.api.request.** { *; }
--keep class com.surglogs.app.service.api.response.** { *; }
-# Keep custom implementations of EntityModel factories.
--keepclassmembers class * implements universum.studios.android.database.model.EntityModel {
-    public static final com.surglogs.app.data.entity.EntityPoolFactory FACTORY;
-}
 # Keep all public constructors of view models.
 -keep class * extends android.arch.lifecycle.ViewModel {
     public <init>(...);

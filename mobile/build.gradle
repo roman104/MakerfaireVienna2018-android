@@ -70,7 +70,7 @@ android {
         }
     }
 
-    final String keystoreDirPath = "${System.getenv('ANDROID_UNIVERSUM_KEYSTORE')}/product/${config.mobile.product.key}"
+    final String keystoreDirPath = "${System.getenv('ANDROID_UNIVERSUM_KEYSTORE')}/prototype"
     final File keystoreFile = new File("${keystoreDirPath}/keystore.jks")
     final File keyPropertiesFile = new File("${keystoreDirPath}/key.properties")
     if (keystoreFile.exists() && keyPropertiesFile.exists()) {

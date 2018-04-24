@@ -19,11 +19,10 @@
 def mobileConfig = [
         product: [
                 owner: 'universum',
-                // Product key is used to generate .apk file with name of the application included
-                // and also to access signing key along with signing properties that are specific
-                // for this application.
+                // Product key is used to access signing key along with signing properties that are
+                // specific for this product.
                 // See build.gradle in mobile/ directory for more info.
-                key  : 'synergy-prototype',
+                key  : 'synergy',
                 id   : 'universum.mind.synergy.prototype'
         ],
         version: [
