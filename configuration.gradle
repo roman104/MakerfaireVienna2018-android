@@ -24,7 +24,7 @@ def mobileConfig = [
                 // for this application.
                 // See build.gradle in mobile/ directory for more info.
                 key  : 'synergy-prototype',
-                id   : 'universum.studios.synergy.prototype'
+                id   : 'universum.mind.synergy.prototype'
         ],
         version: [
                 major: 0,

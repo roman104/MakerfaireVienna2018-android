@@ -4,7 +4,7 @@
 			 xmlns:tools="http://schemas.android.com/tools"
 			 android:layout_width="match_parent"
 			 android:layout_height="match_parent"
-			 tools:context="universum.studios.synergy.prototype.welcome.view.WelcomeActivity"
+			 tools:context="universum.mind.synergy.welcome.view.WelcomeActivity"
 			 tools:menu="participants">
 
 	<LinearLayout

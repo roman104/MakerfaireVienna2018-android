@@ -4,7 +4,7 @@
 		xmlns:tools="http://schemas.android.com/tools"
 		tools:context=".observation.view.ObservationActivity">
 	<data>
-		<variable name="viewModel" type="universum.studios.synergy.prototype.observation.meditation.view.MeditationObservationViewModel" />
+		<variable name="viewModel" type="universum.mind.synergy.observation.meditation.view.MeditationObservationViewModel" />
 	</data>
 	<LinearLayout
 		android:layout_width="match_parent"
