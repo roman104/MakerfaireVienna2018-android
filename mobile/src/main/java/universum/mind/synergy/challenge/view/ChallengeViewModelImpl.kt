@@ -18,17 +18,50 @@
  */
 package universum.mind.synergy.challenge.view
 
-import android.arch.lifecycle.ViewModel
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.databinding.ObservableField
+import android.databinding.ObservableInt
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import universum.mind.synergy.R
 
 /**
  * @author Martin Albedinsky
  */
-class ChallengeViewModelImpl : ViewModel(), ChallengeViewModel {
+class ChallengeViewModelImpl(application: Application) : AndroidViewModel(application), ChallengeViewModel {
 
-    override val firstParticipantAttentionState = ObservableField<CharSequence>()
-    override val secondParticipantAttentionState = ObservableField<CharSequence>()
+    override val attentionValueActual = ObservableInt(0)
+    override val meditationValueActual = ObservableInt(0)
 
-    override fun setFirstParticipantAttentionState(attentionState: String) = firstParticipantAttentionState.set(attentionState)
-    override fun setSecondParticipantAttentionState(attentionState: String) = secondParticipantAttentionState.set(attentionState)
+    override val chartData: ObservableField<LineData> = ObservableField(LineData(
+            // ATTENTION:
+            LineDataSet(
+                    // Data set must contain at least one entry!
+                    arrayListOf(Entry(0f, 0f)),
+                    application.getString(R.string.observation_subject_attention)
+            ).apply {
+                color = application.getColor(R.color.observation_subject_attention)
+                setCircleColor(application.getColor(R.color.observation_subject_attention))
+            },
+            // MEDITATION:
+            LineDataSet(
+                    // Data set must contain at least one entry!
+                    arrayListOf(Entry(0f, 0f)),
+                    application.getString(R.string.observation_subject_meditation)
+            ).apply {
+                color = application.getColor(R.color.observation_subject_meditation)
+                setCircleColor(application.getColor(R.color.observation_subject_meditation))
+            }
+    ))
+
+    override val chartDataXAxisFormatter: IAxisValueFormatter = IAxisValueFormatter { value, _ ->
+        when {
+            value <= 1000 * 60 -> "${(value / 1000).toLong()}s"
+            value <= 1000 * 60 * 60 -> "${(value / (1000 * 60)).toLong()}m ${(value / 1000).toLong()}s"
+            else -> "${(value / (1000 * 60 * 60)).toLong()}h ${(value / (1000 * 60)).toLong()}m ${(value / 1000).toLong()}s"
+        }
+    }
 }

@@ -18,23 +18,58 @@
  */
 package universum.mind.synergy.challenge.view.presentation
 
-import universum.studios.android.arkhitekton.presentation.BasePresenter
-import universum.mind.synergy.R
+import android.arch.lifecycle.Lifecycle
+import com.github.mikephil.charting.data.Entry
 import universum.mind.synergy.challenge.view.ChallengeView
 import universum.mind.synergy.challenge.view.ChallengeViewModel
+import universum.mind.synergy.device.headset.data.AttentionData
+import universum.mind.synergy.device.headset.data.MeditationData
+import universum.studios.android.arkhitekton.presentation.BasePresenter
 
 /**
  * @author Martin Albedinsky
  */
 class DefaultChallengePresenter(viewModel: ChallengeViewModel) : BasePresenter<ChallengeView, ChallengeViewModel>(viewModel), ChallengePresenter {
 
-	override fun onFirstParticipantAttentionChanged(attention: Int) {
-		val resources = getView().getResources()
-		getViewModel().setFirstParticipantAttentionState(resources.getString(R.string.challenge_participant_attention_value_format, attention))
-	}
+    private var timeStarted = 0L
 
-	override fun onSecondParticipantAttentionChanged(attention: Int) {
-        val resources = getView().getResources()
-		getViewModel().setSecondParticipantAttentionState(resources.getString(R.string.challenge_participant_attention_value_format, attention))
-	}
+    override fun onChallengeStarted() {
+        this.timeStarted = System.currentTimeMillis()
+    }
+
+    override fun onAttentionChanged(data: AttentionData) {
+        val viewModel = getViewModel()
+        viewModel.attentionValueActual.set(data.value)
+        val chartData = viewModel.chartData.get()!!
+        chartData.addEntry(
+                Entry((data.timeObserved - timeStarted).toFloat(), data.value.toFloat()),
+                ChallengeViewModel.DATA_SET_INDEX_ATTENTION
+        )
+        if (chartData.entryCount > ChallengePresenter.CHART_MAX_VISIBLE_ENTRIES) {
+            chartData.getDataSetByIndex(ChallengeViewModel.DATA_SET_INDEX_ATTENTION).removeFirst()
+            chartData.notifyDataChanged()
+        }
+        this.refreshChartView()
+    }
+
+    override fun onMeditationChanged(data: MeditationData) {
+        val viewModel = getViewModel()
+        viewModel.meditationValueActual.set(data.value)
+        val chartData = viewModel.chartData.get()!!
+        chartData.addEntry(
+                Entry((data.timeObserved - timeStarted).toFloat(), data.value.toFloat()),
+                ChallengeViewModel.DATA_SET_INDEX_MEDITATION
+        )
+        if (chartData.entryCount > ChallengePresenter.CHART_MAX_VISIBLE_ENTRIES) {
+            chartData.getDataSetByIndex(ChallengeViewModel.DATA_SET_INDEX_MEDITATION).removeFirst()
+            chartData.notifyDataChanged()
+        }
+        this.refreshChartView()
+    }
+
+    private fun refreshChartView() {
+        if (isViewAttached() && getViewLifecycleCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
+            getView().refreshChart()
+        }
+    }
 }

@@ -23,4 +23,7 @@ import universum.mind.synergy.view.ScreenView
 /**
  * @author Martin Albedinsky
  */
-interface ChallengeView : ScreenView<ChallengeViewModel>
+interface ChallengeView : ScreenView<ChallengeViewModel> {
+
+    fun refreshChart()
+}

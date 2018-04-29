@@ -42,7 +42,7 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
 
     companion object {
 
-        val LOGGER = SimpleLogger(Log.VERBOSE)
+        val LOGGER = SimpleLogger(Log.ASSERT)
     }
 
     private val nskAlgoSdk: NskAlgoSdk by lazy { NskAlgoSdk() }

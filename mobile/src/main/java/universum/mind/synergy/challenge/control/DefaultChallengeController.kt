@@ -18,21 +18,44 @@
  */
 package universum.mind.synergy.challenge.control
 
+import io.reactivex.disposables.CompositeDisposable
 import universum.mind.synergy.challenge.view.presentation.ChallengePresenter
+import universum.mind.synergy.device.headset.Headset
+import universum.mind.synergy.device.headset.data.HeadsetDataObservable
 import universum.studios.android.arkhitekton.control.ReactiveController
 import universum.studios.android.arkhitekton.interaction.Interactor
+import universum.studios.android.arkhitekton.util.Preconditions
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * @author Martin Albedinsky
  */
 class DefaultChallengeController internal constructor(builder: Builder) : ReactiveController<Interactor, ChallengePresenter>(builder), ChallengeController {
 
+    private val headset = Preconditions.checkNotNull(builder.headset)
+    private val challengeRunning = AtomicBoolean()
+    private val compositeDisposable = CompositeDisposable()
+
     override fun startChallenge() {
-        // todo:
+        if (challengeRunning.compareAndSet(false, true)) {
+            getPresenter().onChallengeStarted()
+            this.compositeDisposable.addAll(
+                    HeadsetDataObservable.attention(headset)
+                            .observeOn(presentationScheduler)
+                            .subscribeOn(interactionScheduler)
+                            .subscribe(getPresenter()::onAttentionChanged),
+                    HeadsetDataObservable.meditation(headset)
+                            .observeOn(presentationScheduler)
+                            .subscribeOn(interactionScheduler)
+                            .subscribe(getPresenter()::onMeditationChanged)
+            )
+        }
     }
 
     override fun stopChallenge() {
-        // todo:
+        if (challengeRunning.compareAndSet(true, false)) {
+            this.compositeDisposable.clear()
+        }
     }
 
     override fun onDeactivated() {
@@ -46,6 +69,8 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
     ) : ReactiveController.BaseBuilder<Builder, Interactor, ChallengePresenter>(interactor, presenter) {
     
         override val self = this
+        lateinit var headset: Headset
+
         override fun build() = DefaultChallengeController(this)
     }
 }

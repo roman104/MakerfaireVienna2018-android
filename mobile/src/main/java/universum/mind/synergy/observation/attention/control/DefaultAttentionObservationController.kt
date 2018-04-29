@@ -19,11 +19,11 @@
 package universum.mind.synergy.observation.attention.control
 
 import io.reactivex.disposables.Disposable
-import universum.studios.android.arkhitekton.interaction.Interactor
 import universum.mind.synergy.device.headset.Headset
 import universum.mind.synergy.device.headset.data.HeadsetDataObservable
 import universum.mind.synergy.observation.attention.view.presentation.AttentionObservationPresenter
 import universum.mind.synergy.observation.control.BaseObservationController
+import universum.studios.android.arkhitekton.interaction.Interactor
 
 /**
  * @author Martin Albedinsky
@@ -31,11 +31,11 @@ import universum.mind.synergy.observation.control.BaseObservationController
 class DefaultAttentionObservationController internal constructor(builder: Builder)
     : BaseObservationController<Interactor, AttentionObservationPresenter>(builder), AttentionObservationController {
 
-    private var attentionDisposable: Disposable? = null
+    private var observationDisposable: Disposable? = null
 
     override fun onObservationStart(headset: Headset) {
         super.onObservationStart(headset)
-        this.attentionDisposable = HeadsetDataObservable.attention(headset)
+        this.observationDisposable = HeadsetDataObservable.attention(headset)
                 .observeOn(presentationScheduler)
                 .subscribeOn(interactionScheduler)
                 .subscribe(getPresenter()::onObservationDataChanged)
@@ -43,8 +43,8 @@ class DefaultAttentionObservationController internal constructor(builder: Builde
 
     override fun onObservationStop(headset: Headset) {
         super.onObservationStop(headset)
-        this.attentionDisposable?.dispose()
-        this.attentionDisposable = null
+        this.observationDisposable?.dispose()
+        this.observationDisposable = null
     }
     
     class Builder(

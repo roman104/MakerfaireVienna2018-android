@@ -74,4 +74,11 @@
 		All observed data will be lost and this operation cannot be undone.
 		Are you sure you want to remove this observation?
 	</string>
+
+	<!-- ### CHALLENGE ========================================================================= -->
+
+	<string name="dialog_challenge_exit_title">Exit challenge</string>
+	<string name="dialog_challenge_exit_content">
+		Are you sure you want to exit? Challenge will be stopped and this operation cannot be undone.
+	</string>
 </resources>

@@ -15,7 +15,7 @@ dependencies {
     implementation deps.android.support.multiDex
 
     // Language dependencies.
-    implementation deps.kotlin.stdlibJre8
+    implementation deps.kotlin.stdlibJdk8
 
     // Google dependencies.
     implementation deps.google.injection.dagger

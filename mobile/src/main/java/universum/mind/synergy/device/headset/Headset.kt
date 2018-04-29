@@ -69,8 +69,8 @@ abstract class Headset {
 
     private val connectionListenersRegistry = OnConnectionListener.Registry()
     private val signalQualityListenersRegistry = OnSignalQualityListener.Registry()
-    private val attentionListenerRegistry = AttentionListener.Registry()
-    private val meditationListenerRegistry = MeditationListener.Registry()
+    private val attentionListenerRegistry = OnAttentionListener.Registry()
+    private val meditationListenerRegistry = OnMeditationListener.Registry()
     private val connected = AtomicBoolean()
 
     fun name(): String = javaClass.simpleName
@@ -99,27 +99,27 @@ abstract class Headset {
         this.signalQualityListenersRegistry.unregisterListener(listener)
     }
 
-    fun registerAttentionListener(listener: AttentionListener) {
+    fun registerOnAttentionListener(listener: OnAttentionListener) {
         this.attentionListenerRegistry.registerListener(listener)
     }
 
     protected fun notifyAttentionChange(data: AttentionData) {
-        this.attentionListenerRegistry.notifyAttentionChanged(data)
+        this.attentionListenerRegistry.notifyChange(data)
     }
 
-    fun unregisterAttentionListener(listener: AttentionListener) {
+    fun unregisterOnAttentionListener(listener: OnAttentionListener) {
         this.attentionListenerRegistry.unregisterListener(listener)
     }
 
-    fun registerMeditationListener(listener: MeditationListener) {
+    fun registerOnMeditationListener(listener: OnMeditationListener) {
         this.meditationListenerRegistry.registerListener(listener)
     }
 
     protected fun notifyMeditationChange(data: MeditationData) {
-        this.meditationListenerRegistry.notifyMeditationChanged(data)
+        this.meditationListenerRegistry.notifyChange(data)
     }
 
-    fun unregisterMeditationListener(listener: MeditationListener) {
+    fun unregisterOnMeditationListener(listener: OnMeditationListener) {
         this.meditationListenerRegistry.unregisterListener(listener)
     }
 
@@ -128,11 +128,9 @@ abstract class Headset {
     }
 
     fun connect() {
-        if (connected.get()) {
-            return
+        if (connected.compareAndSet(false, true)) {
+            onConnect()
         }
-        onConnect()
-        this.connected.set(true)
     }
 
     abstract fun onConnect()
@@ -141,9 +139,8 @@ abstract class Headset {
         if (hasRegisteredListeners()) {
             return
         }
-        if (connected.get()) {
+        if (connected.compareAndSet(true, false)) {
             onDisconnect()
-            this.connected.set(false)
         }
     }
 

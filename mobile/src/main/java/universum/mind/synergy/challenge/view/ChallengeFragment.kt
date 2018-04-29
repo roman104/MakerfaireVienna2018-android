@@ -47,7 +47,11 @@ class ChallengeFragment : BaseFragment<ChallengeViewModel, ChallengeController>(
 
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
         super.onBindViews(rootView, savedInstanceState)
+        val viewModel = getViewModel()
         this.binding = FragmentChallengeBinding.bind(rootView).apply { this.viewModel = this@ChallengeFragment.getViewModel() }
+        this.binding.uiChildToolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        this.binding.chartView.data = viewModel.chartData.get()
+        this.binding.chartView.xAxis.valueFormatter = viewModel.chartDataXAxisFormatter
     }
 
     override fun onStart() {
@@ -55,8 +59,18 @@ class ChallengeFragment : BaseFragment<ChallengeViewModel, ChallengeController>(
         getController().startChallenge()
     }
 
+    override fun refreshChart() {
+        this.binding.chartView.notifyDataSetChanged()
+        this.binding.chartView.invalidate()
+    }
+
     override fun onStop() {
         super.onStop()
         getController().stopChallenge()
+    }
+
+    override fun onUnbindViews() {
+        super.onUnbindViews()
+        this.binding.unbind()
     }
 }

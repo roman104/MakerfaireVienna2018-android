@@ -18,10 +18,18 @@
  */
 package universum.mind.synergy.challenge.view
 
+import android.arch.lifecycle.ViewModelProviders
+import android.bluetooth.BluetoothManager
+import android.content.Context
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
+import universum.mind.synergy.device.headset.Headset
+import universum.mind.synergy.device.headset.neurosky.NeuroSkyHeadset
 import universum.mind.synergy.device.view.DeviceSelectionFragment
 import universum.mind.synergy.device.view.DeviceSelectionFragmentModule
+import universum.mind.synergy.observation.view.ObservationHeadsetHolder
+import universum.studios.android.arkhitekton.util.Preconditions
 
 /**
  * @author Martin Albedinsky
@@ -29,6 +37,20 @@ import universum.mind.synergy.device.view.DeviceSelectionFragmentModule
 @Module
 @Suppress("unused")
 abstract class ChallengeActivityModule {
+
+    @Module companion object {
+
+        @Provides @JvmStatic fun provideHeadset(activity: ChallengeActivity): Headset {
+            val headsetHolder = ViewModelProviders.of(activity).get(ObservationHeadsetHolder::class.java)
+            if (headsetHolder.hasHeadset()) {
+                return headsetHolder.getHeadset()
+            }
+            val bluetoothAdapter = (activity.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+            Preconditions.checkNotNull(bluetoothAdapter, "No bluetooth adapter available!")
+            val bluetoothDevice = bluetoothAdapter!!.getRemoteDevice(activity.selectedDevice.address)
+            return headsetHolder.attachHeadset(NeuroSkyHeadset(activity, bluetoothDevice))
+        }
+    }
 
 	@ContributesAndroidInjector(modules = [DeviceSelectionFragmentModule::class])
 	abstract fun contributeDeviceSelectionFragmentInjector(): DeviceSelectionFragment

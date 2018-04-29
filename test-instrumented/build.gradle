@@ -41,6 +41,6 @@ dependencies {
     }
     api deps.test.mockitoCore
     api deps.test.mockitoAndroid
-    implementation deps.kotlin.stdlibJre8
+    implementation deps.kotlin.stdlibJdk8
     implementation deps.android.support.annotations
 }

@@ -68,7 +68,7 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Utils.init(context)
-        setDialogXmlFactory(R.xml.dialogs_observation_single)
+        setDialogXmlFactory(R.xml.dialogs_observation_subject)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,16 +118,16 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_item_stop -> showDialogWithId(R.id.dialog_observation_single_stop)
+            R.id.menu_item_stop -> showDialogWithId(R.id.dialog_observation_subject_stop)
             R.id.menu_item_download -> false
-            R.id.menu_item_remove -> showDialogWithId(R.id.dialog_observation_single_remove)
+            R.id.menu_item_remove -> showDialogWithId(R.id.dialog_observation_subject_remove)
             else -> return optionsItemSelectedListener?.onObservationOptionsItemSelected(this, item) ?: false
         }
     }
 
     override fun onDialogButtonClick(dialog: Dialog, button: Int): Boolean {
         return when (dialog.dialogId) {
-            R.id.dialog_observation_single_stop -> {
+            R.id.dialog_observation_subject_stop -> {
                 if (button == Dialog.BUTTON_POSITIVE) {
                     getController().stopObservation()
                     menu.findItem(R.id.menu_item_stop).isVisible = false
@@ -136,7 +136,7 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
                 }
                 true
             }
-            R.id.dialog_observation_single_remove -> {
+            R.id.dialog_observation_subject_remove -> {
                 if (button == Dialog.BUTTON_POSITIVE) {
                     optionsItemSelectedListener?.onObservationOptionsItemSelected(this, menu.findItem(R.id.menu_item_remove))
                 }

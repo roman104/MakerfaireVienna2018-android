@@ -127,6 +127,13 @@ abstract class BaseFragment<VM : ViewModel, C : Controller<*>> : UniversiFragmen
     public override fun showDialogWithId(@IntRange(from = 0) dialogId: Int, options: DialogOptions<*>?) = super.showDialogWithId(dialogId, options)
     public override fun dismissDialogWithId(@IntRange(from = 0) dialogId: Int) = super.dismissDialogWithId(dialogId)
 
+    override fun onDestroyView() {
+        onUnbindViews()
+        super.onDestroyView()
+    }
+
+    protected open fun onUnbindViews() {}
+
     override fun onDestroy() {
         // Detach controller with view model before view models store is cleared.
         this.detachController()

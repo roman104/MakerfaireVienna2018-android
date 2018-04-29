@@ -24,6 +24,7 @@ import universum.mind.synergy.challenge.control.ChallengeController
 import universum.mind.synergy.challenge.control.DefaultChallengeController
 import universum.mind.synergy.challenge.view.presentation.ChallengePresenter
 import universum.mind.synergy.challenge.view.presentation.DefaultChallengePresenter
+import universum.mind.synergy.device.headset.Headset
 import universum.mind.synergy.view.BaseFragmentModule
 import universum.mind.synergy.view.EmptyFragmentModule
 import universum.studios.android.arkhitekton.interaction.Interactor
@@ -37,13 +38,13 @@ class ChallengeFragmentModule : BaseFragmentModule() {
 	@Provides fun provideController(
             fragment: ChallengeFragment,
             interactor: Interactor,
-            presenter: ChallengePresenter
+            presenter: ChallengePresenter,
+            headset: Headset
 	): ChallengeController {
 	    val holder = provideControllerHolder(fragment, ChallengeController.Holder::class.java)
 		return if (holder.hasController()) holder.getController()
 		else holder.attachController(DefaultChallengeController.Builder(interactor, presenter)
-				.apply {
-				}
+				.apply { this.headset = headset }
 				.build())
 	}
 	

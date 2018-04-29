@@ -18,20 +18,20 @@
  */
 package universum.mind.synergy.device.headset
 
-import universum.mind.synergy.device.headset.data.AttentionData
+import universum.mind.synergy.device.headset.data.MeditationData
 import universum.mind.synergy.util.ListenersRegistry
 
 /**
  * @author Martin Albedinsky
  */
-interface AttentionListener {
+interface OnMeditationListener {
 
-    fun onAttentionChanged(data: AttentionData)
+    fun onMeditationChanged(data: MeditationData)
 
-    class Registry : ListenersRegistry<AttentionListener>() {
+    class Registry : ListenersRegistry<OnMeditationListener>() {
 
-        fun notifyAttentionChanged(data: AttentionData) {
-            listeners.forEach { it.onAttentionChanged(data) }
+        fun notifyChange(data: MeditationData) {
+            listeners.forEach { it.onMeditationChanged(data) }
         }
     }
 }

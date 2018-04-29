@@ -18,10 +18,10 @@
  */
 package universum.mind.synergy.observation.control
 
-import universum.studios.android.arkhitekton.control.ReactiveController
-import universum.studios.android.arkhitekton.interaction.Interactor
 import universum.mind.synergy.device.headset.Headset
 import universum.mind.synergy.observation.view.presentation.ObservationPresenter
+import universum.studios.android.arkhitekton.control.ReactiveController
+import universum.studios.android.arkhitekton.interaction.Interactor
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -34,19 +34,16 @@ abstract class BaseObservationController<out I : Interactor, out P : Observation
     private val observing = AtomicBoolean()
 
     override fun startObservation() {
-        if (observing.get()) {
-            return
+        if (observing.compareAndSet(false, true)) {
+            onObservationStart(headset)
         }
-        onObservationStart(headset)
-        this.observing.set(true)
     }
 
     protected open fun onObservationStart(headset: Headset) {}
 
     override fun stopObservation() {
-        if (observing.get()) {
+        if (observing.compareAndSet(true, false)) {
             onObservationStop(headset)
-            this.observing.set(false)
         }
     }
 

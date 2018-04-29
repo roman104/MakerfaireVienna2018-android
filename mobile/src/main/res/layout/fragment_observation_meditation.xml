@@ -36,8 +36,6 @@
 					android:layout_height="wrap_content"
 					android:layout_marginStart="@dimen/observation_toolbar_info_margin_start"
 					android:layout_marginTop="?attr/actionBarSize"
-					android:paddingStart="?attr/uiSpacingSecondary"
-					android:paddingEnd="?attr/uiSpacingSecondary"
 					android:paddingBottom="?attr/uiSpacingTertiary"
 					android:text="@{Integer.toString(viewModel.actualValue)}"
 					android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.ActualValue"

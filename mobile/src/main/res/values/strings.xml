@@ -83,6 +83,8 @@
 	<!-- ### CHALLENGE ========================================================================= -->
 
 	<string name="challenge_title">Synergy challenge</string>
+	<string name="challenge_subject_attention_label">Attention:</string>
+	<string name="challenge_subject_meditation_label">Meditation:</string>
 	<string name="participants_label_first">First participant</string>
 	<string name="participants_label_second">Second participant</string>
 
