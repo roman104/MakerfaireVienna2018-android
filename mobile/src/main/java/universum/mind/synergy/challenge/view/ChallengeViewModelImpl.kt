@@ -22,11 +22,11 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import universum.mind.synergy.R
+import universum.mind.synergy.observation.attention.data.AttentionChartData
+import universum.mind.synergy.observation.meditation.data.MeditationChartData
+import universum.mind.synergy.util.DateUtils
 
 /**
  * @author Martin Albedinsky
@@ -37,31 +37,10 @@ class ChallengeViewModelImpl(application: Application) : AndroidViewModel(applic
     override val meditationValueActual = ObservableInt(0)
 
     override val chartData: ObservableField<LineData> = ObservableField(LineData(
-            // ATTENTION:
-            LineDataSet(
-                    // Data set must contain at least one entry!
-                    arrayListOf(Entry(0f, 0f)),
-                    application.getString(R.string.observation_subject_attention)
-            ).apply {
-                color = application.getColor(R.color.observation_subject_attention)
-                setCircleColor(application.getColor(R.color.observation_subject_attention))
-            },
-            // MEDITATION:
-            LineDataSet(
-                    // Data set must contain at least one entry!
-                    arrayListOf(Entry(0f, 0f)),
-                    application.getString(R.string.observation_subject_meditation)
-            ).apply {
-                color = application.getColor(R.color.observation_subject_meditation)
-                setCircleColor(application.getColor(R.color.observation_subject_meditation))
-            }
+            AttentionChartData.createInitialLineDataSet(application),
+            MeditationChartData.createInitialLineDataSet(application)
     ))
 
-    override val chartDataXAxisFormatter: IAxisValueFormatter = IAxisValueFormatter { value, _ ->
-        when {
-            value <= 1000 * 60 -> "${(value / 1000).toLong()}s"
-            value <= 1000 * 60 * 60 -> "${(value / (1000 * 60)).toLong()}m ${(value / 1000).toLong()}s"
-            else -> "${(value / (1000 * 60 * 60)).toLong()}h ${(value / (1000 * 60)).toLong()}m ${(value / 1000).toLong()}s"
-        }
+    override val chartDataXAxisFormatter: IAxisValueFormatter = IAxisValueFormatter { value, _ -> DateUtils.Formatter.formatElapsedTime(value.toLong())
     }
 }

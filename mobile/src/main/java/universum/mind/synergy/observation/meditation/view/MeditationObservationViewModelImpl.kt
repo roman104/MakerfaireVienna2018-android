@@ -18,24 +18,20 @@
  */
 package universum.mind.synergy.observation.meditation.view
 
-import android.arch.lifecycle.ViewModel
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import universum.mind.synergy.observation.meditation.data.MeditationChartData
 
 /**
  * @author Martin Albedinsky
  */
-class MeditationObservationViewModelImpl : ViewModel(), MeditationObservationViewModel {
+class MeditationObservationViewModelImpl(application: Application) : AndroidViewModel(application), MeditationObservationViewModel {
 
     override val deviceSignalQuality = ObservableField<CharSequence>("")
     override val actualValue = ObservableInt()
 
-	override val chartData: ObservableField<LineData> = ObservableField(LineData(LineDataSet(
-            // Data set must contain at least one entry!
-            arrayListOf(Entry(0f, 0f)),
-            "Values")
-    ))
+	override val chartData: ObservableField<LineData> = ObservableField(LineData(MeditationChartData.createInitialLineDataSet(application)))
 }

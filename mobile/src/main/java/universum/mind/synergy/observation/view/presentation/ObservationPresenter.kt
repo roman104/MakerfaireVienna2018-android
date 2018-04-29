@@ -18,17 +18,14 @@
  */
 package universum.mind.synergy.observation.view.presentation
 
+import universum.mind.synergy.device.headset.data.HeadsetData
 import universum.studios.android.arkhitekton.presentation.Presenter
 import universum.studios.android.arkhitekton.view.View
-import universum.mind.synergy.device.headset.Headset.SignalQuality
-import universum.mind.synergy.device.headset.data.HeadsetData
 
 /**
  * @author Martin Albedinsky
  */
 interface ObservationPresenter<in V : View<*>, in D : HeadsetData> : Presenter<V> {
-
-    fun onHeadsetSignalQualityChanged(quality: SignalQuality)
 
     fun onObservationDataChanged(data: D)
 }

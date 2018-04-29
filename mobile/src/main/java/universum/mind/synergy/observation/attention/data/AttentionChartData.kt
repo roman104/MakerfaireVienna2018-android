@@ -16,22 +16,30 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.observation.attention.view
+package universum.mind.synergy.observation.attention.data
 
-import android.databinding.ObservableField
-import android.databinding.ObservableInt
-import com.github.mikephil.charting.data.LineData
-import universum.studios.android.arkhitekton.view.ViewModel
+import android.content.Context
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineDataSet
+import universum.mind.synergy.R
 
 /**
  * @author Martin Albedinsky
  */
-interface AttentionObservationViewModel : ViewModel {
+class AttentionChartData private constructor() {
 
-    val valueActual: ObservableInt
-    val valueAverage: ObservableInt
-    val valueHighest: ObservableInt
-    val valueLowest: ObservableInt
+    companion object {
 
-    val chartData: ObservableField<LineData>
+        fun createInitialLineDataSet(context: Context): LineDataSet {
+            val color = context.getColor(R.color.observation_subject_attention)
+            return LineDataSet(
+                    // Data set must contain at least one entry!
+                    arrayListOf(Entry(0f, 0f)),
+                    context.getString(R.string.observation_subject_attention)
+            ).apply {
+                this.color = color
+                this.setCircleColor(color)
+            }
+        }
+    }
 }
