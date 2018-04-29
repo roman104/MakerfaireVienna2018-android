@@ -38,6 +38,6 @@
 
 	<!-- ### OBSERVATION ======================================================================= -->
 
-	<dimen name="observation_toolbar_actual_value_margin_start">56dp</dimen>
+	<dimen name="observation_toolbar_info_margin_start">72dp</dimen>
 	<dimen name="observation_char_height">280dp</dimen>
 </resources>

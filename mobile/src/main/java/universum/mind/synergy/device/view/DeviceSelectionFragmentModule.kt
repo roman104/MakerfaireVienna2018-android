@@ -20,7 +20,6 @@ package universum.mind.synergy.device.view
 
 import dagger.Module
 import dagger.Provides
-import universum.studios.android.arkhitekton.interaction.Interactor
 import universum.mind.synergy.device.control.DefaultDeviceSelectionController
 import universum.mind.synergy.device.control.DeviceSelectionController
 import universum.mind.synergy.device.data.LiveBluetoothDevices
@@ -28,6 +27,7 @@ import universum.mind.synergy.device.view.presentation.DefaultDeviceSelectionPre
 import universum.mind.synergy.device.view.presentation.DeviceSelectionPresenter
 import universum.mind.synergy.view.BaseFragmentModule
 import universum.mind.synergy.view.EmptyFragmentModule
+import universum.studios.android.arkhitekton.interaction.Interactor
 
 /**
  * @author Martin Albedinsky
@@ -43,7 +43,10 @@ class DeviceSelectionFragmentModule : BaseFragmentModule() {
 	    val holder = provideControllerHolder(fragment, DeviceSelectionController.Holder::class.java)
 		return if (holder.hasController()) holder.getController()
 		else holder.attachController(DefaultDeviceSelectionController.Builder(interactor, presenter)
-				.apply { devicesLiveData = LiveBluetoothDevices.create(fragment.requireContext()) }
+				.apply {
+					context = fragment.requireContext().applicationContext
+					devicesLiveData = LiveBluetoothDevices.create(fragment.requireContext())
+				}
 				.build())
 	}
 	

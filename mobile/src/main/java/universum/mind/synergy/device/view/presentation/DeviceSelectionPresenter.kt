@@ -18,15 +18,17 @@
  */
 package universum.mind.synergy.device.view.presentation
 
-import universum.studios.android.arkhitekton.presentation.Presenter
-import universum.studios.android.arkhitekton.view.View
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.view.DeviceSelectionViewModel
+import universum.mind.synergy.view.ScreenView
+import universum.studios.android.arkhitekton.presentation.Presenter
 
 /**
  * @author Martin Albedinsky
  */
-interface DeviceSelectionPresenter : Presenter<View<DeviceSelectionViewModel>> {
+interface DeviceSelectionPresenter : Presenter<ScreenView<DeviceSelectionViewModel>> {
+
+    fun onBluetoothNotEnabled()
 
     fun onDevicesChanged(devices: List<Device>)
 }

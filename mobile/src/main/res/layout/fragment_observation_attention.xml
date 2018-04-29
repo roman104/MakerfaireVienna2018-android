@@ -21,36 +21,92 @@
 				android:layout_height="wrap_content"
 				app:titleEnabled="false">
 
-				<android.support.v7.widget.Toolbar
-					android:id="@id/ui_child_toolbar"
-					style="?attr/toolbarStyle"
+				<LinearLayout
 					android:layout_width="match_parent"
-					android:layout_height="?attr/actionBarSize"
-					android:background="@drawable/none"
-					android:elevation="@dimen/none"
-					app:navigationIcon="@drawable/vc_ic_tb_close_24dp"
-					tools:title="@string/observation_subject_attention" />
-
-				<TextView
-					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="@dimen/observation_toolbar_actual_value_margin_start"
-					android:layout_marginTop="?attr/actionBarSize"
-					android:paddingStart="?attr/uiSpacingSecondary"
-					android:paddingEnd="?attr/uiSpacingSecondary"
-					android:paddingBottom="?attr/uiSpacingTertiary"
-					android:text="@{Integer.toString(viewModel.actualValue)}"
-					android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.ActualValue"
-					tools:text="10"/>
+					android:orientation="vertical">
+
+					<android.support.v7.widget.Toolbar
+						android:id="@id/ui_child_toolbar"
+						style="?attr/toolbarStyle"
+						android:layout_width="match_parent"
+						android:layout_height="?attr/actionBarSize"
+						android:background="@drawable/none"
+						android:elevation="@dimen/none"
+						app:navigationIcon="@drawable/vc_ic_tb_close_24dp"
+						tools:title="@string/observation_subject_attention" />
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/observation_toolbar_info_margin_start"
+						android:paddingBottom="?attr/uiSpacingTertiary"
+						android:text="@{Integer.toString(viewModel.valueActual)}"
+						android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.ActualValue"
+						tools:text="10" />
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/observation_toolbar_info_margin_start"
+						android:paddingBottom="?attr/uiSpacingTertiary"
+						android:orientation="horizontal">
+
+						<TextView
+							android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.Info.Label"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:paddingEnd="@dimen/spacing_small"
+							android:text="AVG:" />
+
+						<TextView
+							android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.Info.Value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="?attr/uiSpacingSecondary"
+							android:text="@{Integer.toString(viewModel.valueAverage)}"
+							tools:text="67"/>
+
+						<TextView
+							android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.Info.Label"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:paddingEnd="@dimen/spacing_small"
+							android:text="HIGHEST:" />
+
+						<TextView
+							android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.Info.Value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginEnd="?attr/uiSpacingSecondary"
+							android:text="@{Integer.toString(viewModel.valueHighest)}"
+							tools:text="98"/>
+
+						<TextView
+							android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.Info.Label"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:paddingEnd="@dimen/spacing_small"
+							android:text="LOWEST:" />
+
+						<TextView
+							android:textAppearance="@style/TextAppearance.Widget.Toolbar.Observation.Info.Value"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@{Integer.toString(viewModel.valueLowest)}"
+							tools:text="11"/>
+					</LinearLayout>
+				</LinearLayout>
 			</android.support.design.widget.CollapsingToolbarLayout>
 		</android.support.design.widget.AppBarLayout>
 
 		<TextView
+			android:textAppearance="@style/TextAppearance.Widget.TextView.ObservationBar.Title"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:padding="?attr/uiSpacingSecondary"
-			android:text="@{String.format(@string/observation_device_signal_quality_format, viewModel.deviceSignalQuality)}"
-			tools:text="Device signal quality: GOOD" />
+			android:layout_marginTop="?attr/uiSpacingPrimary"
+			android:gravity="center_horizontal"
+			android:text="@string/observation_bar_title" />
 
 		<com.github.mikephil.charting.charts.LineChart
 			android:id="@+id/chart_view"

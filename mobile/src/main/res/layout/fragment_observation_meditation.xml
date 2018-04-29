@@ -34,7 +34,7 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="@dimen/observation_toolbar_actual_value_margin_start"
+					android:layout_marginStart="@dimen/observation_toolbar_info_margin_start"
 					android:layout_marginTop="?attr/actionBarSize"
 					android:paddingStart="?attr/uiSpacingSecondary"
 					android:paddingEnd="?attr/uiSpacingSecondary"
@@ -46,11 +46,12 @@
 		</android.support.design.widget.AppBarLayout>
 
 		<TextView
+			android:textAppearance="@style/TextAppearance.Widget.TextView.ObservationBar.Title"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:padding="?attr/uiSpacingSecondary"
-			android:text="@{String.format(@string/observation_device_signal_quality_format, viewModel.deviceSignalQuality)}"
-			tools:text="Device signal quality: GOOD"/>
+			android:layout_marginTop="?attr/uiSpacingPrimary"
+			android:gravity="center_horizontal"
+			android:text="@string/observation_bar_title" />
 
 		<com.github.mikephil.charting.charts.LineChart
 			android:id="@+id/chart_view"

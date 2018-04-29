@@ -36,8 +36,8 @@
 
 	<!-- ### TINT ============================================================================== -->
 
-	<color name="icon">#FFFFFFFF</color>
-	<color name="icon_toolbar">#FFFFFFFF</color>
+	<color name="tint_icon">#FFFFFFFF</color>
+	<color name="tint_icon_toolbar">#FFFFFFFF</color>
 
 	<!-- ### TEXT ============================================================================== -->
 

@@ -25,13 +25,13 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_device_selection.*
-import universum.studios.android.support.fragment.annotation.ContentView
 import universum.mind.synergy.R
 import universum.mind.synergy.databinding.FragmentDeviceSelectionBinding
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.control.DeviceSelectionController
 import universum.mind.synergy.device.view.presentation.DevicesSelectionAdapter
 import universum.mind.synergy.view.BaseFragment
+import universum.studios.android.support.fragment.annotation.ContentView
 
 /**
  * @author Martin Albedinsky
@@ -57,6 +57,7 @@ class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSel
     override fun onAttach(context: Context) {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onAttach(context)
+        setDialogXmlFactory(R.xml.dialogs_device_selection)
     }
 
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
@@ -82,6 +83,7 @@ class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSel
         getViewModel().getDevicesData().observe(this, Observer { devices ->
             devicesAdapter.changeItems(devices)
         })
+        // todo: check if we have bluetooth permission ...
         getController().startDevicesDiscovery()
     }
 

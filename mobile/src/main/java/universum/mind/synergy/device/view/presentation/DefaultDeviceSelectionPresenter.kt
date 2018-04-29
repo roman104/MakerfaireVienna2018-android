@@ -18,19 +18,30 @@
  */
 package universum.mind.synergy.device.view.presentation
 
-import universum.studios.android.arkhitekton.presentation.BasePresenter
-import universum.studios.android.arkhitekton.view.View
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import universum.mind.synergy.R
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.view.DeviceSelectionViewModel
+import universum.mind.synergy.view.ScreenView
+import universum.mind.synergy.view.dialog.DialogsView
+import universum.studios.android.arkhitekton.presentation.BasePresenter
 
 /**
  * @author Martin Albedinsky
  */
-class DefaultDeviceSelectionPresenter(viewModel: DeviceSelectionViewModel) : BasePresenter<View<DeviceSelectionViewModel>, DeviceSelectionViewModel>(viewModel), DeviceSelectionPresenter {
+class DefaultDeviceSelectionPresenter(viewModel: DeviceSelectionViewModel) :
+        BasePresenter<ScreenView<DeviceSelectionViewModel>,DeviceSelectionViewModel>(viewModel),
+        DeviceSelectionPresenter,
+        LifecycleObserver {
 
-    companion object {
-    
-        @Suppress("unused") internal const val TAG = "DefaultDeviceSelectionPresenter"
+    override fun onBluetoothNotEnabled() {
+        performViewLifecycleAction(object : LifecycleAction() {
+
+            override fun run() {
+                getView().showDialogWithId(R.id.dialog_bluetooth_disabled, DialogsView.NO_DIALOG_OPTIONS)
+            }
+        }.withStateCondition(Lifecycle.State.RESUMED))
     }
     
 	override fun onDevicesChanged(devices: List<Device>) {

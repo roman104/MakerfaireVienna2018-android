@@ -26,19 +26,22 @@ import android.view.MenuItem
 import android.view.View
 import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.utils.Utils
-import universum.studios.android.arkhitekton.view.ViewModel
-import universum.studios.android.util.BundleKey
 import universum.mind.synergy.R
 import universum.mind.synergy.device.headset.Headset
 import universum.mind.synergy.observation.control.ObservationController
 import universum.mind.synergy.util.Logging
 import universum.mind.synergy.view.BaseFragment
 import universum.mind.synergy.view.PageFragment
+import universum.studios.android.arkhitekton.view.ViewModel
+import universum.studios.android.support.dialog.Dialog
+import universum.studios.android.util.BundleKey
 
 /**
  * @author Martin Albedinsky
  */
-abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController<*>> : BaseFragment<VM, C>(), ObservationFragment, ObservationView<VM> {
+abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController<*>> :
+        BaseFragment<VM, C>(), ObservationFragment, ObservationView<VM>,
+        Dialog.OnDialogListener {
 
     companion object {
 
@@ -65,6 +68,7 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
     override fun onAttach(context: Context) {
         super.onAttach(context)
         Utils.init(context)
+        setDialogXmlFactory(R.xml.dialogs_observation_single)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,15 +118,31 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_item_stop -> {
-                getController().stopObservation()
-                item.isVisible = false
-                menu.findItem(R.id.menu_item_download).isVisible = true
-                menu.findItem(R.id.menu_item_remove).isVisible = true
+            R.id.menu_item_stop -> showDialogWithId(R.id.dialog_observation_single_stop)
+            R.id.menu_item_download -> false
+            R.id.menu_item_remove -> showDialogWithId(R.id.dialog_observation_single_remove)
+            else -> return optionsItemSelectedListener?.onObservationOptionsItemSelected(this, item) ?: false
+        }
+    }
+
+    override fun onDialogButtonClick(dialog: Dialog, button: Int): Boolean {
+        return when (dialog.dialogId) {
+            R.id.dialog_observation_single_stop -> {
+                if (button == Dialog.BUTTON_POSITIVE) {
+                    getController().stopObservation()
+                    menu.findItem(R.id.menu_item_stop).isVisible = false
+                    menu.findItem(R.id.menu_item_download).isVisible = true
+                    menu.findItem(R.id.menu_item_remove).isVisible = true
+                }
                 true
             }
-            R.id.menu_item_download -> false
-            else -> return optionsItemSelectedListener?.onObservationOptionsItemSelected(this, item) ?: false
+            R.id.dialog_observation_single_remove -> {
+                if (button == Dialog.BUTTON_POSITIVE) {
+                    optionsItemSelectedListener?.onObservationOptionsItemSelected(this, menu.findItem(R.id.menu_item_remove))
+                }
+                true
+            }
+            else -> false
         }
     }
 

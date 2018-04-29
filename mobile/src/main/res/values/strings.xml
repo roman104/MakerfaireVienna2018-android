@@ -51,7 +51,11 @@
 	<string name="button_ok">OK</string>
 	<string name="button_cancel">Cancel</string>
 	<string name="button_exit">Exit</string>
+	<string name="button_proceed">Proceed</string>
 	<string name="button_dismiss">Dismiss</string>
+	<string name="button_stop">Stop</string>
+	<string name="button_remove">Remove</string>
+	<string name="button_settings">Settings</string>
 
 	<!-- ### WELCOME =========================================================================== -->
 
@@ -73,6 +77,7 @@
 	<string name="observation_device_signal_quality_format">Device signal quality: <b>%1$s</b></string>
 	<string name="observation_subject_attention">Attention</string>
 	<string name="observation_subject_meditation">Meditation</string>
+	<string name="observation_bar_title">Observation data</string>
 
 	<!-- ### PARTICIPANTS ====================================================================== -->
 

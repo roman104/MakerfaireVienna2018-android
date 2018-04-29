@@ -20,27 +20,31 @@ package universum.mind.synergy.device.control
 
 import android.arch.lifecycle.Observer
 import android.bluetooth.BluetoothDevice
-import universum.studios.android.arkhitekton.control.ReactiveController
-import universum.studios.android.arkhitekton.interaction.Interactor
+import android.content.Context
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.data.LiveBluetoothDevices
 import universum.mind.synergy.device.view.presentation.DeviceSelectionPresenter
+import universum.mind.synergy.util.BluetoothUtils
+import universum.studios.android.arkhitekton.control.ReactiveController
+import universum.studios.android.arkhitekton.interaction.Interactor
 
 /**
  * @author Martin Albedinsky
  */
 class DefaultDeviceSelectionController internal constructor(builder: Builder) : ReactiveController<Interactor, DeviceSelectionPresenter>(builder), DeviceSelectionController {
 
-    companion object {
-    
-        @Suppress("unused") const val TAG = "DefaultDeviceSelectionController"
-    }
-
+    private val context = builder.context
     private val devicesObserver: Observer<List<BluetoothDevice>> = Observer { devices -> getPresenter().onDevicesChanged(devices!!.map { Device(it.name, it.address) }) }
     private val devicesLiveData = builder.devicesLiveData
 
     override fun startDevicesDiscovery() {
-        isActive().let { devicesLiveData.observeForever(devicesObserver) }
+        isActive().let {
+            if (BluetoothUtils.isEnalbed(context)) {
+                devicesLiveData.observeForever(devicesObserver)
+            } else {
+                getPresenter().onBluetoothNotEnabled()
+            }
+        }
     }
 
     override fun restartDevicesDiscovery() {
@@ -63,6 +67,7 @@ class DefaultDeviceSelectionController internal constructor(builder: Builder) : 
     ) : ReactiveController.BaseBuilder<Builder, Interactor, DeviceSelectionPresenter>(interactor, presenter) {
     
         override val self = this
+        lateinit var context: Context
         lateinit var devicesLiveData: LiveBluetoothDevices
 
         override fun build() = DefaultDeviceSelectionController(this)

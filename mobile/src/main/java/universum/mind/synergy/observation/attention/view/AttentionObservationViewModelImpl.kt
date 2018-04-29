@@ -31,9 +31,11 @@ import com.github.mikephil.charting.data.LineDataSet
 class AttentionObservationViewModelImpl : ViewModel(), AttentionObservationViewModel {
 
     override val deviceSignalQuality = ObservableField<CharSequence>("")
-    override val actualValue = ObservableInt()
-
-	override val chartData: ObservableField<LineData> = ObservableField(LineData(LineDataSet(
+    override val valueActual = ObservableInt(0)
+    override val valueAverage = ObservableInt(0)
+    override val valueHighest = ObservableInt(0)
+    override val valueLowest = ObservableInt(0)
+    override val chartData: ObservableField<LineData> = ObservableField(LineData(LineDataSet(
             // Data set must contain at least one entry!
             arrayListOf(Entry(0f, 0f)),
             "Values")

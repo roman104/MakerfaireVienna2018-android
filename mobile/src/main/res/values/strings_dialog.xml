@@ -29,11 +29,30 @@
 
 	<string name="dialog_title">@string/app_name</string>
 
+	<!-- ### BLUETOOTH ========================================================================= -->
+
+	<string name="dialog_bluetooth_title">Bluetooth</string>
+	<string name="dialog_bluetooth_disabled_content">
+		Bluetooth is not enabled for this device.
+	</string>
+
 	<!-- ### OBSERVATION ======================================================================= -->
 
 	<string name="dialog_observation_select_subject_title">Select subject</string>
+
 	<string name="dialog_observation_exit_title">Exit observation</string>
 	<string name="dialog_observation_exit_content">
 		Are you sure you want to exit? All observations will be stopped and this operation cannot be undone.
+	</string>
+
+	<string name="dialog_observation_stop_title">Stop observation</string>
+	<string name="dialog_observation_stop_content">
+		Are you sure you want to stop observing this subject?
+	</string>
+
+	<string name="dialog_observation_remove_title">Remove observation</string>
+	<string name="dialog_observation_remove_content">
+		All observed data will be lost and this operation cannot be undone.
+		Are you sure you want to remove this observation?
 	</string>
 </resources>

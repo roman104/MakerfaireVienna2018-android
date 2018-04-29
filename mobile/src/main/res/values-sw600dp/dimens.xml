@@ -28,5 +28,5 @@
 
 	<!-- ### OBSERVATION ======================================================================= -->
 
-	<dimen name="observation_toolbar_actual_value_margin_start">64dp</dimen>
+	<dimen name="observation_toolbar_info_margin_start">80dp</dimen>
 </resources>

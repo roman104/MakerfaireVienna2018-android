@@ -20,11 +20,11 @@ package universum.mind.synergy.observation.attention.view.presentation
 
 import android.arch.lifecycle.Lifecycle
 import com.github.mikephil.charting.data.Entry
-import universum.studios.android.arkhitekton.presentation.BasePresenter
 import universum.mind.synergy.device.headset.Headset.SignalQuality
 import universum.mind.synergy.device.headset.data.AttentionData
 import universum.mind.synergy.observation.attention.view.AttentionObservationViewModel
 import universum.mind.synergy.observation.view.ObservationView
+import universum.studios.android.arkhitekton.presentation.BasePresenter
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -43,7 +43,7 @@ class DefaultAttentionObservationPresenter(viewModel: AttentionObservationViewMo
 
     override fun onObservationDataChanged(data: AttentionData) {
         val viewModel = getViewModel()
-        viewModel.actualValue.set(data.value)
+        viewModel.valueActual.set(data.value)
         val chartData = viewModel.chartData.get()!!
         // todo: calculate x value based on time ...
         chartData.addEntry(Entry(xAxisCounter.incrementAndGet().toFloat(), data.value.toFloat()), 0)
