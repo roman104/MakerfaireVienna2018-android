@@ -16,23 +16,36 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.welcome.view
+package universum.mind.synergy
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.bluetooth.BluetoothDevice
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 
 /**
  * @author Martin Albedinsky
  */
-class ParticipantsViewModelImpl : ViewModel(), ParticipantsViewModel {
-    
-	private val availableDevices = MutableLiveData<List<BluetoothDevice>>()
+class Intents private constructor() {
 
-    override fun updateAvailableDevices(devices: List<BluetoothDevice>) {
-        this.availableDevices.value = devices
+    companion object {
+    
     }
 
-    override fun getAvailableDevices(): LiveData<List<BluetoothDevice>> = availableDevices
+    class System private constructor() {
+
+        companion object {
+
+            @JvmStatic fun navigateToBluetoothSettings(context: Context) {
+                context.startActivity(Intent(Settings.ACTION_BLUETOOTH_SETTINGS))
+            }
+
+            @JvmStatic fun navigateToApplicationDetailsSettings(context: Context) {
+                context.startActivity(Intent(
+                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        Uri.parse("package:${context.packageName}")
+                ))
+            }
+        }
+    }
 }

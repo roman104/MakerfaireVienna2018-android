@@ -16,21 +16,18 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.welcome.control
+package universum.mind.synergy.device.view
 
-import universum.studios.android.arkhitekton.control.Controller
-import universum.mind.synergy.welcome.view.presentation.ParticipantsPresenter
+import universum.mind.synergy.view.ScreenView
 
 /**
  * @author Martin Albedinsky
  */
-interface ParticipantsController : Controller<ParticipantsPresenter> {
+interface DeviceSelectionView : ScreenView<DeviceSelectionViewModel> {
 
-    fun startDevicesScan()
+    companion object {
 
-    fun restartDevicesScan()
-
-    fun stopDevicesScan()
-
-    class Holder : Controller.Holder<ParticipantsController>()
+        const val PERMISSION_REQUEST_BLUETOOTH = 1
+        const val PERMISSION_REQUEST_LOCATION = 2
+    }
 }

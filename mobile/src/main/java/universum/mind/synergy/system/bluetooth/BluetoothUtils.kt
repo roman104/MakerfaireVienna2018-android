@@ -16,14 +16,28 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.welcome.view
+package universum.mind.synergy.system.bluetooth
 
-import universum.mind.synergy.view.ScreenView
+import android.Manifest
+import android.bluetooth.BluetoothManager
+import android.content.Context
+import universum.studios.android.util.Permissions
 
 /**
  * @author Martin Albedinsky
  */
-interface ParticipantsView : ScreenView<ParticipantsViewModel> {
+class BluetoothUtils private constructor() {
 
-    // todo: implement class
+    companion object {
+
+        fun hasPermission(context: Context): Boolean = Permissions.has(context, Manifest.permission.BLUETOOTH)
+
+        fun isNotEnabled(context: Context) = !isEnabled(context)
+
+        fun isEnabled(context: Context): Boolean {
+            val manager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+            val adapter = manager.adapter
+            return adapter?.isEnabled ?: false
+        }
+    }
 }

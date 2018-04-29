@@ -16,21 +16,26 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.view.dialog
+package universum.mind.synergy.view
 
+import universum.studios.android.arkhitekton.data.model.ModelMapper
+import universum.studios.android.arkhitekton.util.Description
 import universum.studios.android.support.dialog.DialogOptions
 
 /**
  * @author Martin Albedinsky
  */
-interface DialogsView {
+class DialogMappers private constructor() {
 
     companion object {
 
-        val NO_DIALOG_OPTIONS: DialogOptions<*>? = null
+        val DESCRIPTION_TO_OPTIONS: ModelMapper<Description, DialogOptions<*>> = DescriptionToOptions()
+
+        private class DescriptionToOptions : ModelMapper<Description, DialogOptions<*>> {
+
+            override fun map(description: Description): DialogOptions<*> = DialogOptions<DialogOptions<*>>()
+                    .title(description.getTitle())
+                    .content(description.getSummary())
+        }
     }
-
-    fun showDialogWithId(dialogId: Int, options: DialogOptions<*>?): Boolean
-
-    fun dismissDialogWithId(dialogId: Int): Boolean
 }

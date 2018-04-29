@@ -16,18 +16,14 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.welcome.view
-
-import android.arch.lifecycle.LiveData
-import android.bluetooth.BluetoothDevice
-import universum.studios.android.arkhitekton.view.ViewModel
+package universum.mind.synergy.system.permission
 
 /**
+ * Interface that specifies a layer todo:
+ *
  * @author Martin Albedinsky
  */
-interface ParticipantsViewModel : ViewModel {
+interface PermissionsResultReceiver {
 
-    fun updateAvailableDevices(devices: List<BluetoothDevice>)
-
-    fun getAvailableDevices(): LiveData<List<BluetoothDevice>>
+    fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
 }

@@ -27,7 +27,7 @@ class Config {
 
     class App private constructor() {
 
-        companion object {
+        @Suppress("unused") companion object {
 
             const val PRODUCTION_ID = BuildConfig.PRODUCTION_APPLICATION_ID
             const val PRODUCTION_VERSION_NAME = BuildConfig.PRODUCTION_VERSION_NAME

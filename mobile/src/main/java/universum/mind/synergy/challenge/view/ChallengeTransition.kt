@@ -22,7 +22,6 @@ import android.app.Activity
 import android.support.v4.app.Fragment
 import universum.studios.android.transition.NavigationalTransitionCompat
 import universum.studios.android.transition.WindowTransitions
-import universum.mind.synergy.challenge.ChallengeSession
 
 /**
  * @author Martin Albedinsky
@@ -31,12 +30,10 @@ class ChallengeTransition : NavigationalTransitionCompat(ChallengeActivity::clas
 
     companion object {
 
-        private val WINDOW_TRANSITION = WindowTransitions.SLIDE_TO_LEFT
+        private val WINDOW_TRANSITION = WindowTransitions.SLIDE_TO_TOP_AND_SCALE_OUT
 
         fun get() = ChallengeTransition()
     }
-
-    fun session(session: ChallengeSession) = apply { intentExtras().putParcelable(ChallengeActivity.EXTRA_SESSION, session) }
 
     override fun start(caller: Fragment) = start(caller.requireActivity())
 

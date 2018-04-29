@@ -59,4 +59,8 @@
 	<style name="Theme.Observation" parent="Theme.Toolbar">
 
 	</style>
+
+	<style name="Theme.Challenge" parent="Theme.Toolbar">
+
+	</style>
 </resources>

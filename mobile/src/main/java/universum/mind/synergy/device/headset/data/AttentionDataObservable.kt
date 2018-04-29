@@ -18,17 +18,24 @@
  */
 package universum.mind.synergy.device.headset.data
 
+import android.util.Log
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import universum.mind.synergy.device.headset.AttentionListener
 import universum.mind.synergy.device.headset.Headset
-import universum.mind.synergy.util.Logging
+import universum.studios.android.logging.SimpleLogger
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * @author Martin Albedinsky
  */
 internal class AttentionDataObservable(headset: Headset) : HeadsetDataObservable<AttentionData>(headset) {
+
+    companion object {
+
+        const val TAG = "AttentionDataObservable"
+        val LOGGER = SimpleLogger(Log.VERBOSE)
+    }
 
     override fun subscribeActual(observer: Observer<in AttentionData>) {
         val headsetDisposable = AttentionDataDisposable(headset, observer)
@@ -41,9 +48,9 @@ internal class AttentionDataObservable(headset: Headset) : HeadsetDataObservable
         private val disposed = AtomicBoolean()
 
         fun startListening() {
-            Logging.d("AttentionDataDisposable", "Starting listening ...")
             this.headset.registerAttentionListener(this)
             this.headset.connect()
+            LOGGER.i(TAG, "Started listening ...")
         }
 
         override fun onAttentionChanged(data: AttentionData) {
@@ -54,9 +61,9 @@ internal class AttentionDataObservable(headset: Headset) : HeadsetDataObservable
         }
 
         fun stopListening() {
-            Logging.d("AttentionDataDisposable", "Stopping listening ...")
             this.headset.unregisterAttentionListener(this)
             this.headset.disconnect()
+            LOGGER.i(TAG, "Stopped listening ...")
         }
 
         override fun dispose() {

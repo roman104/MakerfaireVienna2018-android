@@ -16,19 +16,26 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.welcome.view.presentation
+package universum.mind.synergy.system.location
 
-import android.bluetooth.BluetoothDevice
-import universum.studios.android.arkhitekton.presentation.BasePresenter
-import universum.mind.synergy.welcome.view.ParticipantsView
-import universum.mind.synergy.welcome.view.ParticipantsViewModel
+import android.Manifest
+import android.content.Context
+import universum.studios.android.util.Permissions
 
 /**
  * @author Martin Albedinsky
  */
-class DefaultParticipantsPresenter(viewModel: ParticipantsViewModel) : BasePresenter<ParticipantsView, ParticipantsViewModel>(viewModel), ParticipantsPresenter {
+class LocationUtils private constructor() {
 
-	override fun onAvailableDevicesChanged(devices: List<BluetoothDevice>) {
-		getViewModel().updateAvailableDevices(devices)
-	}
+    companion object {
+
+        fun hasNotPermission(context: Context) = !hasPermission(context)
+
+        fun hasPermission(context: Context) = Permissions.has(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+
+        fun isEnalbed(context: Context): Boolean {
+            // todo:
+            return false
+        }
+    }
 }

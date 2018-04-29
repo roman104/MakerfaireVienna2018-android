@@ -16,26 +16,11 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.util
-
-import android.bluetooth.BluetoothManager
-import android.content.Context
+package universum.mind.synergy.system.bluetooth
 
 /**
  * @author Martin Albedinsky
  */
-class BluetoothUtils private constructor() {
-
-    companion object {
-
-        fun hasPermission(context: Context): Boolean {
-            return false
-        }
-
-        fun isEnalbed(context: Context): Boolean {
-            val manager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-            val adapter = manager.adapter
-            return adapter?.isEnabled ?: false
-        }
-    }
+enum class BluetoothError {
+    NOT_AVAILABLE, NOT_ENABLED, NOT_PERMITTED
 }

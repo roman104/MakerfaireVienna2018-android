@@ -18,18 +18,15 @@
  */
 package universum.mind.synergy.challenge.view
 
-import android.bluetooth.BluetoothManager
-import android.content.Context
 import dagger.Module
 import dagger.Provides
-import universum.studios.android.arkhitekton.interaction.Interactor
-import universum.mind.synergy.ApplicationContext
 import universum.mind.synergy.challenge.control.ChallengeController
 import universum.mind.synergy.challenge.control.DefaultChallengeController
 import universum.mind.synergy.challenge.view.presentation.ChallengePresenter
 import universum.mind.synergy.challenge.view.presentation.DefaultChallengePresenter
 import universum.mind.synergy.view.BaseFragmentModule
 import universum.mind.synergy.view.EmptyFragmentModule
+import universum.studios.android.arkhitekton.interaction.Interactor
 
 /**
  * @author Martin Albedinsky
@@ -40,16 +37,12 @@ class ChallengeFragmentModule : BaseFragmentModule() {
 	@Provides fun provideController(
             fragment: ChallengeFragment,
             interactor: Interactor,
-            presenter: ChallengePresenter,
-            @ApplicationContext context: Context
+            presenter: ChallengePresenter
 	): ChallengeController {
 	    val holder = provideControllerHolder(fragment, ChallengeController.Holder::class.java)
 		return if (holder.hasController()) holder.getController()
 		else holder.attachController(DefaultChallengeController.Builder(interactor, presenter)
 				.apply {
-					this.session = fragment.arguments?.getParcelable(ChallengeFragment.ARGUMENT_SESSION) ?: throw IllegalArgumentException("No session found in fragment arguments!")
-					this.context = context
-					this.bluetoothAdapter = (context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
 				}
 				.build())
 	}

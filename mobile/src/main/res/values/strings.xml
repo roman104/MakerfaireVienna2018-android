@@ -49,6 +49,7 @@
 	<!-- ## APPLICATION:Button -->
 
 	<string name="button_ok">OK</string>
+	<string name="button_understood">Understood</string>
 	<string name="button_cancel">Cancel</string>
 	<string name="button_exit">Exit</string>
 	<string name="button_proceed">Proceed</string>
@@ -79,9 +80,9 @@
 	<string name="observation_subject_meditation">Meditation</string>
 	<string name="observation_bar_title">Observation data</string>
 
-	<!-- ### PARTICIPANTS ====================================================================== -->
+	<!-- ### CHALLENGE ========================================================================= -->
 
-	<string name="participants_title">Participants</string>
+	<string name="challenge_title">Synergy challenge</string>
 	<string name="participants_label_first">First participant</string>
 	<string name="participants_label_second">Second participant</string>
 

@@ -25,23 +25,30 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_device_selection.*
+import universum.mind.synergy.Intents
 import universum.mind.synergy.R
 import universum.mind.synergy.databinding.FragmentDeviceSelectionBinding
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.control.DeviceSelectionController
 import universum.mind.synergy.device.view.presentation.DevicesSelectionAdapter
 import universum.mind.synergy.view.BaseFragment
+import universum.studios.android.support.dialog.Dialog
 import universum.studios.android.support.fragment.annotation.ContentView
 
 /**
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.fragment_device_selection)
-class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSelectionController>() {
+class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSelectionController>(), DeviceSelectionView, Dialog.OnDialogListener {
 
     interface OnDeviceSelectionListener {
 
         fun onDeviceSelected(device: Device)
+    }
+
+    companion object {
+
+        fun newInstance() = DeviceSelectionFragment()
     }
 
     private var selectionListener: OnDeviceSelectionListener? = null
@@ -83,7 +90,6 @@ class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSel
         getViewModel().getDevicesData().observe(this, Observer { devices ->
             devicesAdapter.changeItems(devices)
         })
-        // todo: check if we have bluetooth permission ...
         getController().startDevicesDiscovery()
     }
 
@@ -94,6 +100,18 @@ class DeviceSelectionFragment : BaseFragment<DeviceSelectionViewModel, DeviceSel
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onDialogButtonClick(dialog: Dialog, button: Int): Boolean {
+        return when (dialog.dialogId) {
+            R.id.dialog_bluetooth_disabled -> {
+                if (button == Dialog.BUTTON_INFO) {
+                    Intents.System.navigateToBluetoothSettings(requireContext())
+                }
+                true
+            }
+            else -> false
         }
     }
 

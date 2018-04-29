@@ -22,6 +22,7 @@ import android.content.Context
 import android.support.annotation.IntDef
 import android.support.annotation.IntRange
 import dagger.android.support.AndroidSupportInjection
+import universum.mind.synergy.system.permission.PermissionsResultReceiver
 import universum.studios.android.arkhitekton.control.Controller
 import universum.studios.android.arkhitekton.presentation.Presenter
 import universum.studios.android.arkhitekton.util.Preconditions
@@ -114,6 +115,13 @@ abstract class BaseFragment<VM : ViewModel, C : Controller<*>> : UniversiFragmen
     protected open fun onControllerDetached(controller: C) {
         val presenter = controller.getPresenter() as Presenter<ScreenView<VM>>
         presenter.detachView(this)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (controller is PermissionsResultReceiver) {
+            (controller as PermissionsResultReceiver).onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
     }
 
     public override fun showDialogWithId(@IntRange(from = 0) dialogId: Int, options: DialogOptions<*>?) = super.showDialogWithId(dialogId, options)

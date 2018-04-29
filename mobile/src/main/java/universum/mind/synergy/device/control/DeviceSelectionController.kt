@@ -18,13 +18,14 @@
  */
 package universum.mind.synergy.device.control
 
-import universum.studios.android.arkhitekton.control.Controller
 import universum.mind.synergy.device.view.presentation.DeviceSelectionPresenter
+import universum.mind.synergy.system.permission.PermissionsResultReceiver
+import universum.studios.android.arkhitekton.control.Controller
 
 /**
  * @author Martin Albedinsky
  */
-interface DeviceSelectionController : Controller<DeviceSelectionPresenter> {
+interface DeviceSelectionController : Controller<DeviceSelectionPresenter>, PermissionsResultReceiver {
 
     fun startDevicesDiscovery()
 

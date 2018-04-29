@@ -21,13 +21,11 @@ package universum.mind.synergy.challenge.view
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import universum.studios.android.support.fragment.annotation.ContentView
-import universum.studios.android.util.BundleKey
 import universum.mind.synergy.R
-import universum.mind.synergy.challenge.ChallengeSession
 import universum.mind.synergy.challenge.control.ChallengeController
 import universum.mind.synergy.databinding.FragmentChallengeBinding
 import universum.mind.synergy.view.BaseFragment
+import universum.studios.android.support.fragment.annotation.ContentView
 
 /**
  * @author Martin Albedinsky
@@ -37,11 +35,7 @@ class ChallengeFragment : BaseFragment<ChallengeViewModel, ChallengeController>(
 
     companion object {
 
-        val ARGUMENT_SESSION = BundleKey.argument(ChallengeFragment::class.java, "Session")
-
-        fun newInstance(session: ChallengeSession) = ChallengeFragment().apply { arguments = createArguments(session) }
-
-        fun createArguments(session: ChallengeSession) = Bundle().apply { putParcelable(ARGUMENT_SESSION, session) }
+        fun newInstance() = ChallengeFragment()
     }
 
     private lateinit var binding: FragmentChallengeBinding

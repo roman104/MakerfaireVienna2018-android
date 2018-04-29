@@ -20,13 +20,18 @@ package universum.mind.synergy.challenge.view
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import universum.mind.synergy.device.view.DeviceSelectionFragment
+import universum.mind.synergy.device.view.DeviceSelectionFragmentModule
 
 /**
  * @author Martin Albedinsky
  */
 @Module
-@SuppressWarnings("unused")
+@Suppress("unused")
 abstract class ChallengeActivityModule {
+
+	@ContributesAndroidInjector(modules = [DeviceSelectionFragmentModule::class])
+	abstract fun contributeDeviceSelectionFragmentInjector(): DeviceSelectionFragment
 
 	@ContributesAndroidInjector(modules = [ChallengeFragmentModule::class])
 	abstract fun contributeChallengeFragmentInjector(): ChallengeFragment

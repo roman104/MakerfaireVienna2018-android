@@ -32,8 +32,27 @@
 	<!-- ### BLUETOOTH ========================================================================= -->
 
 	<string name="dialog_bluetooth_title">Bluetooth</string>
+	<string name="dialog_bluetooth_unavailable_content">
+		Bluetooth feature is not supported by this device.
+	</string>
 	<string name="dialog_bluetooth_disabled_content">
 		Bluetooth is not enabled for this device.
+	</string>
+	<string name="dialog_bluetooth_permission_rationale_content">
+		Bluetooth is required for connection to a Brain Waves headset.
+	</string>
+
+	<!-- ### LOCATION ========================================================================== -->
+
+	<string name="dialog_location_title">Location</string>
+	<string name="dialog_location_unavailable_content">
+		Location feature is not supported by this device.
+	</string>
+	<string name="dialog_location_disabled_content">
+		Location is not enabled for this device.
+	</string>
+	<string name="dialog_location_permission_rationale_content">
+		Location is required for connection to a Brain Waves headset.
 	</string>
 
 	<!-- ### OBSERVATION ======================================================================= -->

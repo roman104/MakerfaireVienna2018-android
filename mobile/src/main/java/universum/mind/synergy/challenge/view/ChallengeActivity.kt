@@ -19,30 +19,34 @@
 package universum.mind.synergy.challenge.view
 
 import android.os.Bundle
-import universum.studios.android.support.fragment.annotation.ContentView
 import universum.mind.synergy.R
-import universum.mind.synergy.challenge.ChallengeSession
-import universum.mind.synergy.data.Extra
+import universum.mind.synergy.device.Device
+import universum.mind.synergy.device.view.DeviceSelectionFragment
+import universum.mind.synergy.device.view.DeviceSelectionFragment.OnDeviceSelectionListener
 import universum.mind.synergy.view.BaseActivity
+import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.android.support.fragment.transition.FragmentTransitions
 
 /**
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.activity_container)
-class ChallengeActivity : BaseActivity() {
-
-    companion object {
-
-        val EXTRA_SESSION = Extra.createKey("Session")
-    }
+class ChallengeActivity : BaseActivity(), OnDeviceSelectionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onCreate(savedInstanceState)
         navigationalTransition = ChallengeTransition.get()
         if (savedInstanceState == null) {
-            val session = intent.getParcelableExtra<ChallengeSession>(EXTRA_SESSION)
-            fragmentController.newRequest(ChallengeFragment.newInstance(session)).immediate(true).execute()
+            val fragment = DeviceSelectionFragment.newInstance()
+            fragment.setOnDeviceSelectionListener(this)
+            fragmentController.newRequest(fragment).immediate(true).execute()
         }
+    }
+
+    override fun onDeviceSelected(device: Device) {
+        fragmentController.newRequest(ChallengeFragment.newInstance())
+                .transition(FragmentTransitions.CROSS_FADE)
+                .execute()
     }
 }
