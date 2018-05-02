@@ -19,9 +19,11 @@
 package universum.mind.synergy.challenge.control
 
 import io.reactivex.disposables.CompositeDisposable
+import universum.mind.synergy.challenge.ChallengeAchievement
 import universum.mind.synergy.challenge.view.presentation.ChallengePresenter
 import universum.mind.synergy.device.headset.Headset
 import universum.mind.synergy.device.headset.data.HeadsetDataObservable
+import universum.mind.synergy.util.DatePolices
 import universum.studios.android.arkhitekton.control.ReactiveController
 import universum.studios.android.arkhitekton.interaction.Interactor
 import universum.studios.android.arkhitekton.util.Preconditions
@@ -35,6 +37,10 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
     private val headset = Preconditions.checkNotNull(builder.headset)
     private val challengeRunning = AtomicBoolean()
     private val compositeDisposable = CompositeDisposable()
+    internal var attentionChallengeAchievementStart = DatePolices.NO_TIME
+    internal var attentionLatestChallengeAchievementDuration = DatePolices.NO_TIME
+    internal var meditationChallengeAchievementStart = DatePolices.NO_TIME
+    internal var meditationLatestChallengeAchievementDuration = DatePolices.NO_TIME
 
     override fun startChallenge() {
         if (challengeRunning.compareAndSet(false, true)) {
@@ -43,11 +49,41 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
                     HeadsetDataObservable.attention(headset)
                             .observeOn(presentationScheduler)
                             .subscribeOn(interactionScheduler)
-                            .subscribe(getPresenter()::onAttentionChanged),
+                            .subscribe { data ->
+                                val presenter = getPresenter()
+                                presenter.onAttentionChanged(data)
+                                if (data.value >= 60) {
+                                    if (attentionChallengeAchievementStart == DatePolices.NO_TIME) {
+                                        attentionChallengeAchievementStart = System.currentTimeMillis()
+                                    }
+                                } else if (attentionChallengeAchievementStart != DatePolices.NO_TIME) {
+                                    val challengeDuration = System.currentTimeMillis() - attentionChallengeAchievementStart
+                                    if (challengeDuration > attentionLatestChallengeAchievementDuration) {
+                                        attentionLatestChallengeAchievementDuration = challengeDuration
+                                        presenter.onAttentionAchievement(ChallengeAchievement(challengeDuration))
+                                    }
+                                    attentionChallengeAchievementStart = DatePolices.NO_TIME
+                                }
+                            },
                     HeadsetDataObservable.meditation(headset)
                             .observeOn(presentationScheduler)
                             .subscribeOn(interactionScheduler)
-                            .subscribe(getPresenter()::onMeditationChanged)
+                            .subscribe { data ->
+                                val presenter = getPresenter()
+                                presenter.onMeditationChanged(data)
+                                if (data.value >= 60) {
+                                    if (meditationChallengeAchievementStart == DatePolices.NO_TIME) {
+                                        meditationChallengeAchievementStart = System.currentTimeMillis()
+                                    }
+                                } else if (meditationChallengeAchievementStart != DatePolices.NO_TIME) {
+                                    val challengeDuration = System.currentTimeMillis() - meditationChallengeAchievementStart
+                                    if (challengeDuration > meditationLatestChallengeAchievementDuration) {
+                                        meditationLatestChallengeAchievementDuration = challengeDuration
+                                        presenter.onMeditationAchievement(ChallengeAchievement(challengeDuration))
+                                    }
+                                    meditationChallengeAchievementStart = DatePolices.NO_TIME
+                                }
+                            }
             )
         }
     }

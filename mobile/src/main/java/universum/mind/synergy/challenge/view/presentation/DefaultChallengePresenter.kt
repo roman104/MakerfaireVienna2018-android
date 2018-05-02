@@ -20,6 +20,7 @@ package universum.mind.synergy.challenge.view.presentation
 
 import android.arch.lifecycle.Lifecycle
 import com.github.mikephil.charting.data.Entry
+import universum.mind.synergy.challenge.ChallengeAchievement
 import universum.mind.synergy.challenge.view.ChallengeView
 import universum.mind.synergy.challenge.view.ChallengeViewModel
 import universum.mind.synergy.device.headset.data.AttentionData
@@ -52,6 +53,10 @@ class DefaultChallengePresenter(viewModel: ChallengeViewModel) : BasePresenter<C
         this.refreshChartView()
     }
 
+    override fun onAttentionAchievement(achievement: ChallengeAchievement) {
+        // todo:
+    }
+
     override fun onMeditationChanged(data: MeditationData) {
         val viewModel = getViewModel()
         viewModel.meditationValueActual.set(data.value)
@@ -65,6 +70,10 @@ class DefaultChallengePresenter(viewModel: ChallengeViewModel) : BasePresenter<C
             chartData.notifyDataChanged()
         }
         this.refreshChartView()
+    }
+
+    override fun onMeditationAchievement(achievement: ChallengeAchievement) {
+        // todo:
     }
 
     private fun refreshChartView() {

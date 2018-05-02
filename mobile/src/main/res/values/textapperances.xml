@@ -95,4 +95,8 @@
 	<style name="TextAppearance.Widget.Toolbar.Challenge.Subject.ActualValue">
 		<item name="android:textColor">#FFFFFFFF</item>
 	</style>
+
+	<style name="TextAppearance.Widget.TextView.Challenge.Achievement.Label" parent="TextAppearance.Widget.TextView.Medium">
+		<item name="android:textSize">16sp</item>
+	</style>
 </resources>

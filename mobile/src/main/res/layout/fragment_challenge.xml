@@ -86,14 +86,46 @@
 				android:layout_height="wrap_content"
 				android:paddingTop="?attr/uiSpacingPrimary"
 				android:paddingBottom="?attr/uiSpacingPrimary">
+				
+				<TextView
+					android:id="@+id/attention_achievement_label"
+					android:textAppearance="@style/TextAppearance.Widget.TextView.Challenge.Achievement.Label"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/challenge_achievement_attention_label" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="?attr/uiSpacingSecondary"
+					app:layout_constraintStart_toEndOf="@id/attention_achievement_label"
+					app:layout_constraintBaseline_toBaselineOf="@id/attention_achievement_label" />
+
+				<TextView
+					android:id="@+id/meditation_achievement_label"
+					android:textAppearance="@style/TextAppearance.Widget.TextView.Challenge.Achievement.Label"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="?attr/uiSpacingSecondary"
+					android:text="@string/challenge_achievement_attention_label"
+					app:layout_constraintTop_toBottomOf="@id/attention_achievement_label" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="?attr/uiSpacingSecondary"
+					app:layout_constraintStart_toEndOf="@id/meditation_achievement_label"
+					app:layout_constraintBaseline_toBaselineOf="@id/meditation_achievement_label" />
 
 				<TextView
 					android:id="@+id/observation_bar_title"
 					android:textAppearance="@style/TextAppearance.Widget.TextView.ObservationBar.Title"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_marginTop="?attr/uiSpacingSecondary"
 					android:gravity="center_horizontal"
-					android:text="@string/observation_bar_title" />
+					android:text="@string/observation_bar_title"
+					app:layout_constraintTop_toBottomOf="@id/meditation_achievement_label"/>
 
 				<com.github.mikephil.charting.charts.LineChart
 					android:id="@+id/chart_view"

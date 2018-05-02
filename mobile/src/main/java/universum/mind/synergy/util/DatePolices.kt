@@ -16,31 +16,15 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.challenge.view.presentation
-
-import universum.mind.synergy.challenge.ChallengeAchievement
-import universum.mind.synergy.challenge.view.ChallengeView
-import universum.mind.synergy.device.headset.data.AttentionData
-import universum.mind.synergy.device.headset.data.MeditationData
-import universum.studios.android.arkhitekton.presentation.Presenter
+package universum.mind.synergy.util
 
 /**
  * @author Martin Albedinsky
  */
-interface ChallengePresenter : Presenter<ChallengeView> {
+class DatePolices private constructor() {
 
     companion object {
-
-        const val CHART_MAX_VISIBLE_ENTRIES = 20
+    
+        const val NO_TIME = 0L
     }
-
-    fun onChallengeStarted()
-
-    fun onAttentionChanged(data: AttentionData)
-
-    fun onAttentionAchievement(achievement: ChallengeAchievement)
-
-    fun onMeditationChanged(data: MeditationData)
-
-    fun onMeditationAchievement(achievement: ChallengeAchievement)
 }
