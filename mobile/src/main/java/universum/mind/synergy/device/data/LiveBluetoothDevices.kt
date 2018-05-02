@@ -56,11 +56,17 @@ class LiveBluetoothDevices private constructor(private val context: Context) : L
     }
 
     internal fun onDeviceFound(device: BluetoothDevice) {
+        if (device.name.isNullOrEmpty()) {
+            return
+        }
         foundDevicesMap[device.address] = device
         this.notifyDevicesChanged()
     }
 
     internal fun onDeviceUpdated(device: BluetoothDevice) {
+        if (device.name.isNullOrEmpty()) {
+            return
+        }
         foundDevicesMap[device.address] = device
         this.notifyDevicesChanged()
     }

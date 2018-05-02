@@ -34,6 +34,11 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 class DefaultChallengeController internal constructor(builder: Builder) : ReactiveController<Interactor, ChallengePresenter>(builder), ChallengeController {
 
+    companion object {
+
+        private const val ACHIEVEMENT_LEVEL_START = 50
+    }
+
     private val headset = Preconditions.checkNotNull(builder.headset)
     private val challengeRunning = AtomicBoolean()
     private val compositeDisposable = CompositeDisposable()
@@ -52,7 +57,7 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
                             .subscribe { data ->
                                 val presenter = getPresenter()
                                 presenter.onAttentionChanged(data)
-                                if (data.value >= 60) {
+                                if (data.value >= ACHIEVEMENT_LEVEL_START) {
                                     if (attentionChallengeAchievementStart == DatePolices.NO_TIME) {
                                         attentionChallengeAchievementStart = System.currentTimeMillis()
                                     }
@@ -71,7 +76,7 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
                             .subscribe { data ->
                                 val presenter = getPresenter()
                                 presenter.onMeditationChanged(data)
-                                if (data.value >= 60) {
+                                if (data.value >= ACHIEVEMENT_LEVEL_START) {
                                     if (meditationChallengeAchievementStart == DatePolices.NO_TIME) {
                                         meditationChallengeAchievementStart = System.currentTimeMillis()
                                     }
@@ -88,6 +93,8 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
         }
     }
 
+    override fun isChallengeRunning() = challengeRunning.get()
+
     override fun stopChallenge() {
         if (challengeRunning.compareAndSet(true, false)) {
             this.compositeDisposable.clear()
@@ -99,10 +106,8 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
         stopChallenge()
     }
     
-    class Builder(
-        interactor: Interactor,
-        presenter: ChallengePresenter
-    ) : ReactiveController.BaseBuilder<Builder, Interactor, ChallengePresenter>(interactor, presenter) {
+    class Builder(interactor: Interactor, presenter: ChallengePresenter)
+        : ReactiveController.BaseBuilder<Builder, Interactor, ChallengePresenter>(interactor, presenter) {
     
         override val self = this
         lateinit var headset: Headset

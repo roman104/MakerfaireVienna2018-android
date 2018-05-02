@@ -18,6 +18,8 @@
  */
 package universum.mind.synergy.util
 
+import java.util.*
+
 /**
  * @author Martin Albedinsky
  */
@@ -26,5 +28,8 @@ class DatePolices private constructor() {
     companion object {
     
         const val NO_TIME = 0L
+
+        val TIME_ZONE: TimeZone = TimeZone.getDefault()
+        val LOCALE: Locale = Locale.getDefault()
     }
 }

@@ -23,7 +23,6 @@ import universum.mind.synergy.R
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.view.DeviceSelectionFragment
 import universum.mind.synergy.view.BaseActivity
-import universum.studios.android.support.dialog.Dialog
 import universum.studios.android.support.fragment.annotation.ContentView
 import universum.studios.android.support.fragment.transition.FragmentTransitions
 
@@ -31,9 +30,7 @@ import universum.studios.android.support.fragment.transition.FragmentTransitions
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.activity_container)
-class ChallengeActivity : BaseActivity(),
-        DeviceSelectionFragment.OnDeviceSelectionListener,
-        Dialog.OnDialogListener {
+class ChallengeActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelectionListener {
 
     internal lateinit var selectedDevice: Device
 
@@ -41,8 +38,6 @@ class ChallengeActivity : BaseActivity(),
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onCreate(savedInstanceState)
         navigationalTransition = ChallengeTransition.get()
-        setDialogXmlFactory(R.xml.dialogs_challenge)
-
         if (savedInstanceState == null) {
             val fragment = DeviceSelectionFragment.newInstance()
             fragment.setOnDeviceSelectionListener(this)
@@ -56,25 +51,5 @@ class ChallengeActivity : BaseActivity(),
                 .replaceSame(true)
                 .transition(FragmentTransitions.CROSS_FADE)
                 .execute()
-    }
-
-    override fun onDialogButtonClick(dialog: Dialog, button: Int): Boolean {
-        return when (dialog.dialogId) {
-            R.id.dialog_challenge_exit -> {
-                if (button == Dialog.BUTTON_POSITIVE) {
-                    finishWithNavigationalTransition()
-                }
-                true
-            }
-            else -> false
-        }
-    }
-
-    override fun onBackPress(): Boolean {
-        if (findCurrentFragment() is ChallengeFragment) {
-            showDialogWithId(R.id.dialog_challenge_exit)
-            return true
-        }
-        return false
     }
 }

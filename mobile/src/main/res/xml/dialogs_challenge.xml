@@ -28,4 +28,11 @@
 		dialog:dialogContent="@string/dialog_challenge_exit_content"
 		dialog:dialogPositiveButton="@string/button_exit"
 		dialog:dialogNegativeButton="@string/button_cancel" />
+
+	<Dialog
+		android:id="@+id/dialog_challenge_stop"
+		dialog:dialogTitle="@string/dialog_challenge_stop_title"
+		dialog:dialogContent="@string/dialog_challenge_stop_content"
+		dialog:dialogPositiveButton="@string/button_stop"
+		dialog:dialogNegativeButton="@string/button_cancel" />
 </Dialogs>

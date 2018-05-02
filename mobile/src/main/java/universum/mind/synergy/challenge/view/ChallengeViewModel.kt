@@ -20,6 +20,7 @@ package universum.mind.synergy.challenge.view
 
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
+import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import universum.studios.android.arkhitekton.view.ViewModel
@@ -38,6 +39,12 @@ interface ChallengeViewModel : ViewModel {
     val attentionValueActual: ObservableInt
     val meditationValueActual: ObservableInt
 
-    val chartData: ObservableField<LineData>
-    val chartDataXAxisFormatter: IAxisValueFormatter
+    val attentionAchievementText: ObservableField<CharSequence>
+    val meditationAchievementText: ObservableField<CharSequence>
+
+    val chartDataAll: ObservableField<LineData>
+    val chartDataLive: ObservableField<LineData>
+    val chartDataLiveXAxisFormatter: IAxisValueFormatter
+
+    val chartDataHistogram: ObservableField<BarData>
 }

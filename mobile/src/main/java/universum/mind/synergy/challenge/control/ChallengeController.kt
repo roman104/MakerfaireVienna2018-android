@@ -18,8 +18,8 @@
  */
 package universum.mind.synergy.challenge.control
 
-import universum.studios.android.arkhitekton.control.Controller
 import universum.mind.synergy.challenge.view.presentation.ChallengePresenter
+import universum.studios.android.arkhitekton.control.Controller
 
 /**
  * @author Martin Albedinsky
@@ -27,6 +27,8 @@ import universum.mind.synergy.challenge.view.presentation.ChallengePresenter
 interface ChallengeController : Controller<ChallengePresenter> {
 
     fun startChallenge()
+
+    fun isChallengeRunning(): Boolean
 
     fun stopChallenge()
 

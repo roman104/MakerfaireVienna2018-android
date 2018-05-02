@@ -93,7 +93,7 @@ abstract class BaseObservationFragment<VM : ViewModel, C : ObservationController
             toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
             toolbar.inflateMenu(R.menu.observation)
             this.menu = toolbar.menu
-            toolbar.setOnMenuItemClickListener { onOptionsItemSelected(it) }
+            toolbar.setOnMenuItemClickListener(this::onOptionsItemSelected)
         }
         this.chartView = rootView.findViewById(R.id.chart_view)
     }
