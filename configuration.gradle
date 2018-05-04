@@ -28,7 +28,7 @@ def mobileConfig = [
         version: [
                 major: 0,
                 minor: 0,
-                patch: 1
+                patch: 2
                 // Version code may be automatically incremented; locally (optional) via
                 // mobile/version/versioning.gradle file which contains incrementation Gradle task;
                 // remotely on the CI server via ci/increment-version-code.sh script which is called

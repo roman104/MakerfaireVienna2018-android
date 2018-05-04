@@ -100,6 +100,12 @@ class ChallengeFragment : BaseFragment<ChallengeViewModel, ChallengeController>(
                 }
                 true
             }
+            R.id.dialog_challenge_exit -> {
+                if (button == Dialog.BUTTON_POSITIVE) {
+                    requireActivity().finish()
+                }
+                true
+            }
             else -> false
         }
     }

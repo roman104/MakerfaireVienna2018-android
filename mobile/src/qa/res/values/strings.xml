@@ -26,5 +26,6 @@
 
 	<!-- ### APPLICATION ======================================================================= -->
 
-	<string name="app_name">Synergy {QA}</string>
+	<!--<string name="app_name">Synergy {QA}</string>-->
+	<string name="app_name">Synergy</string>
 </resources>

@@ -1,1 +1,1 @@
-- Small updates and improvements.
+- Fixed not handled click on EXIT button in Exit challenge popup.
