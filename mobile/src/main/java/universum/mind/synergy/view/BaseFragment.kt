@@ -134,6 +134,13 @@ abstract class BaseFragment<VM : ViewModel, C : Controller<*>> : UniversiFragmen
 
     protected open fun onUnbindViews() {}
 
+    protected fun finishActivityWithNavigationalTransition() {
+        val activity = requireActivity()
+        if (activity is BaseActivity) {
+            activity.finishWithNavigationalTransition()
+        }
+    }
+
     override fun onDestroy() {
         // Detach controller with view model before view models store is cleared.
         this.detachController()

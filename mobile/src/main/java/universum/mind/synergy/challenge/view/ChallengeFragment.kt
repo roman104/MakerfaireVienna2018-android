@@ -102,7 +102,7 @@ class ChallengeFragment : BaseFragment<ChallengeViewModel, ChallengeController>(
             }
             R.id.dialog_challenge_exit -> {
                 if (button == Dialog.BUTTON_POSITIVE) {
-                    requireActivity().finish()
+                    finishActivityWithNavigationalTransition()
                 }
                 true
             }
