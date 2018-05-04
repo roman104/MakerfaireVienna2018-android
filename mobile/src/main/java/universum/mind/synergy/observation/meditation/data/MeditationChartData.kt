@@ -16,23 +16,30 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.welcome.view
+package universum.mind.synergy.observation.meditation.data
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.bluetooth.BluetoothDevice
+import android.content.Context
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineDataSet
+import universum.mind.synergy.R
 
 /**
  * @author Martin Albedinsky
  */
-class ParticipantsViewModelImpl : ViewModel(), ParticipantsViewModel {
-    
-	private val availableDevices = MutableLiveData<List<BluetoothDevice>>()
+class MeditationChartData private constructor() {
 
-    override fun updateAvailableDevices(devices: List<BluetoothDevice>) {
-        this.availableDevices.value = devices
+    companion object {
+
+        fun createInitialLineDataSet(context: Context): LineDataSet {
+            val color = context.getColor(R.color.observation_subject_meditation)
+            return LineDataSet(
+                    // Data set must contain at least one entry!
+                    arrayListOf(Entry(0f, 0f)),
+                    context.getString(R.string.observation_subject_meditation)
+            ).apply {
+                this.color = color
+                this.setCircleColor(color)
+            }
+        }
     }
-
-    override fun getAvailableDevices(): LiveData<List<BluetoothDevice>> = availableDevices
 }

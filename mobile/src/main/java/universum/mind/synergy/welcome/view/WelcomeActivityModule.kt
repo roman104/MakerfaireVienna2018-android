@@ -19,15 +19,12 @@
 package universum.mind.synergy.welcome.view
 
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 
 /**
  * @author Martin Albedinsky
  */
 @Module
-@SuppressWarnings("unused")
+@Suppress("unused")
 abstract class WelcomeActivityModule {
 
-	@ContributesAndroidInjector(modules = [ParticipantsFragmentModule::class])
-	abstract fun contributeParticipantsFragmentInjector(): ParticipantsFragment
 }

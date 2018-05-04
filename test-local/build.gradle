@@ -32,6 +32,6 @@ dependencies {
     api deps.test.robolectric
     api deps.test.robolectricMultiDex
     api deps.test.mockitoCore
-    implementation deps.kotlin.stdlibJre8
+    implementation deps.kotlin.stdlibJdk8
     implementation deps.android.support.annotations
 }

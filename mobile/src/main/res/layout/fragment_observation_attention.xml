@@ -106,7 +106,7 @@
 			android:layout_height="wrap_content"
 			android:layout_marginTop="?attr/uiSpacingPrimary"
 			android:gravity="center_horizontal"
-			android:text="@string/observation_bar_title" />
+			android:text="@string/observation_bar_title_actual" />
 
 		<com.github.mikephil.charting.charts.LineChart
 			android:id="@+id/chart_view"

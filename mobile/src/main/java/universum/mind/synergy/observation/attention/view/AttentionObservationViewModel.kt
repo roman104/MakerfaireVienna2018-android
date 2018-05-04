@@ -28,10 +28,10 @@ import universum.studios.android.arkhitekton.view.ViewModel
  */
 interface AttentionObservationViewModel : ViewModel {
 
-    val deviceSignalQuality: ObservableField<CharSequence>
     val valueActual: ObservableInt
     val valueAverage: ObservableInt
     val valueHighest: ObservableInt
     val valueLowest: ObservableInt
+
     val chartData: ObservableField<LineData>
 }

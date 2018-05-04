@@ -32,8 +32,27 @@
 	<!-- ### BLUETOOTH ========================================================================= -->
 
 	<string name="dialog_bluetooth_title">Bluetooth</string>
+	<string name="dialog_bluetooth_unavailable_content">
+		Bluetooth feature is not supported by this device.
+	</string>
 	<string name="dialog_bluetooth_disabled_content">
 		Bluetooth is not enabled for this device.
+	</string>
+	<string name="dialog_bluetooth_permission_rationale_content">
+		Bluetooth is required for connection to a Brain Waves headset.
+	</string>
+
+	<!-- ### LOCATION ========================================================================== -->
+
+	<string name="dialog_location_title">Location</string>
+	<string name="dialog_location_unavailable_content">
+		Location feature is not supported by this device.
+	</string>
+	<string name="dialog_location_disabled_content">
+		Location is not enabled for this device.
+	</string>
+	<string name="dialog_location_permission_rationale_content">
+		Location is required for connection to a Brain Waves headset.
 	</string>
 
 	<!-- ### OBSERVATION ======================================================================= -->
@@ -54,5 +73,17 @@
 	<string name="dialog_observation_remove_content">
 		All observed data will be lost and this operation cannot be undone.
 		Are you sure you want to remove this observation?
+	</string>
+
+	<!-- ### CHALLENGE ========================================================================= -->
+
+	<string name="dialog_challenge_exit_title">Exit challenge</string>
+	<string name="dialog_challenge_exit_content">
+		Are you sure you want to exit? Challenge will be stopped and this operation cannot be undone.
+	</string>
+
+	<string name="dialog_challenge_stop_title">Stop challenge</string>
+	<string name="dialog_challenge_stop_content">
+		Are you sure you want to stop? No more data will be observed and this operation cannot be undone.
 	</string>
 </resources>

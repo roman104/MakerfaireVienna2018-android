@@ -18,12 +18,12 @@
  */
 package universum.mind.synergy.observation.meditation.control
 
-import universum.studios.android.arkhitekton.interaction.Interactor
+import io.reactivex.disposables.Disposable
 import universum.mind.synergy.device.headset.Headset
-import universum.mind.synergy.device.headset.MeditationListener
-import universum.mind.synergy.device.headset.data.MeditationData
+import universum.mind.synergy.device.headset.data.HeadsetDataObservable
 import universum.mind.synergy.observation.control.BaseObservationController
 import universum.mind.synergy.observation.meditation.view.presentation.MeditationObservationPresenter
+import universum.studios.android.arkhitekton.interaction.Interactor
 
 /**
  * @author Martin Albedinsky
@@ -31,21 +31,20 @@ import universum.mind.synergy.observation.meditation.view.presentation.Meditatio
 class DefaultMeditationObservationController internal constructor(builder: Builder)
     : BaseObservationController<Interactor, MeditationObservationPresenter>(builder), MeditationObservationController {
 
-    private val subjectListener = object : MeditationListener {
-
-        override fun onMeditationChanged(data: MeditationData) = getPresenter().onObservationDataChanged(data)
-    }
+    private var observationDisposable: Disposable? = null
 
     override fun onObservationStart(headset: Headset) {
         super.onObservationStart(headset)
-        headset.registerMeditationListener(subjectListener)
-        headset.connect()
+        this.observationDisposable = HeadsetDataObservable.meditation(headset)
+                .observeOn(presentationScheduler)
+                .subscribeOn(interactionScheduler)
+                .subscribe(getPresenter()::onObservationDataChanged)
     }
 
     override fun onObservationStop(headset: Headset) {
         super.onObservationStop(headset)
-        headset.disconnect()
-        headset.unregisterMeditationListener(subjectListener)
+        this.observationDisposable?.dispose()
+        this.observationDisposable = null
     }
 
     class Builder(

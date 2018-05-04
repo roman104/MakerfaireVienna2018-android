@@ -21,30 +21,72 @@ package universum.mind.synergy.device.control
 import android.arch.lifecycle.Observer
 import android.bluetooth.BluetoothDevice
 import android.content.Context
+import android.content.pm.PackageManager
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.data.LiveBluetoothDevices
+import universum.mind.synergy.device.view.DeviceSelectionView
 import universum.mind.synergy.device.view.presentation.DeviceSelectionPresenter
-import universum.mind.synergy.util.BluetoothUtils
+import universum.mind.synergy.system.bluetooth.BluetoothError
+import universum.mind.synergy.system.bluetooth.BluetoothUtils
+import universum.mind.synergy.system.location.LocationError
+import universum.mind.synergy.system.location.LocationUtils
+import universum.mind.synergy.util.Logging
 import universum.studios.android.arkhitekton.control.ReactiveController
 import universum.studios.android.arkhitekton.interaction.Interactor
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * @author Martin Albedinsky
  */
 class DefaultDeviceSelectionController internal constructor(builder: Builder) : ReactiveController<Interactor, DeviceSelectionPresenter>(builder), DeviceSelectionController {
 
+    companion object {
+
+        private const val TAG = "DefaultDeviceSelectionController"
+    }
+
     private val context = builder.context
     private val devicesObserver: Observer<List<BluetoothDevice>> = Observer { devices -> getPresenter().onDevicesChanged(devices!!.map { Device(it.name, it.address) }) }
     private val devicesLiveData = builder.devicesLiveData
+    private val discoveryActive = AtomicBoolean()
 
-    override fun startDevicesDiscovery() {
-        isActive().let {
-            if (BluetoothUtils.isEnalbed(context)) {
-                devicesLiveData.observeForever(devicesObserver)
-            } else {
-                getPresenter().onBluetoothNotEnabled()
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            DeviceSelectionView.PERMISSION_REQUEST_BLUETOOTH -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startDevicesDiscovery()
+                } else {
+                    Logging.d(TAG, "Bluetooth permission rejected.")
+                }
+            }
+            DeviceSelectionView.PERMISSION_REQUEST_LOCATION -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    startDevicesDiscovery()
+                } else {
+                    Logging.d(TAG, "Location permission rejected.")
+                }
             }
         }
+    }
+
+    override fun startDevicesDiscovery() {
+        if (isActive() && discoveryActive.compareAndSet(false, true)) {
+            var startDiscovery = true
+
+            if (BluetoothUtils.isNotEnabled(context)) {
+                startDiscovery = false
+                getPresenter().onBluetoothError(BluetoothError.NOT_ENABLED)
+                // todo: listen for bluetooth enabled state change ...
+            }
+
+            if (LocationUtils.hasNotPermission(context)) {
+                startDiscovery = false
+                getPresenter().onLocationError(LocationError.NOT_PERMITTED)
+            }
+
+            startDiscovery.let { devicesLiveData.observeForever(devicesObserver) }
+        }
+
     }
 
     override fun restartDevicesDiscovery() {
@@ -53,7 +95,9 @@ class DefaultDeviceSelectionController internal constructor(builder: Builder) : 
     }
 
     override fun stopDevicesDiscovery() {
-        devicesLiveData.removeObserver(devicesObserver)
+        if (discoveryActive.compareAndSet(true, false)) {
+            devicesLiveData.removeObserver(devicesObserver)
+        }
     }
 
     override fun onDeactivated() {

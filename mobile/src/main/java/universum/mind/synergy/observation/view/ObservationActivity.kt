@@ -27,30 +27,30 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import kotlinx.android.synthetic.main.activity_observation.*
-import universum.studios.android.support.dialog.AdapterDialog
-import universum.studios.android.support.dialog.BaseAdapterDialog.AdapterProvider
-import universum.studios.android.support.dialog.Dialog
-import universum.studios.android.support.dialog.Dialog.OnDialogListener
-import universum.studios.android.support.fragment.annotation.ContentView
-import universum.studios.android.support.fragment.manage.FragmentRequest
-import universum.studios.android.support.fragment.transition.FragmentTransitions
-import universum.studios.android.support.pager.adapter.FragmentPagerAdapter
 import universum.mind.synergy.R
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.view.DeviceSelectionFragment
 import universum.mind.synergy.observation.view.presentation.ObservationFragmentsAdapter
 import universum.mind.synergy.observation.view.presentation.ObservationSubjectsDialogAdapter
 import universum.mind.synergy.view.BaseActivity
+import universum.studios.android.support.dialog.AdapterDialog
+import universum.studios.android.support.dialog.BaseAdapterDialog
+import universum.studios.android.support.dialog.Dialog
+import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.android.support.fragment.manage.FragmentRequest
+import universum.studios.android.support.fragment.transition.FragmentTransitions
+import universum.studios.android.support.pager.adapter.FragmentPagerAdapter
 
 /**
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.activity_observation)
-class ObservationActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelectionListener,
+class ObservationActivity : BaseActivity(),
+        DeviceSelectionFragment.OnDeviceSelectionListener,
         OnPageChangeListener,
         ObservationFragment.OnOptionsItemSelectedListener,
-        AdapterProvider,
-        OnDialogListener,
+        BaseAdapterDialog.AdapterProvider,
+        Dialog.OnDialogListener,
         AdapterDialog.OnItemClickListener {
 
     internal lateinit var selectedDevice: Device

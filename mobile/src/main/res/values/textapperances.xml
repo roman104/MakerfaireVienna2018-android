@@ -81,4 +81,22 @@
 	<style name="TextAppearance.Widget.TextView.ObservationBar.Title" parent="TextAppearance.Widget.TextView.Medium">
 		<item name="android:textSize">16sp</item>
 	</style>
+
+	<!-- ### CHALLENGE ========================================================================= -->
+
+	<style name="TextAppearance.Widget.Toolbar.Challenge.Subject" parent="TextAppearance.Widget.TextView">
+		<item name="android:textColor">#C8FFFFFF</item>
+		<item name="android:textSize">24sp</item>
+		<item name="android:fontFamily">sans-serif-light</item>
+	</style>
+
+	<style name="TextAppearance.Widget.Toolbar.Challenge.Subject.Label"/>
+
+	<style name="TextAppearance.Widget.Toolbar.Challenge.Subject.ActualValue">
+		<item name="android:textColor">#FFFFFFFF</item>
+	</style>
+
+	<style name="TextAppearance.Widget.TextView.Challenge.Achievement.Label" parent="TextAppearance.Widget.TextView.Medium">
+		<item name="android:textSize">16sp</item>
+	</style>
 </resources>

@@ -18,15 +18,29 @@
  */
 package universum.mind.synergy.challenge.view.presentation
 
-import universum.studios.android.arkhitekton.presentation.Presenter
+import universum.mind.synergy.challenge.ChallengeAchievement
 import universum.mind.synergy.challenge.view.ChallengeView
+import universum.mind.synergy.device.headset.data.AttentionData
+import universum.mind.synergy.device.headset.data.MeditationData
+import universum.studios.android.arkhitekton.presentation.Presenter
 
 /**
  * @author Martin Albedinsky
  */
 interface ChallengePresenter : Presenter<ChallengeView> {
 
-    fun onFirstParticipantAttentionChanged(attention: Int)
+    companion object {
 
-    fun onSecondParticipantAttentionChanged(attention: Int)
+        const val CHART_MAX_VISIBLE_ENTRIES = 20
+    }
+
+    fun onChallengeStarted()
+
+    fun onAttentionChanged(data: AttentionData)
+
+    fun onAttentionAchievement(achievement: ChallengeAchievement)
+
+    fun onMeditationChanged(data: MeditationData)
+
+    fun onMeditationAchievement(achievement: ChallengeAchievement)
 }

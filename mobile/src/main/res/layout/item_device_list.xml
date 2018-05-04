@@ -23,5 +23,14 @@
 			android:textSize="16sp"
 			android:fontFamily="sans-serif-medium"
 			tools:text="Device name" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@{device.address}"
+			android:textColor="#AAFFFFFF"
+			android:textSize="14sp"
+			android:fontFamily="sans-serif-medium"
+			tools:text="F3:E2:A4:B8:C9:D1" />
 	</LinearLayout>
 </layout>

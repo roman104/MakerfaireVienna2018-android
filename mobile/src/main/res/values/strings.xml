@@ -49,6 +49,7 @@
 	<!-- ## APPLICATION:Button -->
 
 	<string name="button_ok">OK</string>
+	<string name="button_understood">Understood</string>
 	<string name="button_cancel">Cancel</string>
 	<string name="button_exit">Exit</string>
 	<string name="button_proceed">Proceed</string>
@@ -77,15 +78,19 @@
 	<string name="observation_device_signal_quality_format">Device signal quality: <b>%1$s</b></string>
 	<string name="observation_subject_attention">Attention</string>
 	<string name="observation_subject_meditation">Meditation</string>
-	<string name="observation_bar_title">Observation data</string>
-
-	<!-- ### PARTICIPANTS ====================================================================== -->
-
-	<string name="participants_title">Participants</string>
-	<string name="participants_label_first">First participant</string>
-	<string name="participants_label_second">Second participant</string>
+	<string name="observation_bar_type_live_waves">Live Waves</string>
+	<string name="observation_bar_type_total_observed_data">Total observed data</string>
+	<string name="observation_bar_type_histogram">Histogram</string>
+	<string name="observation_bar_title_actual">Observation data (actual)</string>
+	<string name="observation_bar_title_analysis">Observation data (analysis)</string>
+	<string name="observation_bar_title_histogram">Observation data (histogram)</string>
 
 	<!-- ### CHALLENGE ========================================================================= -->
-	
-	<string name="challenge_participant_attention_value_format">Attention: %1$d</string>
+
+	<string name="challenge_title">Synergy challenge</string>
+	<string name="challenge_subject_attention_label">Attention:</string>
+	<string name="challenge_subject_meditation_label">Meditation:</string>
+	<string name="challenge_achievement_attention_label">Attention achievement:</string>
+	<string name="challenge_achievement_meditation_label">Meditation achievement:</string>
+	<string name="challenge_menu_item_stop">Stop challenge</string>
 </resources>

@@ -16,26 +16,22 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.util
+package universum.mind.synergy.device.headset
 
-import android.bluetooth.BluetoothManager
-import android.content.Context
+import universum.mind.synergy.device.headset.data.AttentionData
+import universum.mind.synergy.util.ListenersRegistry
 
 /**
  * @author Martin Albedinsky
  */
-class BluetoothUtils private constructor() {
+interface OnAttentionListener {
 
-    companion object {
+    fun onAttentionChanged(data: AttentionData)
 
-        fun hasPermission(context: Context): Boolean {
-            return false
-        }
+    class Registry : ListenersRegistry<OnAttentionListener>() {
 
-        fun isEnalbed(context: Context): Boolean {
-            val manager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-            val adapter = manager.adapter
-            return adapter?.isEnabled ?: false
+        fun notifyChange(data: AttentionData) {
+            listeners.forEach { it.onAttentionChanged(data) }
         }
     }
 }

@@ -27,10 +27,10 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
+import universum.mind.synergy.R
 import universum.studios.android.arkhitekton.util.Preconditions
 import universum.studios.android.support.universi.UniversiCompatActivity
 import universum.studios.android.util.Flags
-import universum.mind.synergy.R
 import javax.inject.Inject
 
 /**

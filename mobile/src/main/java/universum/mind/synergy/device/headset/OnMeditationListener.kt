@@ -16,21 +16,22 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.welcome.control
+package universum.mind.synergy.device.headset
 
-import universum.studios.android.arkhitekton.control.Controller
-import universum.mind.synergy.welcome.view.presentation.ParticipantsPresenter
+import universum.mind.synergy.device.headset.data.MeditationData
+import universum.mind.synergy.util.ListenersRegistry
 
 /**
  * @author Martin Albedinsky
  */
-interface ParticipantsController : Controller<ParticipantsPresenter> {
+interface OnMeditationListener {
 
-    fun startDevicesScan()
+    fun onMeditationChanged(data: MeditationData)
 
-    fun restartDevicesScan()
+    class Registry : ListenersRegistry<OnMeditationListener>() {
 
-    fun stopDevicesScan()
-
-    class Holder : Controller.Holder<ParticipantsController>()
+        fun notifyChange(data: MeditationData) {
+            listeners.forEach { it.onMeditationChanged(data) }
+        }
+    }
 }

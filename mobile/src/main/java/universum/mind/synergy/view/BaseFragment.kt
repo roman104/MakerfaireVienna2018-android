@@ -22,6 +22,7 @@ import android.content.Context
 import android.support.annotation.IntDef
 import android.support.annotation.IntRange
 import dagger.android.support.AndroidSupportInjection
+import universum.mind.synergy.system.permission.PermissionsResultReceiver
 import universum.studios.android.arkhitekton.control.Controller
 import universum.studios.android.arkhitekton.presentation.Presenter
 import universum.studios.android.arkhitekton.util.Preconditions
@@ -116,8 +117,22 @@ abstract class BaseFragment<VM : ViewModel, C : Controller<*>> : UniversiFragmen
         presenter.detachView(this)
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (controller is PermissionsResultReceiver) {
+            (controller as PermissionsResultReceiver).onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
     public override fun showDialogWithId(@IntRange(from = 0) dialogId: Int, options: DialogOptions<*>?) = super.showDialogWithId(dialogId, options)
     public override fun dismissDialogWithId(@IntRange(from = 0) dialogId: Int) = super.dismissDialogWithId(dialogId)
+
+    override fun onDestroyView() {
+        onUnbindViews()
+        super.onDestroyView()
+    }
+
+    protected open fun onUnbindViews() {}
 
     override fun onDestroy() {
         // Detach controller with view model before view models store is cleared.

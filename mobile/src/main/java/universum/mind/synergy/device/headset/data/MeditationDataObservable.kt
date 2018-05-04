@@ -19,33 +19,33 @@
 package universum.mind.synergy.device.headset.data
 
 import io.reactivex.Observer
-import universum.mind.synergy.device.headset.OnAttentionListener
 import universum.mind.synergy.device.headset.Headset
+import universum.mind.synergy.device.headset.OnMeditationListener
 
 /**
  * @author Martin Albedinsky
  */
-internal class AttentionDataObservable(headset: Headset) : HeadsetDataObservable<AttentionData>(headset) {
+internal class MeditationDataObservable(headset: Headset) : HeadsetDataObservable<MeditationData>(headset) {
 
     companion object {
 
-        const val TAG = "AttentionDataObservable"
+        const val TAG = "MeditationDataObservable"
     }
 
-    override fun onCreateDataDisposable(headset: Headset, observer: Observer<in AttentionData>): DataDisposable<AttentionData> = AttentionDataDisposable(headset, observer)
+    override fun onCreateDataDisposable(headset: Headset, observer: Observer<in MeditationData>): DataDisposable<MeditationData> = MeditationDataDisposable(headset, observer)
 
-    private class AttentionDataDisposable(headset: Headset, observer: Observer<in AttentionData>)
-        : HeadsetDataObservable.DataDisposable<AttentionData>(TAG, headset, observer), OnAttentionListener {
+    private class MeditationDataDisposable(headset: Headset, observer: Observer<in MeditationData>)
+        : HeadsetDataObservable.DataDisposable<MeditationData>(TAG, headset, observer), OnMeditationListener {
 
-        override fun onRegisterDataListener(headset: Headset) = headset.registerOnAttentionListener(this)
+        override fun onRegisterDataListener(headset: Headset) = headset.registerOnMeditationListener(this)
 
-        override fun onAttentionChanged(data: AttentionData) {
+        override fun onMeditationChanged(data: MeditationData) {
             if (isDisposed) {
                 return
             }
             notifyNext(data)
         }
 
-        override fun onUnregisterDataListener(headset: Headset) = headset.unregisterOnAttentionListener(this)
+        override fun onUnregisterDataListener(headset: Headset) = headset.unregisterOnMeditationListener(this)
     }
 }

@@ -22,6 +22,7 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_welcome.*
 import universum.mind.synergy.R
+import universum.mind.synergy.challenge.view.ChallengeTransition
 import universum.mind.synergy.observation.view.ObservationTransition
 import universum.mind.synergy.view.BaseFragment
 import universum.studios.android.arkhitekton.control.Controller
@@ -36,7 +37,7 @@ class WelcomeFragment : BaseFragment<ViewModel, Controller<*>>() {
 
     override fun onBindViews(rootView: View, savedInstanceState: Bundle?) {
         super.onBindViews(rootView, savedInstanceState)
-        // todo: choose either single or combined observation ...
         this.observation.setOnClickListener { ObservationTransition.get().start(this) }
+        this.synergy_time.setOnClickListener { ChallengeTransition.get().start(this) }
     }
 }

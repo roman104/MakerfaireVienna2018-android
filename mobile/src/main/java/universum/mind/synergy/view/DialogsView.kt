@@ -18,10 +18,19 @@
  */
 package universum.mind.synergy.view
 
-import universum.studios.android.arkhitekton.view.View
-import universum.studios.android.arkhitekton.view.ViewModel
+import universum.studios.android.support.dialog.DialogOptions
 
 /**
  * @author Martin Albedinsky
  */
-interface ScreenView<VM : ViewModel> : View<VM>, PermissionsView, DialogsView
+interface DialogsView {
+
+    companion object {
+
+        val NO_DIALOG_OPTIONS: DialogOptions<*>? = null
+    }
+
+    fun showDialogWithId(dialogId: Int, options: DialogOptions<*>?): Boolean
+
+    fun dismissDialogWithId(dialogId: Int): Boolean
+}

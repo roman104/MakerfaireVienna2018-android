@@ -19,14 +19,11 @@
 package universum.mind.synergy.observation.meditation.view.presentation
 
 import android.arch.lifecycle.Lifecycle
-import android.os.Handler
 import com.github.mikephil.charting.data.Entry
-import universum.studios.android.arkhitekton.presentation.BasePresenter
-import universum.mind.synergy.R
-import universum.mind.synergy.device.headset.Headset.SignalQuality
 import universum.mind.synergy.device.headset.data.MeditationData
 import universum.mind.synergy.observation.meditation.view.MeditationObservationViewModel
 import universum.mind.synergy.observation.view.ObservationView
+import universum.studios.android.arkhitekton.presentation.BasePresenter
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -35,21 +32,15 @@ import java.util.concurrent.atomic.AtomicInteger
 class DefaultMeditationObservationPresenter(viewModel: MeditationObservationViewModel)
 	: BasePresenter<ObservationView<MeditationObservationViewModel>, MeditationObservationViewModel>(viewModel), MeditationObservationPresenter {
 
-    private val handler = Handler()
     private val xAxisCounter = AtomicInteger()
-
-    override fun onHeadsetSignalQualityChanged(quality: SignalQuality) {
-        getViewModel().deviceSignalQuality.set(getView().getResources().getString(R.string.observation_device_signal_quality_format, quality.name))
-    }
 
     override fun onObservationDataChanged(data: MeditationData) {
         val viewModel = getViewModel()
         viewModel.actualValue.set(data.value)
         val chartData = viewModel.chartData.get()!!
-        // todo: calculate x value based on time ...
         chartData.addEntry(Entry(xAxisCounter.incrementAndGet().toFloat(), data.value.toFloat()), 0)
         if (isViewAttached() && getViewLifecycleCurrentState().isAtLeast(Lifecycle.State.RESUMED)) {
-            handler.post { getView().refreshChart() }
+            getView().refreshChart()
         }
     }
 }

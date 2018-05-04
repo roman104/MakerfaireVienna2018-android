@@ -45,6 +45,6 @@ dependencies {
         exclude module: 'cucumber-core'
         exclude module: 'cucumber-jvm-deps'
     }
-    implementation deps.kotlin.stdlibJre8
+    implementation deps.kotlin.stdlibJdk8
     implementation deps.android.support.annotations
 }

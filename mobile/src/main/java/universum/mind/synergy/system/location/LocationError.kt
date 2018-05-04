@@ -16,22 +16,11 @@
  * See the License for the specific language governing permissions and limitations under the License.
  * *************************************************************************************************
  */
-package universum.mind.synergy.device.headset
-
-import universum.mind.synergy.device.headset.data.MeditationData
-import universum.mind.synergy.util.ListenersRegistry
+package universum.mind.synergy.system.location
 
 /**
  * @author Martin Albedinsky
  */
-interface MeditationListener {
-
-    fun onMeditationChanged(data: MeditationData)
-
-    class Registry : ListenersRegistry<MeditationListener>() {
-
-        fun notifyMeditationChanged(data: MeditationData) {
-            listeners.forEach { it.onMeditationChanged(data) }
-        }
-    }
+enum class LocationError {
+    NOT_AVAILABLE, NOT_ENABLED, NOT_PERMITTED
 }

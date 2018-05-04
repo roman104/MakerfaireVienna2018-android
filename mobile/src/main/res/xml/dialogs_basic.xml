@@ -22,10 +22,47 @@
 <Dialogs xmlns:android="http://schemas.android.com/apk/res/android"
 		 xmlns:dialog="http://schemas.android.com/apk/res-auto">
 
+	<!-- BLUETOOTH ============================================================================= -->
+
+	<AlertDialog
+		android:id="@+id/dialog_bluetooth_unavailable"
+		dialog:dialogTitle="@string/dialog_bluetooth_title"
+		dialog:dialogContent="@string/dialog_bluetooth_unavailable_content"
+		dialog:dialogNeutralButton="@string/button_understood" />
+
 	<AlertDialog
 		android:id="@+id/dialog_bluetooth_disabled"
 		dialog:dialogTitle="@string/dialog_bluetooth_title"
 		dialog:dialogContent="@string/dialog_bluetooth_disabled_content"
 		dialog:dialogInfoButton="@string/button_settings"
 		dialog:dialogNeutralButton="@string/button_ok" />
+
+	<AlertDialog
+		android:id="@+id/dialog_bluetooth_permission_rationale"
+		dialog:dialogTitle="@string/dialog_bluetooth_title"
+		dialog:dialogContent="@string/dialog_bluetooth_permission_rationale_content"
+		dialog:dialogInfoButton="@string/button_settings"
+		dialog:dialogNeutralButton="@string/button_understood" />
+
+	<!-- LOCATION ============================================================================== -->
+
+	<AlertDialog
+		android:id="@+id/dialog_location_unavailable"
+		dialog:dialogTitle="@string/dialog_location_title"
+		dialog:dialogContent="@string/dialog_location_unavailable_content"
+		dialog:dialogNeutralButton="@string/button_understood" />
+
+	<AlertDialog
+		android:id="@+id/dialog_location_disabled"
+		dialog:dialogTitle="@string/dialog_location_title"
+		dialog:dialogContent="@string/dialog_location_disabled_content"
+		dialog:dialogInfoButton="@string/button_settings"
+		dialog:dialogNeutralButton="@string/button_ok" />
+
+	<AlertDialog
+		android:id="@+id/dialog_location_permission_rationale"
+		dialog:dialogTitle="@string/dialog_location_title"
+		dialog:dialogContent="@string/dialog_location_permission_rationale_content"
+		dialog:dialogInfoButton="@string/button_settings"
+		dialog:dialogNeutralButton="@string/button_understood" />
 </Dialogs>

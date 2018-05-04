@@ -18,26 +18,22 @@
  */
 package universum.mind.synergy.observation.attention.view
 
-import android.arch.lifecycle.ViewModel
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.databinding.ObservableField
 import android.databinding.ObservableInt
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
+import universum.mind.synergy.observation.attention.data.AttentionChartData
 
 /**
  * @author Martin Albedinsky
  */
-class AttentionObservationViewModelImpl : ViewModel(), AttentionObservationViewModel {
+class AttentionObservationViewModelImpl(application: Application) : AndroidViewModel(application), AttentionObservationViewModel {
 
-    override val deviceSignalQuality = ObservableField<CharSequence>("")
     override val valueActual = ObservableInt(0)
     override val valueAverage = ObservableInt(0)
     override val valueHighest = ObservableInt(0)
     override val valueLowest = ObservableInt(0)
-    override val chartData: ObservableField<LineData> = ObservableField(LineData(LineDataSet(
-            // Data set must contain at least one entry!
-            arrayListOf(Entry(0f, 0f)),
-            "Values")
-    ))
+
+    override val chartData: ObservableField<LineData> = ObservableField(LineData(AttentionChartData.createInitialLineDataSet(application)))
 }

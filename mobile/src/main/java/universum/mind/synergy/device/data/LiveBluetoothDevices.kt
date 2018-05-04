@@ -50,16 +50,23 @@ class LiveBluetoothDevices private constructor(private val context: Context) : L
                 this.devicesReceiver = DevicesReceiver()
                 this.context.registerReceiver(devicesReceiver, devicesReceiver!!.createIntentFilter())
                 this.bluetoothAdapter?.startDiscovery()
+                Logging.d(TAG, "Started discovery ...")
             }
         }
     }
 
     internal fun onDeviceFound(device: BluetoothDevice) {
+        if (device.name.isNullOrEmpty()) {
+            return
+        }
         foundDevicesMap[device.address] = device
         this.notifyDevicesChanged()
     }
 
     internal fun onDeviceUpdated(device: BluetoothDevice) {
+        if (device.name.isNullOrEmpty()) {
+            return
+        }
         foundDevicesMap[device.address] = device
         this.notifyDevicesChanged()
     }
@@ -71,6 +78,7 @@ class LiveBluetoothDevices private constructor(private val context: Context) : L
             this.context.unregisterReceiver(devicesReceiver)
             this.devicesReceiver = null
             this.bluetoothAdapter?.cancelDiscovery()
+            Logging.d(TAG, "Stopped discovery ...")
         }
     }
 

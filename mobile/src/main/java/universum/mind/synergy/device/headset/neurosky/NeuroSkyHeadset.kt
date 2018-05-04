@@ -24,14 +24,16 @@ import android.util.Log
 import com.neurosky.AlgoSdk.NskAlgoDataType
 import com.neurosky.AlgoSdk.NskAlgoSdk
 import com.neurosky.AlgoSdk.NskAlgoSignalQuality
+import com.neurosky.AlgoSdk.NskAlgoState
 import com.neurosky.AlgoSdk.NskAlgoType
+import com.neurosky.connection.ConnectionStates
 import com.neurosky.connection.DataType.MindDataType
 import com.neurosky.connection.TgStreamHandler
 import com.neurosky.connection.TgStreamReader
-import universum.studios.android.logging.SimpleLogger
 import universum.mind.synergy.device.headset.Headset
 import universum.mind.synergy.device.headset.data.AttentionData
 import universum.mind.synergy.device.headset.data.MeditationData
+import universum.studios.android.logging.SimpleLogger
 
 /**
  * @author Martin Albedinsky
@@ -40,16 +42,45 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
 
     companion object {
 
-        private val logger = SimpleLogger(Log.ASSERT)
+        val LOGGER = SimpleLogger(Log.ASSERT)
     }
 
     private val nskAlgoSdk: NskAlgoSdk by lazy { NskAlgoSdk() }
     private var deviceStreamReader: TgStreamReader? = null
     private val deviceStreamHandler: TgStreamHandler = object : TgStreamHandler {
 
-        override fun onStatesChanged(p0: Int) {}
+        override fun onStatesChanged(state: Int) {
+            when (state) {
+                ConnectionStates.STATE_INIT -> LOGGER.d(name(), "Initiated")
+                ConnectionStates.STATE_CONNECTING -> {
+                    LOGGER.d(name(), "Connecting")
+                    notifyConnectionStateChange(ConnectionState.CONNECTING)
+                }
+                ConnectionStates.STATE_CONNECTED -> {
+                    LOGGER.d(name(), "Connected")
+                    notifyConnectionStateChange(ConnectionState.CONNECTED)
+                }
+                ConnectionStates.STATE_WORKING -> LOGGER.d(name(), "Working")
+                ConnectionStates.STATE_STOPPED -> LOGGER.d(name(), "Stopped")
+                ConnectionStates.STATE_DISCONNECTED -> {
+                    LOGGER.d(name(), "Disconnected")
+                    notifyConnectionStateChange(ConnectionState.DISCONNECTED)
+                }
+                ConnectionStates.STATE_COMPLETE -> LOGGER.d(name(), "Completed")
+                ConnectionStates.STATE_RECORDING_START -> LOGGER.d(name(), "Recording started")
+                ConnectionStates.STATE_RECORDING_END -> LOGGER.d(name(), "Recording stopped")
+                ConnectionStates.STATE_GET_DATA_TIME_OUT -> LOGGER.d(name(), "Data retrieval time out")
+                ConnectionStates.STATE_FAILED,
+                ConnectionStates.STATE_ERROR -> {
+                    LOGGER.d(name(), "Failed")
+                    notifyConnectionStateChange(ConnectionState.DISCONNECTED)
+                }
+            }
+        }
 
-        override fun onChecksumFail(p0: ByteArray?, p1: Int, p2: Int) {}
+        override fun onChecksumFail(p0: ByteArray?, p1: Int, p2: Int) {
+            LOGGER.d(name(), "Checksum fail: ???")
+        }
 
         override fun onDataReceived(datatype: Int, data: Int, payload: Any?) {
             when (datatype) {
@@ -64,7 +95,6 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
         }
 
         override fun onRecordFail(p0: Int) {}
-
     }
 
     init {
@@ -77,9 +107,14 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
                     NskAlgoSignalQuality.NSK_ALGO_SQ_NOT_DETECTED-> notifySignalQualityChange(SignalQuality.UNKNOWN)
                 }
             }
-            setOnStateChangeListener { state, reason -> /* todo: handle state change ... */  }
+            setOnStateChangeListener { state, _ ->
+                LOGGER.d(name(), "State changed to: $state")
+                when (state) {
+                    NskAlgoState.NSK_ALGO_STATE_INITED.value -> {}
+                }
+            }
             setOnAttAlgoIndexListener { attention ->
-                logger.i(name(), "Attention changed to: $attention")
+                LOGGER.i(name(), "Attention changed to: $attention")
                 notifyAttentionChange(AttentionData.Builder().apply {
                     deviceAddress = bluetoothDevice.address
                     subject = ObservationSubject.ATTENTION
@@ -87,7 +122,7 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
                 }.build())
             }
             setOnMedAlgoIndexListener{ meditation ->
-                logger.i(name(), "Meditation changed to: $meditation")
+                LOGGER.i(name(), "Meditation changed to: $meditation")
                 notifyMeditationChange(MeditationData.Builder().apply {
                     deviceAddress = bluetoothDevice.address
                     subject = ObservationSubject.MEDITATION

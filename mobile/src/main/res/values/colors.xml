@@ -47,4 +47,9 @@
 	<!-- ### DIVIDER =========================================================================== -->
 
 	<color name="divider">#FFBDBDBD</color>
+
+	<!-- ### OBSERVATION ======================================================================= -->
+
+	<color name="observation_subject_attention">#FFFF7043</color>
+	<color name="observation_subject_meditation">#FF42A5F5</color>
 </resources>

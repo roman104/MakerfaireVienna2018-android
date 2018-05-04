@@ -19,6 +19,10 @@
 package universum.mind.synergy.challenge.view
 
 import android.databinding.ObservableField
+import android.databinding.ObservableInt
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import universum.studios.android.arkhitekton.view.ViewModel
 
 /**
@@ -26,9 +30,21 @@ import universum.studios.android.arkhitekton.view.ViewModel
  */
 interface ChallengeViewModel : ViewModel {
 
-    val firstParticipantAttentionState: ObservableField<CharSequence>
-    val secondParticipantAttentionState: ObservableField<CharSequence>
+    companion object {
 
-    fun setFirstParticipantAttentionState(attentionState: String)
-    fun setSecondParticipantAttentionState(attentionState: String)
+        const val DATA_SET_INDEX_ATTENTION = 0
+        const val DATA_SET_INDEX_MEDITATION = 1
+    }
+
+    val attentionValueActual: ObservableInt
+    val meditationValueActual: ObservableInt
+
+    val attentionAchievementText: ObservableField<CharSequence>
+    val meditationAchievementText: ObservableField<CharSequence>
+
+    val chartDataAll: ObservableField<LineData>
+    val chartDataLive: ObservableField<LineData>
+    val chartDataLiveXAxisFormatter: IAxisValueFormatter
+
+    val chartDataHistogram: ObservableField<BarData>
 }
