@@ -43,7 +43,7 @@ def resourcesConfig = [
 
 def buildConfig = [
         compileSdkVersion: 27,
-        minSdkVersion    : 23,
+        minSdkVersion    : 21,
         targetSdkVersion : 27,
         buildToolsVersion: '27.0.3'
 ]

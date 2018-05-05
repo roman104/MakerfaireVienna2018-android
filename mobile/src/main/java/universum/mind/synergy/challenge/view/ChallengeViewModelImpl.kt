@@ -70,7 +70,7 @@ class ChallengeViewModelImpl(application: Application) : AndroidViewModel(applic
                     ),
                     application.getString(R.string.observation_subject_attention)
             ).apply {
-                this.color = application.getColor(R.color.observation_subject_attention)
+                this.color = application.resources.getColor(R.color.observation_subject_attention)
             },
             BarDataSet(
                     listOf(
@@ -88,7 +88,7 @@ class ChallengeViewModelImpl(application: Application) : AndroidViewModel(applic
                     ),
                     application.getString(R.string.observation_subject_meditation)
             ).apply {
-                this.color = application.getColor(R.color.observation_subject_meditation)
+                this.color = application.resources.getColor(R.color.observation_subject_meditation)
             }
     ).apply { barWidth = 4.5f })
 }

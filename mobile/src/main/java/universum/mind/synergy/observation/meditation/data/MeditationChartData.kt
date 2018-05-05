@@ -31,7 +31,7 @@ class MeditationChartData private constructor() {
     companion object {
 
         fun createInitialLineDataSet(context: Context): LineDataSet {
-            val color = context.getColor(R.color.observation_subject_meditation)
+            val color = context.resources.getColor(R.color.observation_subject_meditation)
             return LineDataSet(
                     // Data set must contain at least one entry!
                     arrayListOf(Entry(0f, 0f)),
