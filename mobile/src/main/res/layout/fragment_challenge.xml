@@ -72,6 +72,28 @@
 						android:textAppearance="@style/TextAppearance.Widget.Toolbar.Challenge.Subject.ActualValue"
 						app:layout_constraintStart_toEndOf="@id/challenge_subject_meditation_label"
 						app:layout_constraintBaseline_toBaselineOf="@id/challenge_subject_meditation_label" />
+
+					<TextView
+						android:id="@+id/challenge_device_name"
+						android:textAppearance="@style/TextAppearance.Widget.Toolbar.Challenge.Info"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="@dimen/observation_toolbar_info_margin_start"
+						android:layout_marginTop="?attr/uiSpacingTertiary"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintTop_toBottomOf="@id/challenge_subject_meditation_label"
+						android:text="@{viewModel.deviceName}"
+						tools:text="Device Name" />
+
+					<TextView
+						android:textAppearance="@style/TextAppearance.Widget.Toolbar.Challenge.Info"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="?attr/uiSpacingSecondary"
+						app:layout_constraintStart_toEndOf="@id/challenge_device_name"
+						app:layout_constraintBaseline_toBaselineOf="@id/challenge_device_name"
+						android:text="@{viewModel.timeStarted}"
+						tools:text="10:24:34" />
 				</android.support.constraint.ConstraintLayout>
 			</android.support.design.widget.CollapsingToolbarLayout>
 		</android.support.design.widget.AppBarLayout>

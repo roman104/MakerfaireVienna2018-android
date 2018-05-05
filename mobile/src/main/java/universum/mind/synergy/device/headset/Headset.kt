@@ -75,6 +75,8 @@ abstract class Headset {
 
     fun name(): String = javaClass.simpleName
 
+    abstract fun getDeviceName(): String
+
     fun registerOnConnectionListener(listener: OnConnectionListener) {
         this.connectionListenersRegistry.registerListener(listener)
     }

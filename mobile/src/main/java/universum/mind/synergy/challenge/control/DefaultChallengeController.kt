@@ -49,7 +49,7 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
 
     override fun startChallenge() {
         if (challengeRunning.compareAndSet(false, true)) {
-            getPresenter().onChallengeStarted()
+            getPresenter().onChallengeStarted(headset.getDeviceName(), System.currentTimeMillis())
             this.compositeDisposable.addAll(
                     HeadsetDataObservable.attention(headset)
                             .observeOn(presentationScheduler)

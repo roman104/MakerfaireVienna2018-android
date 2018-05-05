@@ -36,6 +36,9 @@ interface ChallengeViewModel : ViewModel {
         const val DATA_SET_INDEX_MEDITATION = 1
     }
 
+    val deviceName: ObservableField<CharSequence>
+    val timeStarted: ObservableField<CharSequence>
+
     val attentionValueActual: ObservableInt
     val meditationValueActual: ObservableInt
 

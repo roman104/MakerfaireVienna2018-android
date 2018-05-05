@@ -132,6 +132,8 @@ class NeuroSkyHeadset(private val context: Context, private val bluetoothDevice:
         }
     }
 
+    override fun getDeviceName(): String = bluetoothDevice.name
+
     override fun onConnect() {
         NskAlgoSdk.NskAlgoInit(
                 NskAlgoType.NSK_ALGO_TYPE_F.value + NskAlgoType.NSK_ALGO_TYPE_ATT.value + NskAlgoType.NSK_ALGO_TYPE_MED.value,

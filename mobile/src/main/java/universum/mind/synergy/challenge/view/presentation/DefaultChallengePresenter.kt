@@ -40,8 +40,11 @@ class DefaultChallengePresenter(viewModel: ChallengeViewModel) : BasePresenter<C
 
     private var timeStarted = 0L
 
-    override fun onChallengeStarted() {
-        this.timeStarted = System.currentTimeMillis()
+    override fun onChallengeStarted(deviceName: String, timeStarted: Long) {
+        this.timeStarted = timeStarted
+        val viewModel = getViewModel()
+        viewModel.deviceName.set(deviceName)
+        viewModel.timeStarted.set("(${DateUtils.Formatter.format(timeStarted, DateUtils.Pattern.TIME_DETAILED)})")
     }
 
     override fun onAttentionChanged(data: AttentionData) {

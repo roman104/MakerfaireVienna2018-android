@@ -96,6 +96,12 @@
 		<item name="android:textColor">#FFFFFFFF</item>
 	</style>
 
+	<style name="TextAppearance.Widget.Toolbar.Challenge.Info" parent="TextAppearance.Widget.TextView">
+		<item name="android:textColor">#88FFFFFF</item>
+		<item name="android:textSize">14sp</item>
+		<item name="android:fontFamily">sans-serif-medium</item>
+	</style>
+
 	<style name="TextAppearance.Widget.TextView.Challenge.Achievement.Label" parent="TextAppearance.Widget.TextView.Medium">
 		<item name="android:textSize">16sp</item>
 	</style>
