@@ -26,7 +26,6 @@ import universum.mind.synergy.device.headset.data.HeadsetDataObservable
 import universum.mind.synergy.util.DatePolices
 import universum.studios.android.arkhitekton.control.ReactiveController
 import universum.studios.android.arkhitekton.interaction.Interactor
-import universum.studios.android.arkhitekton.util.Preconditions
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -34,12 +33,8 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 class DefaultChallengeController internal constructor(builder: Builder) : ReactiveController<Interactor, ChallengePresenter>(builder), ChallengeController {
 
-    companion object {
-
-        private const val ACHIEVEMENT_LEVEL_START = 50
-    }
-
-    private val headset = Preconditions.checkNotNull(builder.headset)
+    private val headset = builder.headset
+    private val challengeLevel = builder.level
     private val challengeRunning = AtomicBoolean()
     private val compositeDisposable = CompositeDisposable()
     internal var attentionChallengeAchievementStart = DatePolices.NO_TIME
@@ -49,7 +44,7 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
 
     override fun startChallenge() {
         if (challengeRunning.compareAndSet(false, true)) {
-            getPresenter().onChallengeStarted(headset.getDeviceName(), System.currentTimeMillis())
+            getPresenter().onChallengeStarted(headset.getDeviceName(), System.currentTimeMillis(), challengeLevel)
             this.compositeDisposable.addAll(
                     HeadsetDataObservable.attention(headset)
                             .observeOn(presentationScheduler)
@@ -57,7 +52,7 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
                             .subscribe { data ->
                                 val presenter = getPresenter()
                                 presenter.onAttentionChanged(data)
-                                if (data.value >= ACHIEVEMENT_LEVEL_START) {
+                                if (data.value >= challengeLevel) {
                                     if (attentionChallengeAchievementStart == DatePolices.NO_TIME) {
                                         attentionChallengeAchievementStart = System.currentTimeMillis()
                                     }
@@ -76,7 +71,7 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
                             .subscribe { data ->
                                 val presenter = getPresenter()
                                 presenter.onMeditationChanged(data)
-                                if (data.value >= ACHIEVEMENT_LEVEL_START) {
+                                if (data.value >= challengeLevel) {
                                     if (meditationChallengeAchievementStart == DatePolices.NO_TIME) {
                                         meditationChallengeAchievementStart = System.currentTimeMillis()
                                     }
@@ -111,6 +106,7 @@ class DefaultChallengeController internal constructor(builder: Builder) : Reacti
     
         override val self = this
         lateinit var headset: Headset
+        var level = 50
 
         override fun build() = DefaultChallengeController(this)
     }

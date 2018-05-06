@@ -34,7 +34,7 @@ interface ChallengePresenter : Presenter<ChallengeView> {
         const val CHART_MAX_VISIBLE_ENTRIES = 20
     }
 
-    fun onChallengeStarted(deviceName: String, timeStarted: Long)
+    fun onChallengeStarted(deviceName: String, timeStarted: Long, level: Int)
 
     fun onAttentionChanged(data: AttentionData)
 

@@ -80,12 +80,15 @@
 						android:layout_height="wrap_content"
 						android:layout_marginStart="@dimen/observation_toolbar_info_margin_start"
 						android:layout_marginTop="?attr/uiSpacingTertiary"
+						android:maxLength="50"
+						android:ellipsize="end"
 						app:layout_constraintStart_toStartOf="parent"
 						app:layout_constraintTop_toBottomOf="@id/challenge_subject_meditation_label"
 						android:text="@{viewModel.deviceName}"
 						tools:text="Device Name" />
 
 					<TextView
+						android:id="@+id/challenge_time_started"
 						android:textAppearance="@style/TextAppearance.Widget.Toolbar.Challenge.Info"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
@@ -94,6 +97,17 @@
 						app:layout_constraintBaseline_toBaselineOf="@id/challenge_device_name"
 						android:text="@{viewModel.timeStarted}"
 						tools:text="10:24:34" />
+
+					<TextView
+						android:id="@+id/challenge_level"
+						android:textAppearance="@style/TextAppearance.Widget.Toolbar.Challenge.Info"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="?attr/uiSpacingSecondary"
+						app:layout_constraintStart_toEndOf="@id/challenge_time_started"
+						app:layout_constraintBaseline_toBaselineOf="@id/challenge_time_started"
+						android:text="@{viewModel.level}"
+						tools:text="L - 50" />
 				</android.support.constraint.ConstraintLayout>
 			</android.support.design.widget.CollapsingToolbarLayout>
 		</android.support.design.widget.AppBarLayout>

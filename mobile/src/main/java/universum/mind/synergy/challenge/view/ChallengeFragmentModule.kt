@@ -44,7 +44,10 @@ class ChallengeFragmentModule : BaseFragmentModule() {
 	    val holder = provideControllerHolder(fragment, ChallengeController.Holder::class.java)
 		return if (holder.hasController()) holder.getController()
 		else holder.attachController(DefaultChallengeController.Builder(interactor, presenter)
-				.apply { this.headset = headset }
+				.apply {
+					this.headset = headset
+					this.level = fragment.arguments?.getInt(ChallengeFragment.ARGUMENT_LEVEL) ?: 0
+				}
 				.build())
 	}
 	

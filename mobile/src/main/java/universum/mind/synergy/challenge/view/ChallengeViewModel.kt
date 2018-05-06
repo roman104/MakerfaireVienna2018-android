@@ -38,6 +38,7 @@ interface ChallengeViewModel : ViewModel {
 
     val deviceName: ObservableField<CharSequence>
     val timeStarted: ObservableField<CharSequence>
+    val level: ObservableField<CharSequence>
 
     val attentionValueActual: ObservableInt
     val meditationValueActual: ObservableInt

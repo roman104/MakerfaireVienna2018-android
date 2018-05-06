@@ -18,6 +18,8 @@
  */
 package universum.mind.synergy
 
+import universum.mind.synergy.challenge.view.ChooseChallengeLevelDialog
+import universum.studios.android.support.dialog.manage.DialogInflater
 import universum.studios.android.support.fragment.annotation.FragmentAnnotations
 
 /**
@@ -43,6 +45,7 @@ class Config {
 
         fun apply() {
             FragmentAnnotations.setEnabled(true)
+            DialogInflater.registerDialog(ChooseChallengeLevelDialog::class.java)
         }
     }
 }

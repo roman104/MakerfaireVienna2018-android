@@ -23,6 +23,7 @@ import universum.mind.synergy.R
 import universum.mind.synergy.device.Device
 import universum.mind.synergy.device.view.DeviceSelectionFragment
 import universum.mind.synergy.view.BaseActivity
+import universum.studios.android.support.dialog.Dialog
 import universum.studios.android.support.fragment.annotation.ContentView
 import universum.studios.android.support.fragment.transition.FragmentTransitions
 
@@ -30,7 +31,7 @@ import universum.studios.android.support.fragment.transition.FragmentTransitions
  * @author Martin Albedinsky
  */
 @ContentView(R.layout.activity_container)
-class ChallengeActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelectionListener {
+class ChallengeActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelectionListener, Dialog.OnDialogListener {
 
     internal lateinit var selectedDevice: Device
 
@@ -38,6 +39,7 @@ class ChallengeActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelect
         requestFeature(FEATURE_INJECTION_BASIC)
         super.onCreate(savedInstanceState)
         navigationalTransition = ChallengeTransition.get()
+        setDialogXmlFactory(R.xml.dialogs_challenge_startup)
         if (savedInstanceState == null) {
             val fragment = DeviceSelectionFragment.newInstance()
             fragment.setOnDeviceSelectionListener(this)
@@ -47,9 +49,22 @@ class ChallengeActivity : BaseActivity(), DeviceSelectionFragment.OnDeviceSelect
 
     override fun onDeviceSelected(device: Device) {
         this.selectedDevice = device
-        fragmentController.newRequest(ChallengeFragment.newInstance())
-                .replaceSame(true)
-                .transition(FragmentTransitions.CROSS_FADE)
-                .execute()
+        showDialogWithId(R.id.dialog_challenge_startup_choose_level)
+    }
+
+    override fun onDialogButtonClick(dialog: Dialog, button: Int): Boolean {
+        return when (dialog.dialogId) {
+            R.id.dialog_challenge_startup_choose_level -> {
+                val level = (dialog as ChooseChallengeLevelDialog).getSelectedLevel()
+                dialog.dismiss()
+                fragmentController.newRequest(ChallengeFragment.newInstance())
+                        .arguments(Bundle().apply { putInt(ChallengeFragment.ARGUMENT_LEVEL, level) })
+                        .replaceSame(true)
+                        .transition(FragmentTransitions.CROSS_FADE)
+                        .execute()
+                true
+            }
+            else -> false
+        }
     }
 }

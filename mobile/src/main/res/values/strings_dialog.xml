@@ -77,6 +77,8 @@
 
 	<!-- ### CHALLENGE ========================================================================= -->
 
+	<string name="dialog_challenge_startup_choose_level_title">Choose level</string>
+
 	<string name="dialog_challenge_exit_title">Exit challenge</string>
 	<string name="dialog_challenge_exit_content">
 		Are you sure you want to exit? Challenge will be stopped and this operation cannot be undone.

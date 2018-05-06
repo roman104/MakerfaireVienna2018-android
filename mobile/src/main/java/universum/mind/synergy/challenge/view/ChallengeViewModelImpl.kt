@@ -39,6 +39,7 @@ class ChallengeViewModelImpl(application: Application) : AndroidViewModel(applic
 
     override val deviceName = ObservableField<CharSequence>("")
     override val timeStarted = ObservableField<CharSequence>("")
+    override val level = ObservableField<CharSequence>("")
 
     override val attentionValueActual = ObservableInt(0)
     override val meditationValueActual = ObservableInt(0)

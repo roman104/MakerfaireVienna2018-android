@@ -28,6 +28,7 @@ import universum.mind.synergy.databinding.FragmentChallengeBinding
 import universum.mind.synergy.view.BaseFragment
 import universum.studios.android.support.dialog.Dialog
 import universum.studios.android.support.fragment.annotation.ContentView
+import universum.studios.android.util.BundleKey
 
 /**
  * @author Martin Albedinsky
@@ -36,6 +37,8 @@ import universum.studios.android.support.fragment.annotation.ContentView
 class ChallengeFragment : BaseFragment<ChallengeViewModel, ChallengeController>(), ChallengeView, Dialog.OnDialogListener {
 
     companion object {
+
+        val ARGUMENT_LEVEL = BundleKey.argument(ChallengeFragment::class.java, "Level")
 
         fun newInstance() = ChallengeFragment()
     }
