@@ -16,10 +16,11 @@ buildscript {
         maven { url repos.fabric }
     }
     dependencies {
+        // NOTE: Android build tools plugin version 3.1.2 is not compatible with Gradle version 4.7 or higher ...
         classpath 'com.android.tools.build:gradle:3.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.11.0'
-        classpath 'io.fabric.tools:gradle:1.25.1'
+        classpath 'io.fabric.tools:gradle:1.25.4'
         classpath 'com.github.triplet.gradle:play-publisher:1.2.0'
     }
 }

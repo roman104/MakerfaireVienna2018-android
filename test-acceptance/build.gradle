@@ -28,23 +28,9 @@ android {
  * Library dependencies ============================================================================
  */
 dependencies {
-    api(deps.test.cucumberCore) {
-        exclude module: 'cucumber-jvm-deps'
-    }
-    api(deps.test.cucumberJvm) {}
-    api(deps.test.cucumberJvmDeps) {}
-    api(deps.test.cucumberJunit) {
-        exclude module: 'cucumber-jvm-deps'
-        exclude module: 'cucumber-core'
-        exclude group: 'org.hamcrest', module: 'hamcrest-core'
-    }
-    api(deps.test.cucumberAndroid) {
-        exclude module: 'cucumber-jvm-deps'
-    }
-    api(deps.test.cucumberPicoContainer) {
-        exclude module: 'cucumber-core'
-        exclude module: 'cucumber-jvm-deps'
-    }
+    api deps.test.cucumberJava
+    api deps.test.cucumberJunit
+    api deps.test.cucumberPicoContainer
     implementation deps.kotlin.stdlibJdk8
     implementation deps.android.support.annotations
 }

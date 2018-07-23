@@ -29,10 +29,8 @@ def mobileConfig = [
                 major: 0,
                 minor: 0,
                 patch: 2
-                // Version code may be automatically incremented; locally (optional) via
-                // mobile/version/versioning.gradle file which contains incrementation Gradle task;
-                // remotely on the CI server via ci/increment-version-code.sh script which is called
-                // from .gitlab-ci.yml.
+                // Version code is being automatically incremented remotely on the CI server via
+                // ci/increment-version-code.sh script which is invoked from .gitlab-ci.yml.
                 // Local version code is stored in mobile/version/version.properties file.
         ]
 ]
@@ -42,10 +40,10 @@ def resourcesConfig = [
 ]
 
 def buildConfig = [
-        compileSdkVersion: 27,
-        minSdkVersion    : 21,
-        targetSdkVersion : 27,
-        buildToolsVersion: '27.0.3'
+        compileSdkVersion: 28,
+        minSdkVersion    : 22,
+        targetSdkVersion : 28,
+        buildToolsVersion: '28.0.1'
 ]
 
 def testConfig = [

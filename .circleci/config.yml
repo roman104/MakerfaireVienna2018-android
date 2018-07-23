@@ -30,7 +30,7 @@ jobs:
   development:build:
     working_directory: ~/repo
     docker:
-      - image: universumstudios/android:api-27
+      - image: universumstudios/android:api-28
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4096m
     steps:
@@ -54,7 +54,7 @@ jobs:
   development:test:
     working_directory: ~/repo
     docker:
-      - image: universumstudios/android:api-27
+      - image: universumstudios/android:api-28
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4096m
     steps:
@@ -75,8 +75,8 @@ workflows:
   development:assemble:
     jobs:
       - development:build:
-          context: org-global
+          context: android-universum
       - development:test:
-          context: org-global
+          context: android-universum
           requires:
             - development:build
